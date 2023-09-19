@@ -1,5 +1,4 @@
-To start run:
-
-cd client
-npm install
+To start run:\
+cd client\
+npm install\
 npm start
