@@ -1,15 +1,7 @@
 import React, {useState, useEffect} from "react"
 import {Link, useNavigate, useLocation } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import {AppBar, Box, Toolbar, Typography, Menu, Container, Avatar, Button, MenuItem,} from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import logo from '../../images/Logo.png'
 import {useDispatch} from "react-redux";
 
@@ -60,25 +52,25 @@ const Navbar = () => {
         </Box>
     } 
     else {
-        signInButton = <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
+        signInButton = <Button component={Link} to="/auth" variant="contained" color="secondary">Sign In</Button>
     }
 
     return (
       <AppBar position="static">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
+        <Container>
+          <Toolbar>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
                   vertical: 'bottom',
-                  horizontal: 'left',
+                  horizontal: 'right',
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
-                  horizontal: 'left',
+                  horizontal: 'right',
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
@@ -101,7 +93,7 @@ const Navbar = () => {
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 4, color: 'white', display: 'block' }}
                 >
                   {page}
                 </Button>
