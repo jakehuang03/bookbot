@@ -52,11 +52,11 @@ const Navbar = () => {
         </Box>
     } 
     else {
-        signInButton = <Button component={Link} to="/auth" variant="contained" color="secondary">Sign In</Button>
+        signInButton = <Button component={Link} to="/auth" variant="contained" style={{ background: '#E3D026' }}>Sign In</Button>
     }
 
     return (
-      <AppBar position="static">
+      <AppBar position="static" style={{ background: '#2E3B55' }}>
         <Container>
           <Toolbar>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

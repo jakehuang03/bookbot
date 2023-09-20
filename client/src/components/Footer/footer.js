@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <Box
     position="absolute" bottom="0px"
-    component="footer"
+    component="footer" 
     sx={{
         backgroundColor: (theme) =>
         theme.palette.mode === "light"
@@ -19,7 +19,7 @@ export default function Footer() {
         p: 6,
     }}
     >
-        <Container>
+        <Container maxWidth={false}>
         <Grid container spacing={5}>
             <Grid item xs={12} sm={4}>
             <Typography variant="h6" color="text.primary" gutterBottom>
