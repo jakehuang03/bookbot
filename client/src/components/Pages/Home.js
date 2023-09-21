@@ -8,6 +8,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TopBook from './TopBook';
 import RecommendBook from './RecommendBook';
+import FileUpload from './FileUpload';
 
 const sections = [
   { title: 'Technology', url: '#' },
@@ -81,6 +82,7 @@ export default function Blog() {
             {RecommendBooks.map((post) => (
               <RecommendBook key={post.title} post={post} />
             ))}
+            <FileUpload />
           </Grid>
         </main>
       </Container>

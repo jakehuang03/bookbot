@@ -68,7 +68,7 @@ export default function StickyFooter() {
         </Grid>
         <Box mt={5}>
             <Typography variant="body2" color="text.secondary" align="center">
-            {"Copyright © "}
+                {"Copyright © "}
             <Link color="inherit" href="https://your-website.com/">
                 Your Website
             </Link>{" "}
