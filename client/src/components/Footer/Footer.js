@@ -1,25 +1,28 @@
-import React from "react";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Grid, Typography, Container, Link} from '@mui/material';
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
-import { Box } from "@mui/material";
 
-export default function Footer() {
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
+
+export default function StickyFooter() {
   return (
-    <Box
-    position="absolute" bottom="0px"
-    component="footer" 
-    sx={{
-        backgroundColor: (theme) =>
-        theme.palette.mode === "light"
-            ? theme.palette.grey[200]
-            : theme.palette.grey[800],
-        p: 6,
-    }}
-    >
-        <Container maxWidth={false}>
+    <ThemeProvider theme={defaultTheme}>
+        <Box
+          component="footer"
+          sx={{
+            py: 3,
+            px: 2,
+            mt: 'auto',
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[200]
+                : theme.palette.grey[800],
+          }}
+        >
+       <Container maxWidth={false}>
         <Grid container spacing={5}>
             <Grid item xs={12} sm={4}>
             <Typography variant="h6" color="text.primary" gutterBottom>
@@ -74,6 +77,7 @@ export default function Footer() {
             </Typography>
         </Box>
         </Container>
-    </Box>
-    );
-    }
+        </Box>
+    </ThemeProvider>
+  );
+}
