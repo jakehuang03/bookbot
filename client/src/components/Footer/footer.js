@@ -9,43 +9,40 @@ import { Box } from "@mui/material";
 export default function Footer() {
   return (
     <Box
-    position="absolute" bottom="0px"
+    position= "fixed"
+    left = "0px"
+    bottom = "0px"
+    right = "0px"
     component="footer" 
-    sx={{
-        backgroundColor: (theme) =>
-        theme.palette.mode === "light"
-            ? theme.palette.grey[200]
-            : theme.palette.grey[800],
-        p: 6,
-    }}
+    style={{ background: '#2E3B55' }}
     >
-        <Container maxWidth={false}>
+        <Container >
         <Grid container spacing={5}>
             <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography variant="h6" color="white" gutterBottom>
                 About Us
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="white">
                 We are XYZ company, dedicated to providing the best service to our
                 customers.
             </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography variant="h6" color="white" gutterBottom>
                 Contact Us
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="white">
                 123 Main Street, Anytown, USA
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="white">
                 Email: info@example.com
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="white">
                 Phone: +1 234 567 8901
             </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography variant="h6" color="white" gutterBottom>
                 Follow Us
             </Typography>
             <Link href="https://www.facebook.com/" color="inherit">
@@ -64,7 +61,7 @@ export default function Footer() {
             </Grid>
         </Grid>
         <Box mt={5}>
-            <Typography variant="body2" color="text.secondary" align="center">
+            <Typography variant="body2" color="white" align="center">
             {"Copyright © "}
             <Link color="inherit" href="https://your-website.com/">
                 Your Website

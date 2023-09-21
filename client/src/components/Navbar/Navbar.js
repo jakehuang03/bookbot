@@ -52,7 +52,7 @@ const Navbar = () => {
         </Box>
     } 
     else {
-        signInButton = <Button component={Link} to="/auth" variant="contained" style={{ background: '#E3D026' }}>Sign In</Button>
+        signInButton = <Button component={Link} to="/auth" variant="contained" style={{ background: '#FFCD3B', color: 'black' }}>Sign In</Button>
     }
 
     return (
