@@ -5,7 +5,7 @@ import Footer from './components/Footer/Footer';
 import Auth from "./components/Auth/auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Container } from '@mui/material';
-import Book from './components/Bookshelf/Book';
+import Book from './components/Pages/Book';
 
 const App = () => {
     const user = JSON.parse(localStorage.getItem('profile'));

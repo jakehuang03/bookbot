@@ -31,7 +31,7 @@ export default function Book() {
         <Grid container spacing={2} justifyContent="center">
           <Grid item>
             <Button variant="contained" color="primary">
-              Gnre
+              Add Genre Filter
             </Button>
           </Grid>
         </Grid>

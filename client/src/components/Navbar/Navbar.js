@@ -136,19 +136,27 @@ const Navbar = () => {
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link
-                key={page}
-                to={`/${page}`} // Set the URL path you want to navigate to
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 4,
-                  color: "white",
-                  display: "block",
-                  textDecoration: "none",
-                }}
+              // <Link
+              //   key={page}
+              //   to={`/${page}`} // Set the URL path you want to navigate to
+              //   onClick={handleCloseNavMenu}
+              //   sx={{
+              //     my: 4,
+              //     color: "white",
+              //     display: "block",
+              //     textDecoration: "none",
+              //   }}
+              // >
+                <Button
+                component={Link}
+                to={`/${page}`}
+                variant="outlined"
+                sx={{ my: 4, color: 'white', display: 'block' }}
               >
                 {page}
-              </Link>
+              </Button>
+              //   {page}
+              // </Link>
             ))}
           </Box>
           {signInButton}
