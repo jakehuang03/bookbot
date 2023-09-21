@@ -23,7 +23,6 @@ export default function Book() {
           variant="h2"
           align="center"
           color="text.primary"
-          gutterBottom
         >
           Bookshelf
         </Typography>
@@ -51,15 +50,17 @@ export default function Book() {
                 }}
                 className={ClassNames.cardMedia}
                 image="https://source.unsplash.com/random"
-                title="Image Title"
+                title="Book Cover"
               />
               <CardContent className={ClassNames.cardContent} sx={{ flexGrow: 1 }}>
                 <Typography gutterBottom variant="h5">
-                  Heading
+                  Book Title
+                </Typography>
+                <Typography gutterBottom variant="h6">
+                  Book Author
                 </Typography>
                 <Typography>
-                  This is a media card. You can use this section to describe the
-                  content.
+                    Book Description
                 </Typography>
               </CardContent>
               <CardActions>
