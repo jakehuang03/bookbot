@@ -25,27 +25,46 @@ const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
-  const logout = () => {
-    dispatch({ type: "LOGOUT" });
-    navigate("/auth");
-    setUser(null);
-  };
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    const logout = () => {
+        dispatch({type: 'LOGOUT'});
+        navigate('/auth');
+        setUser(null);
+      }
+    const handleOpenNavMenu = (event) => {
+      setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event) => {
+      setAnchorElUser(event.currentTarget);
+    };
+  
+    const handleCloseNavMenu = () => {
+      setAnchorElNav(null);
+    };
+  
+    const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
+    };
+  
+    let signInButton;
+    if (user?.result)  {
+        signInButton = 
+        <Box sx={{ flexGrow: 0 }}>
+            <Avatar alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+            <Button variant="contained" color="secondary" onClick={logout}>Logout</Button>
+        </Box>
+    } 
+    else if(user?.sub) {
+        signInButton = 
+        <Box sx={{ flexGrow: 0 }}>
+            <Avatar  alt={user?.name} src={user?.picture}>{user?.name.charAt(0)}</Avatar>
+            <Typography variant="h6">{user?.name}</Typography>
+            <Button variant="contained" color="secondary" onClick={logout}>Logout</Button>
+        </Box>
+    } 
+    else {
+        signInButton = <Button component={Link} to="/auth" variant="contained" style={{ background: '#FFCD3B', color: 'black' }}>Sign In</Button>
+    }
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  let signInButton;
   if (user?.result) {
     signInButton = (
       <Box sx={{ flexGrow: 0 }}>
