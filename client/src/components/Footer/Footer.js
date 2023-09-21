@@ -4,24 +4,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box, Grid, Typography, Container, Link} from '@mui/material';
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
 export default function StickyFooter() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-        <Box
-          component="footer"
-          sx={{
-            py: 3,
-            px: 2,
-            mt: 'auto',
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[200]
-                : theme.palette.grey[800],
-          }}
-        >
+    <Box
+    position= "fixed"
+    left = "0px"
+    bottom = "0px"
+    right = "0px"
+    component="footer" 
+    style={{ background: '#2E3B55' }}
+    >
        <Container maxWidth={false}>
         <Grid container spacing={5}>
             <Grid item xs={12} sm={4}>
@@ -78,6 +70,5 @@ export default function StickyFooter() {
         </Box>
         </Container>
         </Box>
-    </ThemeProvider>
   );
 }
