@@ -30,9 +30,9 @@ export default function Book() {
       <div>
         <Grid container spacing={2} justifyContent="center">
           <Grid item>
-            <Button variant="contained" color="primary">
-              Add Genre Filter
-            </Button>
+            <Typography>
+              Search Bar & Genre Filter
+            </Typography>
           </Grid>
         </Grid>
       </div>
@@ -64,11 +64,8 @@ export default function Book() {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">
-                  Save
-                </Button>
-                <Button size="small" color="primary">
-                  Comment
+                <Button size="small" color="primary" variant="outlined">
+                  More
                 </Button>
               </CardActions>
             </Card>
