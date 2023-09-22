@@ -7,7 +7,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TopBook from './TopBook';
-import RecommendBook from './RecommendBook';
+import Book from './Book';
 import FileUpload from './FileUpload';
 
 const sections = [
@@ -25,6 +25,7 @@ const sections = [
 
 const Top1Book = {
   title: 'The Element of Scrum',
+  author: 'Chris Sims',
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
   image: 'https://source.unsplash.com/random?wallpapers',
@@ -80,7 +81,7 @@ export default function Blog() {
           <Grid container spacing={4}>
             <TopBook post={Top1Book} />
             {RecommendBooks.map((post) => (
-              <RecommendBook key={post.title} post={post} />
+              <Book key={post.title} post={post} />
             ))}
             <FileUpload />
           </Grid>

@@ -6,7 +6,7 @@ import Auth from "./components/Auth/auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Container } from '@mui/material';
 import Home from './components/Pages/Home';
-import Book from './components/Pages/Book';
+import Book from './components/Pages/Bookshelf';
 
 const App = () => {
     const user = JSON.parse(localStorage.getItem('profile'));

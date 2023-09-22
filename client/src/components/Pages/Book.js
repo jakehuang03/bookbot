@@ -1,78 +1,53 @@
-import React from "react";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import { Facebook, Instagram, Twitter } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  CardContent,
-  Card,
-  CardMedia,
-  CardActions,
-} from "@mui/material";
-import { ClassNames } from "@emotion/react";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 
-export default function Book() {
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+function Book(props) {
+  const { post } = props;
+
   return (
-    <>
-      <Container maxWidth="sm">
-        <Typography
-          variant="h2"
-          align="center"
-          color="text.primary"
-        >
-          Bookshelf
-        </Typography>
-      </Container>
-      <div>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item>
-            <Typography>
-              Search Bar & Genre Filter
+    <Grid item xs={12} md={6}>
+      <CardActionArea component="a" href="#">
+        <Card sx={{ display: 'flex' }}>
+          <CardContent sx={{ flex: 1 }}>
+            <Typography component="h2" variant="h5">
+              {post.title}
             </Typography>
-          </Grid>
-        </Grid>
-      </div>
-      <Container sx={{ py: 8 }} maxWidth="md">
-      <Grid container spacing={2}>
-        {cards.map((card) => (
-          <Grid item key={card} xs={12} sm={6} md={4} >
-            <Card
-              sx={{ height: "100%", display: "flex", flexDirection: "column" }}
-            >
-              <CardMedia
-                sx={{
-                  // 16:9
-                  pt: "56.25%",
-                }}
-                className={ClassNames.cardMedia}
-                image="https://source.unsplash.com/random"
-                title="Book Cover"
-              />
-              <CardContent className={ClassNames.cardContent} sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5">
-                  Book Title
-                </Typography>
-                <Typography gutterBottom variant="h6">
-                  Book Author
-                </Typography>
-                <Typography>
-                    Book Description
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="primary" variant="outlined">
-                  More
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-        </Grid>
-      </Container>
-    </>
+            <Typography variant="subtitle1" color="text.secondary">
+              {post.author}
+            </Typography>
+            <Typography variant="subtitle1" paragraph>
+              {post.description}
+            </Typography>
+            <Typography variant="subtitle1" color="primary">
+              Continue reading...
+            </Typography>
+          </CardContent>
+          <CardMedia
+            component="img"
+            sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
+            image={post.image}
+            alt={post.imageLabel}
+          />
+        </Card>
+      </CardActionArea>
+    </Grid>
   );
 }
+
+Book.propTypes = {
+  post: PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    imageLabel: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default Book;
