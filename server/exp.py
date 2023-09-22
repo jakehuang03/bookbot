@@ -4,16 +4,18 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import PyPDF2
-def book_to_tensor(book, max_vocab_size=10000, max_sequence_length=None):
+
+
+def book_to_tensor(book, max_vocab_size, max_sequence_length=None):
     """
     Convert a book (string) into a tensor.
 
-    Parameters:
+    :parameter
     - book (str): The book text.
     - max_vocab_size (int): Maximum number of words in the vocabulary.
     - max_sequence_length (int or None): Maximum length of the sequences. If None, the length of the longest sequence will be used.
 
-    Returns:
+    :return
     - tensor (tf.Tensor): A tensor representation of the book.
     - tokenizer (Tokenizer): The tokenizer used for the conversion (useful for inverse mapping).
     """
@@ -39,12 +41,12 @@ def find_word_in_tensor(word, tokenizer, tensor):
     """
     Find a word in a tensor.
 
-    Parameters:
+    :parameter
     - word (str): The word to search for.
     - tokenizer (Tokenizer): The tokenizer used to create the tensor.
     - tensor (tf.Tensor): The tensor representation of the text.
 
-    Returns:
+    :return
     - indices (list): List of indices where the word was found.
     """
     # Convert word to token ID
@@ -59,15 +61,16 @@ def find_word_in_tensor(word, tokenizer, tensor):
 
     return indices
 
+
 def pdf_to_string(pdf_filename):
     """
     Extracts text from a PDF file and returns it as a string.
 
-    Args:
+    :parameter
     - pdf_filename (str): The name of the PDF file in the 'upload files' folder.
 
-    Returns:
-    - str: The extracted text from the PDF file.
+    :return
+    - text (str): The extracted text from the PDF file.
     """
 
     folder_path = "uploaded_files"
@@ -87,16 +90,46 @@ def pdf_to_string(pdf_filename):
 
 
 def max_vocab(book_text):
+    """
+    Find out the max number of vocabulary in a book
+
+    :parameter:
+    - book_text (str): The string from the converted pdf.
+
+    :return:
+    - int: The max number of vocabulary in a book
+    """
+
+    # delete , .
     translator = str.maketrans('', '', string.punctuation)
     book_clean = book_text.translate(translator)
+
+    # make all words and to lower case
     words = book_clean.lower().split()
+
+    # remove duplicates
     unique_words = set(words)
     return len(unique_words)
 
+
 def find(word, bookname):
+    """
+    Find out where the given word showed up in the book
+
+    :parameter
+    - word (str): The string from the converted pdf.
+    - bookname (str): The name of the pdf file
+
+    :return
+    - indices (list of ints): the indices of the word that showed up
+    """
+
+    # initialize tensor
     bk = pdf_to_string(bookname)
     maxvocab = max_vocab(bk)
     tensor, tokenizer = book_to_tensor(bk, maxvocab)
+
+    # find indices
     indices = find_word_in_tensor(word, tokenizer, tensor)
     print(f"'{word}' found at positions: {indices}")
     return indices
@@ -105,7 +138,6 @@ def find(word, bookname):
 if __name__ == "__main__":
     # Example usage:
     find("time", "b.pdf")
-
 
     """book_content = pdf_to_string("b.pdf")
     maxvocab = max_vocab(book_content)
