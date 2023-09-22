@@ -7,7 +7,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
-function RecommendBook(props) {
+function Book(props) {
   const { post } = props;
 
   return (
@@ -40,7 +40,7 @@ function RecommendBook(props) {
   );
 }
 
-RecommendBook.propTypes = {
+Book.propTypes = {
   post: PropTypes.shape({
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -50,4 +50,4 @@ RecommendBook.propTypes = {
   }).isRequired,
 };
 
-export default RecommendBook;
+export default Book;
