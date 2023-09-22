@@ -16,12 +16,13 @@ const App = () => {
             <Container  maxWidth={false} disableGutters>
                 <Navbar />
                 <Routes>
+                    {/* <Route path ="/" redir */}
                     <Route path="/auth" element = {<Auth />} /> 
                     <Route path='/Books' element = {< Book />} />
                     <Route path='/Home' element = {< Home />} />
                     {/* <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/" />)} />  */}
                 </Routes>
-                <Footer />
+                {/* <Footer /> */}
             </Container>
         </Router>
     )
