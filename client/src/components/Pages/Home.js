@@ -28,7 +28,6 @@ const Top1Book = {
   author: 'Chris Sims',
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: 'https://source.unsplash.com/random?wallpapers',
   imageText: 'main image description',
   linkText: 'Continue reading…',
 };
@@ -69,24 +68,35 @@ const RecommendBooks = [
 ];
 
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+
 
 export default function Blog() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
       <Container maxWidth="lg">
         <main>
+          <div className='tophalf'> 
+            <div className="topbookintro">
+              <TopBook post={Top1Book} />
+            </div>
+            <div className="topbookcover">
+              <img src="https://source.unsplash.com/random?wallpapers" alt="" />
+            </div>
+            
+          </div>
+          <div className='middlehalf'>
           <Grid container spacing={4}>
-            <TopBook post={Top1Book} />
-            {RecommendBooks.map((post) => (
-              <Book key={post.title} post={post} />
-            ))}
+           
+           {RecommendBooks.map((post) => (
+             <Book key={post.title} post={post} />
+           ))}
+           
+         </Grid>
+          </div>
+          <div className="bottomhalf">
             <FileUpload />
-          </Grid>
+          </div>
+          
         </main>
       </Container>
-    </ThemeProvider>
   );
 }

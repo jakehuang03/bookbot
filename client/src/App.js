@@ -1,29 +1,46 @@
-import React from 'react'
-import api from './api'
-import Navbar from "./components/Navbar/Navbar";
-import Footer from './components/Footer/Footer';
-import Auth from "./components/Auth/auth";
+import './App.css';
+
+import React, { Fragment } from 'react'
+import Navbar from "./components/layout/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Container } from '@mui/material';
 import Home from './components/Pages/Home';
 import Book from './components/Pages/Bookshelf';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 
 const App = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
 
     return (
         <Router>
-            <Container  maxWidth={false} disableGutters>
+            <Fragment>
                 <Navbar />
                 <Routes>
-                    {/* <Route path ="/" redir */}
-                    <Route path="/auth" element = {<Auth />} /> 
-                    <Route path='/Books' element = {< Book />} />
-                    <Route path='/Home' element = {< Home />} />
-                    {/* <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/" />)} />  */}
+                    <Route path='/' element = {
+                            <section className='container'>
+                            < Home />
+                            </section>
+                        
+                    } />
+                    <Route path="/login" element = {
+                        <section className='container'>
+                        <Login />
+                        </section>
+                    } /> 
+                    <Route path="/register" element = {
+                        <section className='container'>
+                        <Register />
+                        </section>
+                    } /> 
+                    <Route path='/Books' element = {
+                        <section className='container'>
+                        < Book />
+                        </section>
+                    } />
+                    
+                    
                 </Routes>
-                {/* <Footer /> */}
-            </Container>
+            </Fragment>
         </Router>
     )
 }
