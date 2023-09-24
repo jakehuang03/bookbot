@@ -1,4 +1,11 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
+from . import database
 
+db = database.SessionLocal()
+
+def create_user(name:str, passw:str, email:str):
+    db_user = database.User(UserName=name, UserPassword=passw, UserEmail=email)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
