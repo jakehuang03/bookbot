@@ -1,7 +1,7 @@
 import './App.css';
 
 import React, { Fragment } from 'react'
-import Navbar from "./components/layout/Navbar";
+import Navbar from "./components/layout/Navbar2";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Pages/Home';
 import Book from './components/Pages/Bookshelf';
