@@ -5,7 +5,7 @@ import { logout } from '../../actions/auth';
 import React, { Fragment } from 'react';
 import logo from "../../images/Logo.png";
 
-const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
+const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
 
   const authLinks = (
     <div>
@@ -69,17 +69,19 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
     <div>
       <nav className="navbar">
           <Link to='/'><img src={logo} alt="icon" height={50}/></Link>
-          { !loading && (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
+          
+          { (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
       </nav>
     </div>
     
   )
 }
-Navbar.propTypes = {
+Navbar2.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 }
 const mapStateToProps = state =>({
   auth: state.auth
 });
-export default connect( mapStateToProps, { logout })(Navbar);
+
+export default connect( mapStateToProps, { logout })(Navbar2);

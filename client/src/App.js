@@ -1,20 +1,21 @@
 import './App.css';
 
-import React, { Fragment } from 'react'
-import Navbar from "./components/layout/Navbar2";
+import React, { Fragment, useEffect } from 'react'
+import Navbar2 from "./components/layout/Navbar2";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Pages/Home';
 import Book from './components/Pages/Bookshelf';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import store from './store';
+
+import { loadPage } from './actions/auth'
 
 const App = () => {
-    const user = JSON.parse(localStorage.getItem('profile'));
-
     return (
         <Router>
             <Fragment>
-                <Navbar />
+                <Navbar2 />
                 <Routes>
                     <Route path='/' element = {
                             <section className='container'>

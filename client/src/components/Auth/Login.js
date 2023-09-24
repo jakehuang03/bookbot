@@ -36,7 +36,7 @@ const Login = ({ login, isAuthenticated }) => {
     <Fragment>
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead">
-        <i className="fas fa-user" /> Sign Into Your Account
+         Sign Into Your Account
       </p>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
