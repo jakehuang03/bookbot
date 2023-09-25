@@ -83,7 +83,7 @@ def pdf_to_string(pdf_filename):
         # Extract text from each page and combine it
         text = ""
         for page_num in range(len(reader.pages)):
-            text += "\n"
+            #text += "\n"
             text += reader.pages[page_num].extract_text()
 
     return text
@@ -134,14 +134,13 @@ def find(word, bookname):
     print(f"'{word}' found at positions: {indices}")
     return indices
 
-def sentences_around_index(book, tokenizer, tensor, indices, x):
+def sentences_around_index(book, tokenizer, indices, x):
     """
     Get x sentences before and after (including) the sentence containing a word.
 
     :parameter
     - book (str): The book text.
     - tokenizer (Tokenizer): The tokenizer used to create the tensor.
-    - tensor (tf.Tensor): The tensor representation of the text.
     - indices (list): List of indices where the word was found.
     - x (int): Number of sentences before and after to retrieve.
 
@@ -175,5 +174,5 @@ if __name__ == "__main__":
     bk = pdf_to_string(bookname)
     maxvocab = max_vocab(bk)
     tensor, tokenizer = book_to_tensor(bk, maxvocab)
-    context = sentences_around_index(bk, tokenizer, tensor, indices, 2)
+    context = sentences_around_index(bk, tokenizer, indices, 2)
     print(context)
