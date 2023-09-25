@@ -134,15 +134,46 @@ def find(word, bookname):
     print(f"'{word}' found at positions: {indices}")
     return indices
 
+def sentences_around_index(book, tokenizer, tensor, indices, x):
+    """
+    Get x sentences before and after (including) the sentence containing a word.
+
+    :parameter
+    - book (str): The book text.
+    - tokenizer (Tokenizer): The tokenizer used to create the tensor.
+    - tensor (tf.Tensor): The tensor representation of the text.
+    - indices (list): List of indices where the word was found.
+    - x (int): Number of sentences before and after to retrieve.
+
+    :return
+    - context_sentences (dict): Dictionary where key is the index from indices and value is a list of sentences.
+    """
+
+    # Split the book into sentences
+    sentences = book.split('.')
+
+    # Convert each sentence into a sequence of tokens
+    sentence_tokens = tokenizer.texts_to_sequences(sentences)
+
+    # For each index, find the sentence containing the word
+    context_sentences = {}
+    for index in indices:
+        for i, tokens in enumerate(sentence_tokens):
+            if index in tokens:
+                start = max(0, i - x)
+                end = min(i + x + 1, len(sentences))
+                context_sentences[index] = sentences[start:end]
+                break
+
+    return context_sentences
+
 
 if __name__ == "__main__":
-    # Example usage:
-    find("time", "b.pdf")
-
-    """book_content = pdf_to_string("b.pdf")
-    maxvocab = max_vocab(book_content)
-    tensor1, tokenizer1 = book_to_tensor(book_content, maxvocab)
-    #print(tensor1)
-    word_to_search = "time"
-    indices2 = find_word_in_tensor(word_to_search, tokenizer1, tensor1)
-    print(f"'{word_to_search}' found at positions: {indices2}")"""
+    bookname = "b.pdf"
+    word = "director"
+    indices = find(word, bookname)
+    bk = pdf_to_string(bookname)
+    maxvocab = max_vocab(bk)
+    tensor, tokenizer = book_to_tensor(bk, maxvocab)
+    context = sentences_around_index(bk, tokenizer, tensor, indices, 2)
+    print(context)
