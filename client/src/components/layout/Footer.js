@@ -1,6 +1,4 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box, Grid, Typography, Container, Link} from '@mui/material';
 import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 

@@ -14,7 +14,7 @@ const Login = ({ login, isAuthenticated }) => {
   const { email, password } = formData;
 
   const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value }); //[e.target.name] create a dynamic key, e.target.value is assigned to the key
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +24,7 @@ const Login = ({ login, isAuthenticated }) => {
   const responseMessage = (response) => {
     console.log(response);
   };
+  
   const errorMessage = (error) => {
       console.log(error);
   };

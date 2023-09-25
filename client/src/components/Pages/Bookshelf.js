@@ -1,22 +1,11 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
-import { Facebook, Instagram, Twitter } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  CardContent,
-  Card,
-  CardMedia,
-  CardActions,
-} from "@mui/material";
-import { ClassNames } from "@emotion/react";
 import Book from "./Book";
 
 export default function BookShelf() {
-  const RecommendBooks = [
+  const BookList = [
     {
       title: "Analysis of Algorithms",
       author: "Robert Sedgewick",
@@ -83,7 +72,7 @@ export default function BookShelf() {
       </div>
       <Container sx={{ py: 8 }} maxWidth="lg">
         <Grid container spacing={4}>
-          {RecommendBooks.map((post) => (
+          {BookList.map((post) => (
             <Book key={post.title} post={post} />
           ))}
         </Grid>
