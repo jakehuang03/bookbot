@@ -3,6 +3,8 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Book from "./Book";
+import SearchBar from "./SearchBar";
+import GenreFilter from "./GenreFilter";
 
 export default function BookShelf() {
   const BookList = [
@@ -66,7 +68,8 @@ export default function BookShelf() {
       <div>
         <Grid container spacing={2} justifyContent="center">
           <Grid item>
-            <Typography>Search Bar & Genre Filter</Typography>
+            <SearchBar />
+            <GenreFilter />
           </Grid>
         </Grid>
       </div>
