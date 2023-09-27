@@ -67,7 +67,7 @@ const Login = ({ login, isAuthenticated }) => {
       <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
       </div>
       <p className="my-1">
-        Don't have an account? <Link to="/Register">Sign Up</Link>
+        Don't have an account? <Link to="/register">Sign Up</Link>
       </p>
     </Fragment>
   );

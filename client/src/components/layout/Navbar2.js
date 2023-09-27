@@ -11,16 +11,16 @@ const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
     <div>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li>
-          <Link to="/Books">Books</Link>
+          <Link to="/books">Books</Link>
         </li>
         <li>
-          <Link to="/Community">Posts</Link>
+          <Link to="/community">Posts</Link>
         </li>
         <li>
-          <Link to="/Chatbot">Chatbot</Link>
+          <Link to="/chatbot">Chatbot</Link>
         </li>
         <li>
           <Link to="/login">{' '}
@@ -44,13 +44,13 @@ const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/Books">Books</Link>
+          <Link to="/books">Books</Link>
         </li>
         <li>
-          <Link to="/Community">Community</Link>
+          <Link to="/community">Community</Link>
         </li>
         <li>
-          <Link to="/Chatbot">Chatbot</Link>
+          <Link to="/chatbot">Chatbot</Link>
         </li>
 
         <li>

@@ -2,7 +2,7 @@ import './App.css';
 
 import React, { Fragment, useEffect } from 'react'
 import Navbar2 from "./components/layout/Navbar2";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from './components/Pages/Home';
 import Book from './components/Pages/Bookshelf';
 import Login from './components/Auth/Login';
@@ -17,11 +17,11 @@ const App = () => {
             <Fragment>
                 <Navbar2 />
                 <Routes>
-                    <Route path='/' element = {
+                    <Route path='/'element={<Navigate to="/home"/>} />
+                    <Route path='/home' element = {
                             <section className='container'>
                             < Home />
                             </section>
-                        
                     } />
                     <Route path="/login" element = {
                         <section className='container'>
@@ -33,13 +33,14 @@ const App = () => {
                         <Register />
                         </section>
                     } /> 
-                    <Route path='/Books' element = {
+                    <Route path='/books' element = {
                         <section className='container'>
-                        < Book />
+                        <Book />
                         </section>
                     } />
                     
-                    
+                {/* Default redirect to home */}
+                <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Fragment>
         </Router>
