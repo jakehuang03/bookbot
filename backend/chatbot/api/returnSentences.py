@@ -1,5 +1,4 @@
 import string
-
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
@@ -134,13 +133,13 @@ def find(word, bookname):
     print(f"'{word}' found at positions: {indices}")
     return indices
 
-def sentences_around_index(book, tokenizer, indices, x):
+
+def sentences_around_index(book, indices, x):
     """
     Get x sentences before and after (including) the sentence containing a word.
 
     :parameter
     - book (str): The book text.
-    - tokenizer (Tokenizer): The tokenizer used to create the tensor.
     - indices (list): List of indices where the word was found.
     - x (int): Number of sentences before and after to retrieve.
 
@@ -151,28 +150,33 @@ def sentences_around_index(book, tokenizer, indices, x):
     # Split the book into sentences
     sentences = book.split('.')
 
-    # Convert each sentence into a sequence of tokens
-    sentence_tokens = tokenizer.texts_to_sequences(sentences)
-
     # For each index, find the sentence containing the word
     context_sentences = {}
     for index in indices:
-        for i, tokens in enumerate(sentence_tokens):
-            if index in tokens:
+        sentence_count = 0  # Counter to keep track of the number of words in sentences processed
+        for i, sentence in enumerate(sentences):
+            # Count the number of words in the current sentence
+            num_words = len(sentence.split())
+
+            # If the index of the word is within the range of the current sentence
+            if sentence_count <= index < sentence_count + num_words:
+                # Get x sentences before and after the current sentence
                 start = max(0, i - x)
                 end = min(i + x + 1, len(sentences))
                 context_sentences[index] = sentences[start:end]
                 break
 
+            sentence_count += num_words  # Update the counter with the number of words in the current sentence
+
     return context_sentences
 
 
 if __name__ == "__main__":
-    bookname = "b.pdf"
-    word = "director"
+    bookname = "c.pdf"
+    word = "come"
     indices = find(word, bookname)
     bk = pdf_to_string(bookname)
     maxvocab = max_vocab(bk)
     tensor, tokenizer = book_to_tensor(bk, maxvocab)
-    context = sentences_around_index(bk, tokenizer, indices, 2)
+    context = sentences_around_index(bk, indices, 2)
     print(context)
