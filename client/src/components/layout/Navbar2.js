@@ -50,7 +50,7 @@ const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
           <Link to="/community">Community</Link>
         </li>
         <li>
-          <Link to="/chatbot">Chatbot</Link>
+          <Link to="/mybooks">My Books</Link>
         </li>
 
         <li>

@@ -38,6 +38,6 @@ api.interceptors.response.use(
 export const loadUser = (formData) => api.post('/api/user/loadUser', formData);
 export const register = (formData) => api.post('/api/user/register', formData);
 export const login = (email, password) => api.post('/api/user/lgoin', email, password);
-
+export const createBook = (formDate) => api.post('/api/books/', formDate);
 
 export default api;

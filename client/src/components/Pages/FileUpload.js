@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, Typography, Container, Grid, Box } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import axios from "axios";
+import { useDispatch } from "react-redux";
 
 function FileUpload() {
   const [selectedFile, setSelectedFile] = useState();
+  const dispatch = useDispatch();
 
+  const user = JSON.parse(localStorage.getItem('profile'));
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
@@ -15,6 +17,7 @@ function FileUpload() {
       const formData = new FormData();
       formData.append("File", selectedFile, selectedFile.name);
       console.log(selectedFile);
+
       // axios.post("api/uploadfile", formData);
     } else {
       console.log("No file chosen");

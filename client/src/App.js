@@ -8,7 +8,7 @@ import Book from './components/Pages/Bookshelf';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Community from './components/Community/community';
-import ChatBot from './components/ChatBot/chatbot';
+import MyBooks from './components/MyBooks/mybooks';
 import store from './store';
 
 import { loadPage } from './actions/auth'
@@ -45,9 +45,9 @@ const App = () => {
                         <Community />
                         </section>
                     } />
-                    <Route path='/chatbot' element = {
+                    <Route path='/mybooks' element = {
                         <section className='container'>
-                        <ChatBot />
+                        <MyBooks />
                         </section>
                     } />
                     
