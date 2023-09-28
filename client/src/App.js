@@ -7,6 +7,8 @@ import Home from './components/Pages/Home';
 import Book from './components/Pages/Bookshelf';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import Community from './components/Community/community';
+import ChatBot from './components/ChatBot/chatbot';
 import store from './store';
 
 import { loadPage } from './actions/auth'
@@ -36,6 +38,16 @@ const App = () => {
                     <Route path='/books' element = {
                         <section className='container'>
                         <Book />
+                        </section>
+                    } />
+                    <Route path='/community' element = {
+                        <section className='container'>
+                        <Community />
+                        </section>
+                    } />
+                    <Route path='/chatbot' element = {
+                        <section className='container'>
+                        <ChatBot />
                         </section>
                     } />
                     
