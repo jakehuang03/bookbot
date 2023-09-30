@@ -9,7 +9,6 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Community from './components/Community/community';
 import MyBooks from './components/MyBooks/mybooks';
-import store from './store';
 
 import { loadPage } from './actions/auth'
 

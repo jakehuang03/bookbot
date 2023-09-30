@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { GoogleLogin } from '@react-oauth/google';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({/*{ login, isAuthenticated }*/}) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -29,9 +29,9 @@ const Login = ({ login, isAuthenticated }) => {
       console.log(error);
   };
 
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Navigate to="/" />;
+  // }
 
   return (
     <Fragment>
@@ -73,13 +73,14 @@ const Login = ({ login, isAuthenticated }) => {
   );
 };
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
-};
+// Login.propTypes = {
+//   login: PropTypes.func.isRequired,
+//   isAuthenticated: PropTypes.bool
+// };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
+// const mapStateToProps = (state) => ({
+//   isAuthenticated: state.auth.isAuthenticated
+// });
 
-export default connect(mapStateToProps, { login })(Login);
+// export default connect(mapStateToProps, { login })(Login);
+export default Login;

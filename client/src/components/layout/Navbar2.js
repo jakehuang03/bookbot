@@ -5,7 +5,7 @@ import { logout } from '../../actions/auth';
 import React, { Fragment } from 'react';
 import logo from "../../images/Logo.png";
 
-const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
+const Navbar2 = ({/*{ auth: {isAuthenticated, loading}, logout }*/}) => {
 
   const authLinks = (
     <div>
@@ -67,8 +67,9 @@ const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
     <div>
       <nav className="navbar">
           <Link to='/'><img src={logo} alt="icon" height={50}/></Link>
+          { (<Fragment>{ guestLinks}</Fragment>)}
           
-          { (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
+          {/* { (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)} */}
       </nav>
     </div>
     
