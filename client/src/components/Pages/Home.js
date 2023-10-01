@@ -53,6 +53,9 @@ export default function Blog() {
   return (
       <Container maxWidth="lg">
         <main>
+          <div className="bottomhalf">
+            <FileUpload />
+          </div>
           <div className='tophalf'> 
             <div className="topbookintro">
               <TopBook post={Top1Book} />
@@ -63,18 +66,14 @@ export default function Blog() {
             
           </div>
           <div className='middlehalf'>
-          <Grid container spacing={4}>
-           
-           {RecommendBooks.map((post) => (
-             <Book key={post.title} post={post} />
-           ))}
-           
-         </Grid>
+            <Grid container spacing={4}>
+            
+            {RecommendBooks.map((post) => (
+              <Book key={post.title} post={post} />
+            ))}
+            
+            </Grid>
           </div>
-          <div className="bottomhalf">
-            <FileUpload />
-          </div>
-          
         </main>
       </Container>
   );

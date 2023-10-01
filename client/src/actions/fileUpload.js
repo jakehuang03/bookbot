@@ -1,11 +1,12 @@
 import * as api from '../utils/api';
+import { CREATE_BOOK } from './types';
 
-export const createBook = (post, history) => async (dispatch) => {
+export const createBook = (post, navigate) => async (dispatch) => {
     try {
-      dispatch({type: 'CREATE'});
+      dispatch({type: CREATE_BOOK});
       const { data } = await api.createBook(post);
       dispatch({ type: 'CREATE', payload: data });
-      history.push(`/books/${data._id}`);
+      navigate(`/books/${data._id}`);
     } catch (error) {
       console.log(error.message);
     }
