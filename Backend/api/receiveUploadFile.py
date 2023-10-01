@@ -5,7 +5,7 @@ from pathlib import Path
 app = FastAPI()
 
 
-@app.post("/upload_files")
+@app.post("/posts")
 async def upload_file(file: UploadFile = File(...)):
     try:
 
