@@ -1,39 +1,39 @@
 import React, { useState } from "react";
-import { Button, Typography, Container, Grid, Box } from "@mui/material";
+import { Button, Typography, Box, TextField } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from "react-redux";
+import { createBook } from "../../actions/fileUpload";
+import { useNavigate } from "react-router-dom";
 
 function FileUpload() {
-  const [selectedFile, setSelectedFile] = useState();
+  const [bookData, setBookData] = useState({
+    title: "",
+    author: "",
+    summary: "",
+    selectedFile: "",
+  });
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const user = JSON.parse(localStorage.getItem('profile'));
-  const onFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
 
-  const onFileUpload = () => {
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append("File", selectedFile, selectedFile.name);
-      console.log(selectedFile);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(bookData);
+    dispatch(createBook({...bookData, name: user?.result ? user?.result?.name : user?.name}), navigate);
 
-      // axios.post("api/uploadfile", formData);
-    } else {
-      console.log("No file chosen");
-    }
-  };
+  }
 
   const fileData = () => {
-    if (selectedFile) {
+    if (bookData.selectedFile) {
       return (
         <Box sx={{ padding: 2 }}>
-          <Typography variant="h6">File Name: {selectedFile.name}</Typography>
+          <Typography variant="h6">File Name: {bookData.selectedFile.name}</Typography>
           <Typography variant="body1">
-            File Type: {selectedFile.type}
+            File Type: {bookData.selectedFile.type}
           </Typography>
           <Typography variant="body1">
-            Last Modified: {selectedFile.lastModifiedDate.toDateString()}
+            Last Modified: {bookData.selectedFile.lastModifiedDate.toDateString()}
           </Typography>
         </Box>
       );
@@ -63,11 +63,45 @@ function FileUpload() {
         <input
           type="file"
           id="file-upload"
-          onChange={onFileChange}
+          onChange={(event) =>
+            setBookData({ ...bookData, selectedFile: event.target.files[0] })
+          }
           style={{ display: "none" }}
         />
       {fileData()}
-      <Button variant="contained" onClick={onFileUpload} startIcon={<CloudUploadIcon />}>
+      <TextField
+          name="title"
+          variant="outlined"
+          label="Title"
+          fullWidth
+          value={bookData.title}
+          onChange={(event) =>
+            setBookData({ ...bookData, title: event.target.value })
+          }
+        />
+        <TextField
+          name="author"
+          variant="outlined"
+          label="Author (Optional) "
+          fullWidth
+          value={bookData.author}
+          onChange={(event) =>
+            setBookData({ ...bookData, author: event.target.value })
+          }
+        />
+        <TextField
+          name="sujmmary"
+          variant="outlined"
+          label="Summary (Optional)"
+          fullWidth
+          multiline
+          minRows={4}
+          value={bookData.summary}
+          onChange={(event) =>
+            setBookData({ ...bookData, summary: event.target.value})
+          }
+        />
+      <Button variant="contained" onClick={handleSubmit} startIcon={<CloudUploadIcon />}>
         Upload
       </Button>
     </Box>
