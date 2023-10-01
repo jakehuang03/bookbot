@@ -56,7 +56,7 @@ function FileUpload() {
       }}
     >
         <label htmlFor="file-upload">
-          <Button variant="outlined" component="span" sx>
+          <Button variant="outlined" component="span" >
             Choose File
           </Button>
         </label>
