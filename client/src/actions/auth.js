@@ -1,4 +1,4 @@
-import api from '../utils/api';
+import * as api from '../utils/api';
 import { setAlert } from './alert';
 import {
   REGISTER_SUCCESS,
@@ -10,26 +10,10 @@ import {
   LOGOUT
 } from './types';
 
-// Load User
-export const loadUser = () => async (dispatch) => {
-  try {
-    const res = await api.get('/auth');
-
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR
-    });
-  }
-};
-
 // Register User
 export const register = (formData) => async (dispatch) => {
   try {
-    const res = await api.post('/users', formData);
+    const res = await api.register('/users', formData);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -62,7 +46,7 @@ export const login = (username, password) => async (dispatch) => {
       }
   }
   try {
-    const res = await api.post('/token', body, config);
+    const res = await api.login(body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data

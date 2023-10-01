@@ -1,15 +1,17 @@
 import React, { Fragment, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { GoogleLogin } from '@react-oauth/google';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({login}) => {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
+
+  const { isAuthenticated } = useSelector((state) => state.auth.isAuthenticated);
 
   const { username, password } = formData;
 
@@ -28,10 +30,6 @@ const Login = ({ login, isAuthenticated }) => {
   const errorMessage = (error) => {
       console.log(error);
   };
-
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
 
   return (
     <Fragment>
@@ -75,11 +73,12 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  // isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  // isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, { login })(Login);
+// export default (Login);
