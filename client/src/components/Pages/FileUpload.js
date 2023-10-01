@@ -37,13 +37,7 @@ function FileUpload() {
           </Typography>
         </Box>
       );
-    } else {
-      return (
-        <Box sx={{ padding: 2 }}>
-          <Typography variant="h6">No file chosen</Typography>
-        </Box>
-      );
-    }
+    } 
   };
 
   return (
@@ -60,6 +54,7 @@ function FileUpload() {
             Choose File
           </Button>
         </label>
+        
         <input
           type="file"
           id="file-upload"
