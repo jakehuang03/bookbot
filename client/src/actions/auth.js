@@ -63,15 +63,12 @@ export const login = (username, password) => async (dispatch) => {
   }
   try {
     const res = await api.post('/token', body, config);
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-    console.log("correct");
     // dispatch(loadUser());
   } catch (err) {
-    
     const errors = err.response.data.detail;
     if (errors) {
       dispatch(setAlert(errors, 'danger'));
