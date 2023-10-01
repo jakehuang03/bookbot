@@ -1,5 +1,5 @@
-# import db.crud
-# db.crud.create_user(name="testname",passw="testpw",email="testem")
+import db.crud
+
 from typing import Annotated, Union
 
 from fastapi import Depends, FastAPI, HTTPException, status
@@ -8,20 +8,14 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
 
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe@example.com",
-        "full_name": "John Doe",
-        "hashed_password": "fakehashedsecret",
-        "disabled": False,
-    },
-    "alice": {
-        "username": "alice@example.com",
-        "full_name": "Alice Wonderson",
-        "hashed_password": "fakehashedsecret2",
-        "disabled": True,
-    },
-}
+# fake_users_db = {
+#     "johndoe": {
+#         "username": "johndoe@example.com",
+#         "full_name": "John Doe",
+#         "hashed_password": "fakehashedsecret",
+#         "disabled": False,
+#     }
+# }
 
 app = FastAPI()
 origins = ["*"]
@@ -41,26 +35,10 @@ def fake_hash_password(password: str):
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-class User(BaseModel):
-    username: str
-    full_name: Union[str, None] = None
-    disabled: Union[bool, None] = None
-
-
-class UserInDB(User):
-    hashed_password: str
-
-
-def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
-
-
 def fake_decode_token(token):
     # This doesn't provide any security at all
     # Check the next version
-    user = get_user(fake_users_db, token)
+    user = db.crud.get_user_by_email(token)
     return user
 
 
@@ -72,32 +50,25 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
             detail="Invalid authentication credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    user = user.__dict__
     return user
-
-
-async def get_current_active_user(
-    current_user: Annotated[User, Depends(get_current_user)]
-):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
-    return current_user
 
 
 @app.post("/token")
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
-    user_dict = fake_users_db.get(form_data.username)
-    if not user_dict:
+    user = db.crud.get_user_by_email(form_data.username)
+    if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
+    user = user.__dict__
 
-    user = UserInDB(**user_dict)
     hashed_password = fake_hash_password(form_data.password)
-    if not hashed_password == user.hashed_password:
+    if not hashed_password == user["UserPassword"]:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
-    return {"access_token": user.username, "token_type": "bearer"}
+    return {"access_token": user["UserEmail"], "token_type": "bearer"}
 
 
-@app.get("/users/me")
-async def read_users_me(
-    current_user: Annotated[User, Depends(get_current_active_user)]
-):
-    return current_user
+# @app.get("/users/me")
+# async def read_users_me(
+#     current_user: Annotated[User, Depends(get_current_active_user)]
+# ):
+#     return current_user
