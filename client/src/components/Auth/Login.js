@@ -7,18 +7,18 @@ import { GoogleLogin } from '@react-oauth/google';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: ''
   });
 
-  const { email, password } = formData;
+  const { username, password } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value }); //[e.target.name] create a dynamic key, e.target.value is assigned to the key
 
   const onSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
+    login(username, password);
   };
 
   const responseMessage = (response) => {
@@ -42,10 +42,10 @@ const Login = ({ login, isAuthenticated }) => {
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
-            value={email}
+            type="username"
+            placeholder="Username"
+            name="username"
+            value={username}
             onChange={onChange}
             required
           />

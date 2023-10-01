@@ -9,15 +9,18 @@ import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Community from './components/Community/community';
 import MyBooks from './components/MyBooks/mybooks';
-import store from './store';
+import Alert from './components/layout/Alert';
 
 import { loadPage } from './actions/auth'
+
+
 
 const App = () => {
     return (
         <Router>
             <Fragment>
                 <Navbar2 />
+                <Alert />
                 <Routes>
                     <Route path='/'element={<Navigate to="/home"/>} />
                     <Route path='/home' element = {
@@ -58,5 +61,6 @@ const App = () => {
         </Router>
     )
 }
+
 
 export default App;

@@ -22,7 +22,7 @@ export default function au(state = initialState, action) {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
-                user: payload
+                user: payload,
             }
         case REGISTER_SUCCESS: 
         case LOGIN_SUCCESS:

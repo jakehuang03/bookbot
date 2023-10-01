@@ -5,25 +5,33 @@ from typing import Annotated, Union
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
 
 fake_users_db = {
     "johndoe": {
-        "username": "johndoe",
+        "username": "johndoe@example.com",
         "full_name": "John Doe",
-        "email": "johndoe@example.com",
         "hashed_password": "fakehashedsecret",
         "disabled": False,
     },
     "alice": {
-        "username": "alice",
+        "username": "alice@example.com",
         "full_name": "Alice Wonderson",
-        "email": "alice@example.com",
         "hashed_password": "fakehashedsecret2",
         "disabled": True,
     },
 }
 
 app = FastAPI()
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def fake_hash_password(password: str):
@@ -35,7 +43,6 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 class User(BaseModel):
     username: str
-    email: Union[str, None] = None
     full_name: Union[str, None] = None
     disabled: Union[bool, None] = None
 
@@ -81,11 +88,11 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     user_dict = fake_users_db.get(form_data.username)
     if not user_dict:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
+
     user = UserInDB(**user_dict)
     hashed_password = fake_hash_password(form_data.password)
     if not hashed_password == user.hashed_password:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
-
     return {"access_token": user.username, "token_type": "bearer"}
 
 

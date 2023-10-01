@@ -28,7 +28,7 @@ const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
           </Link>
         </li>
         <li>
-          <a onClick={logout} href="#!">{' '}
+          <a onClick={logout} href="/">{' '}
             <span className="hide-sm">Logout</span>
           </a>
         </li>

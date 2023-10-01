@@ -35,7 +35,7 @@ export const register = (formData) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data
     });
-    dispatch(loadUser());
+    // dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -50,23 +50,31 @@ export const register = (formData) => async (dispatch) => {
 };
 
 // Login User
-export const login = (email, password) => async (dispatch) => {
-  const body = { email, password };
 
+
+export const login = (username, password) => async (dispatch) => {
+  const body = new FormData();
+  body.append("username", username);
+  body.append("password", password);
+  const config = {
+      headers: {
+        'Content-Type': 'application/form-data'
+      }
+  }
   try {
-    const res = await api.post('/auth', body);
+    const res = await api.post('/token', body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-
-    dispatch(loadUser());
+    console.log("correct");
+    // dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-
+    
+    const errors = err.response.data.detail;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      dispatch(setAlert(errors, 'danger'));
     }
 
     dispatch({
