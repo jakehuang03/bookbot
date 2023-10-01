@@ -1,16 +1,15 @@
 import React, { Fragment, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { connect, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { GoogleLogin } from '@react-oauth/google';
-
 const Login = ({login}) => {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
-
+  const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth.isAuthenticated);
 
   const { username, password } = formData;
@@ -20,7 +19,7 @@ const Login = ({login}) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    login(username, password);
+    login(username, password, navigate);
   };
 
   const responseMessage = (response) => {

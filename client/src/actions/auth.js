@@ -36,7 +36,7 @@ export const register = (formData) => async (dispatch) => {
 // Login User
 
 
-export const login = (username, password) => async (dispatch) => {
+export const login = (username, password, navigate) => async (dispatch) => {
   const body = new FormData();
   body.append("username", username);
   body.append("password", password);
@@ -51,7 +51,7 @@ export const login = (username, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data
     });
-    // dispatch(loadUser());
+    navigate('/')
   } catch (err) {
     const errors = err.response.data.detail;
     if (errors) {
