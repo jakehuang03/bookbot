@@ -1,16 +1,16 @@
 import './App.css';
 
 import React, { Fragment, useEffect } from 'react'
-import Navbar2 from "./components/layout/Navbar2";
+import Navbar from "./components/layout/Navbar";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Home from './components/Pages/Home';
-import Book from './components/Pages/Bookshelf';
+import Home from './components/Pages/Home/Home';
+import Book from './components/Pages/Bookshelf/Bookshelf';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Community from './components/Community/community';
 import MyBooks from './components/MyBooks/mybooks';
 import Alert from './components/layout/Alert';
-
+import BookProfile from './components/Pages/BookProfile/BookProfile';
 import { loadPage } from './actions/auth'
 
 
@@ -19,7 +19,7 @@ const App = () => {
     return (
         <Router>
             <Fragment>
-                <Navbar2 />
+                <Navbar />
                 <Alert />
                 <Routes>
                     <Route path='/'element={<Navigate to="/home"/>} />
@@ -51,6 +51,11 @@ const App = () => {
                     <Route path='/mybooks' element = {
                         <section className='container'>
                         <MyBooks />
+                        </section>
+                    } />
+                    <Route path='/books/:bookname' element = {
+                        <section className='container'>
+                        <BookProfile />
                         </section>
                     } />
                     

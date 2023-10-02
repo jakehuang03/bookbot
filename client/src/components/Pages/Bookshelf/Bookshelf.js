@@ -2,11 +2,13 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Book from "./Book";
+import Book from "../SharedComponents/Book";
 import SearchBar from "./SearchBar";
 import GenreFilter from "./GenreFilter";
 
 export default function BookShelf() {
+  //TODO: get book list from database
+  //TODO: change book list based on search query and genre filter
   const BookList = [
     {
       title: "Analysis of Algorithms",
@@ -14,7 +16,6 @@ export default function BookShelf() {
       description:
         "This is a wider card with supporting text below as a natural lead-in to additional content.",
       image: "https://source.unsplash.com/random?wallpapers",
-      imageLabel: "Image Text",
     },
     {
       title: "The Art of Computer Programming",
@@ -22,7 +23,6 @@ export default function BookShelf() {
       description:
         "This is a wider card with supporting text below as a natural lead-in to additional content.",
       image: "https://source.unsplash.com/random?wallpapers",
-      imageLabel: "Image Text",
     },
     {
       title: "Analysis of Algorithms",
@@ -30,7 +30,6 @@ export default function BookShelf() {
       description:
         "This is a wider card with supporting text below as a natural lead-in to additional content.",
       image: "https://source.unsplash.com/random?wallpapers",
-      imageLabel: "Image Text",
     },
     {
       title: "The Art of Computer Programming",
@@ -38,7 +37,6 @@ export default function BookShelf() {
       description:
         "This is a wider card with supporting text below as a natural lead-in to additional content.",
       image: "https://source.unsplash.com/random?wallpapers",
-      imageLabel: "Image Text",
     },
     {
       title: "Analysis of Algorithms",
@@ -46,7 +44,6 @@ export default function BookShelf() {
       description:
         "This is a wider card with supporting text below as a natural lead-in to additional content.",
       image: "https://source.unsplash.com/random?wallpapers",
-      imageLabel: "Image Text",
     },
     {
       title: "The Art of Computer Programming",
@@ -54,7 +51,6 @@ export default function BookShelf() {
       description:
         "This is a wider card with supporting text below as a natural lead-in to additional content.",
       image: "https://source.unsplash.com/random?wallpapers",
-      imageLabel: "Image Text",
     },
   ];
 

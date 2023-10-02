@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Typography, Box, TextField } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from "react-redux";
-import { createBook } from "../../actions/fileUpload";
+import { createBook } from "../../../actions/fileUpload";
 import { useNavigate } from "react-router-dom";
 
 function FileUpload() {
@@ -85,7 +85,7 @@ function FileUpload() {
           }
         />
         <TextField
-          name="sujmmary"
+          name="summary"
           variant="outlined"
           label="Summary (Optional)"
           fullWidth

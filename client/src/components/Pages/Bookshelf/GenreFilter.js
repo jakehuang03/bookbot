@@ -4,7 +4,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 export default function GenreFilter() {
   const [selectedGenre, setSelectedGenre] = React.useState("All");
-
+  // TODO: Change Book List Based on Genre
   const handleGenreChange = (event, newAlignment) => {
     setSelectedGenre(newAlignment);
   };

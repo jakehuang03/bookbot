@@ -6,13 +6,15 @@ import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import { Link as RouterLink } from 'react-router-dom'
 
 function Book(props) {
   const { post } = props;
 
   return (
     <Grid item xs={12} md={6}>
-      <CardActionArea component="a" href="#">
+      {/* TODO: Change to book profile for each book */}
+      <CardActionArea component={RouterLink} to={`/books/${post.title}`}>
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component="h2" variant="h5">
@@ -32,7 +34,6 @@ function Book(props) {
             component="img"
             sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
             image={post.image}
-            alt={post.imageLabel}
           />
         </Card>
       </CardActionArea>
@@ -42,11 +43,11 @@ function Book(props) {
 
 Book.propTypes = {
   post: PropTypes.shape({
-    date: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    imageLabel: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
   }).isRequired,
 };
 
