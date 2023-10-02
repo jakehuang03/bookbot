@@ -5,7 +5,7 @@ import { logout } from '../../actions/auth';
 import React, { Fragment } from 'react';
 import logo from "../../images/Logo.png";
 
-const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
+const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
 
   const authLinks = (
     <div>
@@ -28,7 +28,7 @@ const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
           </Link>
         </li>
         <li>
-          <a onClick={logout} href="#!">{' '}
+          <a onClick={logout} href="/Home">{' '}
             <span className="hide-sm">Logout</span>
           </a>
         </li>
@@ -50,7 +50,7 @@ const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
           <Link to="/community">Community</Link>
         </li>
         <li>
-          <Link to="/chatbot">Chatbot</Link>
+          <Link to="/mybooks">My Books</Link>
         </li>
 
         <li>
@@ -67,14 +67,13 @@ const Navbar2 = ({ auth: {isAuthenticated, loading}, logout }) => {
     <div>
       <nav className="navbar">
           <Link to='/'><img src={logo} alt="icon" height={50}/></Link>
-          
-          { (<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>)}
+          { (<Fragment>{!loading && isAuthenticated ? authLinks : guestLinks}</Fragment>)}
       </nav>
     </div>
     
   )
 }
-Navbar2.propTypes = {
+Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 }
@@ -82,4 +81,4 @@ const mapStateToProps = state =>({
   auth: state.auth
 });
 
-export default connect( mapStateToProps, { logout })(Navbar2);
+export default connect( mapStateToProps, { logout })(Navbar);
