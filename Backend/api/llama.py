@@ -1,7 +1,4 @@
 from llama_index.llms import LlamaCPP
-from llama_index.llms.base import ChatMessage
-from itertools import cycle
-from gpt4all import GPT4All
 from llama_index import Document, SummaryIndex
 from llama_index.node_parser import SimpleNodeParser
 from llama_index.query_engine import RetrieverQueryEngine
@@ -9,12 +6,12 @@ from llama_index.query_engine import RetrieverQueryEngine
 from temp370Project.Backend.api.returnSentences import pdf_to_string, sentences_around_index
 
 
-def llama():
+"""def llama():
     llm = LlamaCPP()
     response = llm.complete("what is java")
-    print(response.text)
+    print(response.text)"""
 
-#wizardlm-13b-v1.1-superhot-8k.ggmlv3.q4_0.bin
+
 """class gpt():
 
     role = ""
@@ -24,7 +21,19 @@ def llama():
         llm = GPT4All(model_name= "llama-2-7b-chat.ggmlv3.q4_0.bin")
         llm.chat_session()"""
 
+
 class QnA():
+    """
+    takes in the context and the user prompt
+
+    :parameter
+    paragraphs (a list of str): from the find method
+    question(string): user prompt
+
+    :return
+    response(string): response from llama
+    """
+
     def __init__(self, paragraphs, question):
         for t in paragraphs:
             if not isinstance(t, str):
@@ -41,8 +50,9 @@ class QnA():
         response = query_engine.query(self.q)
         return response
 
+
 if __name__ == "__main__":
-    #llama()
+    # llama()
     bookname = "b.pdf"
     word = "director"
     bk = pdf_to_string(bookname)
@@ -54,6 +64,12 @@ if __name__ == "__main__":
             temp = temp + j
         a.append(temp)
 
-    h = QnA(a, "what does the director do")
+    b = []
+    b.append(a[10])
+    b.append(a[11])
+    b.append(a[12])
+    print(b)
+
+    h = QnA(b, "what does the director do")
     response = h.complete()
     print(response)

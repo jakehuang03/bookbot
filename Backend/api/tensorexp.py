@@ -1,3 +1,4 @@
+import re
 import string
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -148,7 +149,7 @@ def sentences_around_index(book, indices, x):
     """
 
     # Split the book into sentences
-    sentences = book.split('.')
+    sentences = re.split('(?<=[.!?])\s+', book)
 
     # For each index, find the sentence containing the word
     context_sentences = {}
@@ -179,4 +180,5 @@ if __name__ == "__main__":
     maxvocab = max_vocab(bk)
     tensor, tokenizer = book_to_tensor(bk, maxvocab)
     context = sentences_around_index(bk, indices, 2)
-    print(context)
+    for i in context:
+        print(context[i])
