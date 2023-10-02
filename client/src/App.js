@@ -7,8 +7,8 @@ import Home from './components/Pages/Home/Home';
 import Book from './components/Pages/Bookshelf/Bookshelf';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import Community from './components/Community/community';
-import MyBooks from './components/MyBooks/mybooks';
+import Community from './components/Pages/Community/Community';
+import MyBooks from './components/Pages/MyBooks/MyBooks';
 import Alert from './components/layout/Alert';
 import BookProfile from './components/Pages/BookProfile/BookProfile';
 import { loadPage } from './actions/auth'
