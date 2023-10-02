@@ -2,7 +2,8 @@ import os
 
 import openai
 
-#dont use!
+
+# dont use!
 def chatgpt(promptt):
     openai.api_key = os.environ.get('OPENAI_API_KEY')
     try:

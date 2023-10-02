@@ -20,6 +20,10 @@ class extract:
         nouns = [word for word, tag in pos_tags if tag.startswith('NN') or tag.startswith('NNS')]
         return nouns
 
+    #corrections = {"scrum": "NN"}
+    def correct_tags(tagged_sentence, corrections):
+        return [(word, corrections.get(word, tag)) for word, tag in tagged_sentence]
+
 
 if __name__ == "__main__":
 
