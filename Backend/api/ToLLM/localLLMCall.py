@@ -2,7 +2,7 @@ from gpt4all import GPT4All
 
 
 def localcall(paragraphs, question):
-    #C:\\\\Users\\\\cy295\\\\.cache\\\\gpt4all\\
+    # C:\\\\Users\\\\cy295\\\\.cache\\\\gpt4all\\
     model = GPT4All('llama-2-7b-chat.ggmlv3.q8_0.bin')
     documents = paragraphs
 
@@ -16,5 +16,5 @@ def localcall(paragraphs, question):
 
     with model.chat_session(system_template, prompt_template):
         for i in question:
-            response = model.generate(i, max_tokens=len(paragraphs)*100)
+            response = model.generate(i, max_tokens=len(paragraphs) * 100)
             print(response)
