@@ -13,7 +13,7 @@ def pdf_to_string(pdf_filename):
     - text (str): The extracted text from the PDF file.
     """
 
-    folder_path = "uploaded_files"
+    folder_path = "../uploaded_files"
     filepath = f"{folder_path}/{pdf_filename}"
 
     with open(filepath, 'rb') as file:

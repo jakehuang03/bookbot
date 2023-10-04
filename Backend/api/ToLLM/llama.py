@@ -1,9 +1,9 @@
-from llama_index.llms import LlamaCPP
 from llama_index import Document, SummaryIndex
 from llama_index.node_parser import SimpleNodeParser
 from llama_index.query_engine import RetrieverQueryEngine
 
-from temp370Project.Backend.api.returnSentences import pdf_to_string, sentences_around_index
+from temp370Project.Backend.api.ToLLM.llmexp import localcall
+from temp370Project.Backend.api.preLLM.returnSentencesB import pdf_to_string, sentences_around_index
 
 
 """def llama():
@@ -27,11 +27,11 @@ class QnA():
     takes in the context and the user prompt
 
     :parameter
-    paragraphs (a list of str): from the find method
-    question(string): user prompt
+    - paragraphs (a list of str): from the find method
+    - question(string): user prompt
 
     :return
-    response(string): response from llama
+    - response(string): response from llama
     """
 
     def __init__(self, paragraphs, question):
@@ -41,7 +41,7 @@ class QnA():
         self.documents = [Document(text=t) for t in paragraphs]
         parser = SimpleNodeParser.from_defaults()
         self.nodes = parser.get_nodes_from_documents(self.documents)
-        self.q = question
+        self.q = question + "according to text"
 
     def complete(self):
         index = SummaryIndex.from_documents(self.documents)
@@ -53,8 +53,8 @@ class QnA():
 
 if __name__ == "__main__":
     # llama()
-    bookname = "b.pdf"
-    word = "director"
+    bookname = "c.pdf"
+    word = "Helen"
     bk = pdf_to_string(bookname)
     context = sentences_around_index(bk, word, 2)
     a = []
@@ -63,13 +63,7 @@ if __name__ == "__main__":
         for j in context[i]:
             temp = temp + j
         a.append(temp)
-
-    b = []
-    b.append(a[10])
-    b.append(a[11])
-    b.append(a[12])
-    print(b)
-
-    h = QnA(b, "what does the director do")
-    response = h.complete()
+    question = "give me the number of scenes that helen was talking with the voice"
+    #h = QnA(a, "give me the number of scenes that helen was talking with the voice")
+    response = localcall(context, "give me the number of scenes that helen was talking with the voice")
     print(response)

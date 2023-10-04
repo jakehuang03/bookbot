@@ -18,7 +18,7 @@ class WordSearch:
         """
         Extract text from a PDF file and return it as a string.
         """
-        folder_path = "uploaded_files"
+        folder_path = "../uploaded_files"
         filepath = f"{folder_path}/{self.bookname}"
 
         with open(filepath, 'rb') as file:
