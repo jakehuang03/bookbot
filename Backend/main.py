@@ -9,16 +9,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 import shutil
 
-
-# fake_users_db = {
-#     "johndoe": {
-#         "username": "johndoe@example.com",
-#         "full_name": "John Doe",
-#         "hashed_password": "fakehashedsecret",
-#         "disabled": False,
-#     }
-# }
-
 app = FastAPI()
 origins = ["*"]
 app.add_middleware(
@@ -80,7 +70,9 @@ async def upload_file(
     title: str = Form(...),
     author: str = Form(None),
     summary: str = Form(None),
+    userid: int = Form(None),
     file: UploadFile = File(...)):
+    id = db.crud.create_book(name=title,author=author,summary=summary,userid=userid)
     try:
 
         upload_folder = Path("api/uploaded_files")
@@ -90,8 +82,8 @@ async def upload_file(
             shutil.copyfileobj(file.file, buffer)
 
         return {
-            "filename": file.filename,
-            "content_type": file.content_type
+            "msg": "book uploaded",
+            "bookid": id
         }
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
