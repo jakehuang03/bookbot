@@ -6,7 +6,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import PyPDF2
 
 
-class BookSearch:
+class WordSearch:
     def __init__(self, bookname):
         self.bookname = bookname
         self.pages = self.pdf_to_string()
@@ -102,12 +102,17 @@ class BookSearch:
 if __name__ == "__main__":
     bookname = "c.pdf"
     word = "come"
-    book_search = BookSearch(bookname)
-    word_positions = book_search.find_word(word)
-    context = book_search.sentences_around_index(word_positions, 2)
+    word_search = WordSearch(bookname)
+    word_positions = word_search.find_word(word)
+    context = word_search.sentences_around_index(word_positions, 2)
     for pos, surrounding_sentences in context.items():
-        page_num = book_search.position_to_page_number(pos)
+        page_num = word_search.position_to_page_number(pos)
         print(f"At position {pos} (Page {page_num + 1}):")
         for sentence in surrounding_sentences:
             print(sentence)
         print("\n")
+
+"""    for pos in word_positions:
+        start = max(0, pos-30)
+        end = min(len(bk), pos+30+4)  # adding 4 for the length of "come" (as an example)
+        print(f"Excerpt around position {pos}: ...{bk[start:end]}...")"""
