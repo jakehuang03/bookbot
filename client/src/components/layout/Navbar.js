@@ -17,15 +17,13 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
           <Link to="/books">Books</Link>
         </li>
         <li>
-          <Link to="/community">Posts</Link>
+          <Link to="/community">Community</Link>
         </li>
         <li>
           <Link to="/chatbot">Chatbot</Link>
         </li>
         <li>
-          <Link to="/login">{' '}
-            <span className="hide-sm">Dashboard</span>
-          </Link>
+          <Link to="/mybooks">My Books</Link>
         </li>
         <li>
           <a onClick={logout} href="/Home">{' '}
@@ -50,9 +48,8 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
           <Link to="/community">Community</Link>
         </li>
         <li>
-          <Link to="/mybooks">My Books</Link>
+          <Link to="/chatbot">Chatbot</Link>
         </li>
-
         <li>
           <div className='loginBtn'>
             <Link to="/login">Login</Link>
