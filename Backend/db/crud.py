@@ -18,4 +18,7 @@ def create_book(name:str, author:str, summary:str, userid:str):
     db.add(db_book)
     db.commit()
     db.refresh(db_book)
-    return db_book
+    return db_book.BookId
+
+def get_book_by_id(bookid: int):
+    return db.query(database.Book).filter(database.Book.BookId == bookid).first()

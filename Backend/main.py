@@ -72,7 +72,7 @@ async def upload_file(
     summary: str = Form(None),
     userid: int = Form(None),
     file: UploadFile = File(...)):
-    db.crud.create_book(name=title,author=author,summary=summary,userid=userid)
+    id = db.crud.create_book(name=title,author=author,summary=summary,userid=userid)
     try:
 
         upload_folder = Path("api/uploaded_files")
@@ -82,8 +82,8 @@ async def upload_file(
             shutil.copyfileobj(file.file, buffer)
 
         return {
-            "filename": file.filename,
-            "content_type": file.content_type
+            "msg": "book uploaded",
+            "bookid": id
         }
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
