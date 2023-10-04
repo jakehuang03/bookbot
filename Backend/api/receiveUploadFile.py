@@ -5,11 +5,11 @@ from pathlib import Path
 app = FastAPI()
 
 
-@app.post("/posts")
+@app.post("/books")
 async def upload_file(file: UploadFile = File(...)):
     try:
 
-        upload_folder = Path("uploaded_files")
+        upload_folder = Path("api/uploaded_files")
         upload_folder.mkdir(exist_ok=True)
 
         with (upload_folder / file.filename).open("wb") as buffer:

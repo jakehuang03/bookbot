@@ -2,10 +2,12 @@ import db.crud
 
 from typing import Annotated, Union
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, status, UploadFile, File, Form
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from pathlib import Path
+import shutil
 
 
 # fake_users_db = {
@@ -72,3 +74,24 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
 #     current_user: Annotated[User, Depends(get_current_active_user)]
 # ):
 #     return current_user
+
+@app.post("/books")
+async def upload_file(
+    title: str = Form(...),
+    author: str = Form(None),
+    summary: str = Form(None),
+    file: UploadFile = File(...)):
+    try:
+
+        upload_folder = Path("api/uploaded_files")
+        upload_folder.mkdir(exist_ok=True)
+
+        with (upload_folder / file.filename).open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        return {
+            "filename": file.filename,
+            "content_type": file.content_type
+        }
+    except Exception as e:
+        raise HTTPException(detail=f"An error occurred: {e}", status_code=400)

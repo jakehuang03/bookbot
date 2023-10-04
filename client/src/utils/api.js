@@ -37,6 +37,6 @@ api.interceptors.request.use((req) => {
 export const loadUser = (formData) => api.post('/api/user/loadUser', formData);
 export const register = (formData) => api.post('/api/user/register', formData);
 export const login = (body, config) => api.post('/token', body, config);
-export const createBook = (formDate) => api.post('/api/books/', formDate);
+export const createBook = (formDate, config) => api.post('/books/', formDate, config);
 
 export default api;

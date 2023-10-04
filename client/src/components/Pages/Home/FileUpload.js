@@ -20,7 +20,7 @@ function FileUpload() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(bookData);
-    dispatch(createBook({...bookData, name: user?.result ? user?.result?.name : user?.name}), navigate);
+    dispatch(createBook({...bookData}, navigate));
 
   }
 
