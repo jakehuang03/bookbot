@@ -1,4 +1,5 @@
 import {
+    AUTH,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     USER_LOADED,
@@ -17,6 +18,11 @@ const initialState = {
 export default function au(state = initialState, action) {
     const {type, payload} = action;
     switch(type) {
+        case AUTH:
+            localStorage.setItem('profile', JSON.stringify({...action?.data}))
+            return {...state,
+                isAuthenticated: true}
+            ;
         case USER_LOADED:
             return {
                 ...state,
@@ -36,6 +42,7 @@ export default function au(state = initialState, action) {
         case AUTH_ERROR:
         case LOGIN_FAIL:
         case LOGOUT:
+            localStorage.clear();
             return {
                 ...state,
                 isAuthenticated: false,

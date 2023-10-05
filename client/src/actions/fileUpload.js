@@ -16,7 +16,7 @@ export const createBook = (book, navigate) => async (dispatch) => {
       dispatch({type: CREATE_BOOK});
       const { data } = await api.createBook(body, config);
       dispatch({ type: 'CREATE', payload: data });
-      navigate(`/books/${data._id}`);
+      navigate(`/books/${data.bookid}`);
     } catch (error) {
       console.log(error.message);
     }

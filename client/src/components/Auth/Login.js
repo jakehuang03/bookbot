@@ -1,15 +1,18 @@
 import React, { Fragment, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from "jwt-decode";
+
 const Login = ({login}) => {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { username, password } = formData;
 
@@ -21,8 +24,15 @@ const Login = ({login}) => {
     login(username, password, navigate);
   };
 
-  const responseMessage = (response) => {
-    console.log(response);
+  const handleCallBack = (response) => {
+    var userObject = jwt_decode(response.credential);
+    console.log(userObject);
+        try {
+            dispatch({type: "AUTH", data: userObject});
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
   };
   
   const errorMessage = (error) => {
@@ -60,7 +70,7 @@ const Login = ({login}) => {
         <input type="submit" className="btn btn-primary" value="Login" />
       </form>
       <div className="googleLog">
-      <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+      <GoogleLogin onSuccess={handleCallBack} onError={errorMessage} />
       </div>
       <p className="my-1">
         Don't have an account? <Link to="/register">Sign Up</Link>
