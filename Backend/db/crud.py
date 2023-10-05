@@ -12,3 +12,13 @@ def create_user(name:str, passw:str, email:str):
 
 def get_user_by_email(email: str):
     return db.query(database.User).filter(database.User.UserEmail == email).first()
+
+def create_book(name:str, author:str, summary:str, userid:str):
+    db_book = database.Book(BookName=name, Author=author, BookContent=summary, UserId=userid)
+    db.add(db_book)
+    db.commit()
+    db.refresh(db_book)
+    return db_book.BookId
+
+def get_book_by_id(bookid: int):
+    return db.query(database.Book).filter(database.Book.BookId == bookid).first()

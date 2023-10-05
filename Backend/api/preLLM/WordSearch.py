@@ -18,7 +18,7 @@ class WordSearch:
         """
         Extract text from a PDF file and return it as a string.
         """
-        folder_path = "../uploaded_files"
+        folder_path = "./uploaded_files"
         filepath = f"{folder_path}/{self.bookname}"
 
         with open(filepath, 'rb') as file:
@@ -99,18 +99,6 @@ class WordSearch:
         return -1
 
 
-if __name__ == "__main__":
-    bookname = "c.pdf"
-    word = "come"
-    word_search = WordSearch(bookname)
-    word_positions = word_search.find_word(word)
-    context = word_search.sentences_around_index(word_positions, 2)
-    for pos, surrounding_sentences in context.items():
-        page_num = word_search.position_to_page_number(pos)
-        print(f"At position {pos} (Page {page_num + 1}):")
-        for sentence in surrounding_sentences:
-            print(sentence)
-        print("\n")
 
 """    for pos in word_positions:
         start = max(0, pos-30)
