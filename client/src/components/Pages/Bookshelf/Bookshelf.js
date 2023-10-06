@@ -11,6 +11,7 @@ export default function BookShelf() {
   //TODO: change book list based on search query and genre filter
   const BookList = [
     {
+      id: 1,
       title: "Analysis of Algorithms",
       author: "Robert Sedgewick",
       description:
@@ -18,6 +19,7 @@ export default function BookShelf() {
       image: "https://source.unsplash.com/random?wallpapers",
     },
     {
+      id: 2,
       title: "The Art of Computer Programming",
       author: "AAA",
       description:
@@ -25,6 +27,7 @@ export default function BookShelf() {
       image: "https://source.unsplash.com/random?wallpapers",
     },
     {
+      id: 3,
       title: "Analysis of Algorithms",
       author: "Robert Sedgewick",
       description:
@@ -32,6 +35,7 @@ export default function BookShelf() {
       image: "https://source.unsplash.com/random?wallpapers",
     },
     {
+      id: 4,
       title: "The Art of Computer Programming",
       author: "AAA",
       description:
@@ -39,6 +43,7 @@ export default function BookShelf() {
       image: "https://source.unsplash.com/random?wallpapers",
     },
     {
+      id: 5,
       title: "Analysis of Algorithms",
       author: "Robert Sedgewick",
       description:
@@ -46,6 +51,23 @@ export default function BookShelf() {
       image: "https://source.unsplash.com/random?wallpapers",
     },
     {
+      id: 6,
+      title: "The Art of Computer Programming",
+      author: "AAA",
+      description:
+        "This is a wider card with supporting text below as a natural lead-in to additional content.",
+      image: "https://source.unsplash.com/random?wallpapers",
+    },
+    {
+      id: 7,
+      title: "Analysis of Algorithms",
+      author: "Robert Sedgewick",
+      description:
+        "This is a wider card with supporting text below as a natural lead-in to additional content.",
+      image: "https://source.unsplash.com/random?wallpapers",
+    },
+    {
+      id: 8,
       title: "The Art of Computer Programming",
       author: "AAA",
       description:
@@ -72,7 +94,7 @@ export default function BookShelf() {
       <Container sx={{ py: 8 }} maxWidth="lg">
         <Grid container spacing={4}>
           {BookList.map((post) => (
-            <Book key={post.title} post={post} />
+            <Book key={post.id} post={post} />
           ))}
         </Grid>
       </Container>

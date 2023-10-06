@@ -1,12 +1,15 @@
 import * as React from "react";
+
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import TopBook from "./TopBook";
 import Book from "../SharedComponents/Book";
+
+import TopBook from "./TopBook";
 import FileUpload from "./FileUpload";
 
 // TODO: 1) get the top 1 and recommended books, 2) calculate the top 1 and recommended books
 const Top1Book = {
+  id: 1,
   title: "The Element of Scrum",
   author: "Chris Sims",
   description:
@@ -16,6 +19,7 @@ const Top1Book = {
 
 const RecommendBooks = [
   {
+    id: 1,
     title: "Analysis of Algorithms",
     author: "Robert Sedgewick",
     description:
@@ -23,6 +27,7 @@ const RecommendBooks = [
     image: "https://source.unsplash.com/random?wallpapers",
   },
   {
+    id: 2,
     title: "The Art of Computer Programming",
     author: "AAA",
     description:
@@ -30,6 +35,7 @@ const RecommendBooks = [
     image: "https://source.unsplash.com/random?wallpapers",
   },
   {
+    id: 3,
     title: "Analysis of Algorithms",
     author: "Robert Sedgewick",
     description:
@@ -37,6 +43,7 @@ const RecommendBooks = [
     image: "https://source.unsplash.com/random?wallpapers",
   },
   {
+    id: 4,
     title: "The Art of Computer Programming",
     author: "AAA",
     description:
@@ -48,26 +55,19 @@ const RecommendBooks = [
 export default function Home() {
   return (
     <Container maxWidth="lg">
-      <main>
-        <div className="bottomhalf">
-          <FileUpload />
-        </div>
-        <div className="tophalf">
-          <div className="topbookintro">
-            <TopBook post={Top1Book} />
-          </div>
-          <div className="topbookcover">
-            <img src="https://source.unsplash.com/random?wallpapers" alt="" />
-          </div>
-        </div>
-        <div className="middlehalf">
-          <Grid container spacing={4}>
-            {RecommendBooks.map((post) => (
-              <Book key={post.title} post={post} />
-            ))}
-          </Grid>
-        </div>
-      </main>
+      <Container className="bottomhalf">
+        <FileUpload />
+      </Container>
+      <Container className="tophalf">
+        <TopBook book={Top1Book} />
+      </Container>
+      <Container className="middlehalf">
+        <Grid container spacing={4}>
+          {RecommendBooks.map((post) => (
+            <Book key={post.id} post={post} /> //Grid item as card
+          ))}
+        </Grid>
+      </Container>
     </Container>
   );
 }

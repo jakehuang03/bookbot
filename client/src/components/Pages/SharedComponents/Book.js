@@ -12,7 +12,7 @@ function Book(props) {
   const { post } = props;
 
   return (
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md ={6}>
       {/* TODO: Change to book profile for each book */}
       <CardActionArea component={RouterLink} to={`/books/${post.title}`}>
         <Card sx={{ display: 'flex' }}>
@@ -25,9 +25,6 @@ function Book(props) {
             </Typography>
             <Typography variant="subtitle1" paragraph>
               {post.description}
-            </Typography>
-            <Typography variant="subtitle1" color="primary">
-              Continue reading...
             </Typography>
           </CardContent>
           <CardMedia

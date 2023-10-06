@@ -8,41 +8,37 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 
 function CurrentBook(props) {
-  const { post } = props;
+  const { book } = props;
 
   return (
           <Box
             sx={{
               position: "relative",
               p: { xs: 3, md: 6 },
-              pr: { md: 0 },
             }}
           >
             <Typography
-              component="h1"
               variant="h3"
-              color="inherit"
               gutterBottom
             >
-              {post.title}
+              {book.title}
             </Typography>
             <Typography
-              component="h3"
               variant="h5"
-              color="inherit"
               gutterBottom
             >
-              {post.author}
+              {book.author}
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              {post.description}
+              {book.description}
             </Typography>
           </Box>
   );
 }
 
 CurrentBook.propTypes = {
-  post: PropTypes.shape({
+  book: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

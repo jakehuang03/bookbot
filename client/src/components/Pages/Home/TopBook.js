@@ -1,32 +1,31 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 
 function TopBook(props) {
-  const { post } = props;
+  const { book } = props;
 
   return (
     <Paper
       sx={{
+        marginBottom: 2,
         position: "relative",
-        backgroundColor: "grey.800",
-        color: "#fff",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundImage: `url(${post.image})`,
+        backgroundImage: `url(${book.image})`,
       }}
     >
       {
         <img
           style={{ display: "none" }}
-          src={post.image}
-          alt={post.imageText}
+          src={book.image}
         />
       }
       <Box
@@ -44,27 +43,23 @@ function TopBook(props) {
             }}
           >
             <Typography
-              component="h1"
               variant="h3"
-              color="inherit"
               gutterBottom
             >
-              {post.title}
+              {book.title}
             </Typography>
             <Typography
-              component="h3"
               variant="h5"
-              color="inherit"
               gutterBottom
             >
-              {post.author}
+              {book.author}
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-              {post.description}
+            <Typography variant="h5" paragraph>
+              {book.description}
             </Typography>
             <Button
               component={Link}
-              to={`/books/${post.title}`}
+              to={`/books/${book.title}`}
               variant="outlined"
             >
               Continue reading...
@@ -77,7 +72,8 @@ function TopBook(props) {
 }
 
 TopBook.propTypes = {
-  post: PropTypes.shape({
+  book: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

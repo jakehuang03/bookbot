@@ -15,7 +15,6 @@ export default function GenreFilter() {
       value={selectedGenre}
       exclusive
       onChange={handleGenreChange}
-      aria-label="text alignment"
     >
       {genres.map((genre) => (
       <ToggleButton value={genre} aria-label={genre}>
