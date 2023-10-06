@@ -11,6 +11,7 @@ import Community from './components/Pages/Community/Community';
 import MyBooks from './components/Pages/MyBooks/MyBooks';
 import Alert from './components/layout/Alert';
 import BookProfile from './components/Pages/BookProfile/BookProfile';
+import Profile from './components/Profile/Profile';
 import { loadPage } from './actions/auth'
 
 
@@ -56,6 +57,11 @@ const App = () => {
                     <Route path='/books/:bookname' element = {
                         <section className='container'>
                         <BookProfile />
+                        </section>
+                    } />
+                    <Route path='/profile' element = {
+                        <section className='container'>
+                        <Profile />
                         </section>
                     } />
                     

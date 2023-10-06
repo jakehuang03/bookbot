@@ -1,18 +1,29 @@
-import { Link, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types'
-import { logout } from '../../actions/auth';
 import React, { Fragment, useState, useEffect } from 'react';
 import decode from 'jwt-decode';
 import logo from "../../images/Logo.png";
 import {Box, MenuItem, Typography, Tooltip, IconButton, Avatar, Menu} from '@mui/material'
 
-const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
+const Navbar = ({ auth: {isAuthenticated, loading}}) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  const location = useLocation();
- 
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const settings = ['Profile', 'Logout'];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const logout = () => {
+    handleCloseUserMenu();
+    dispatch({type: 'LOGOUT'});
+    setUser(null);
+    navigate('/home')
+  }
+
+  const toProfile = () => {
+    handleCloseUserMenu();
+    navigate('/profile');
+  }
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -48,19 +59,16 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
           <Link to="/community">Community</Link>
         </li>
         <li>
-          <Link to="/chatbot">Chatbot</Link>
-        </li>
-        <li>
           <Link to="/mybooks">My Books</Link>
         </li>
         <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 3 }}>
                 <Avatar src= {user?.picture}/>
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: '70px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -75,13 +83,13 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-            <MenuItem key='profile' onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Profile</Typography>
-            </MenuItem>
-            <MenuItem key='logout' onClick={logout}>
-                  <Typography textAlign="center">Logout</Typography>
-            </MenuItem>
-        
+              <MenuItem key='profile' onClick={toProfile}>
+                    <Typography textAlign="center">Profile</Typography>
+              </MenuItem>
+              <MenuItem key='logout' onClick={logout}>
+                    <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+            
             </Menu>
           </Box>
       </ul>
@@ -93,7 +101,7 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
     <div>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li>
           <Link to="/books">Books</Link>
@@ -118,18 +126,18 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
     <div>
       <nav className="navbar">
           <Link to='/'><img src={logo} alt="icon" height={50}/></Link>
-          { (<Fragment>{!loading && isAuthenticated ? authLinks : guestLinks}</Fragment>)}
+          { (<Fragment>{((!loading && isAuthenticated) || user?.email) ? authLinks : guestLinks}</Fragment>)}
       </nav>
     </div>
     
   )
 }
 Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
+  // logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 }
 const mapStateToProps = state =>({
   auth: state.auth
 });
 
-export default connect( mapStateToProps, { logout })(Navbar);
+export default connect( mapStateToProps)(Navbar);
