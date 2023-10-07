@@ -1,7 +1,7 @@
 import "./App.css";
 
 import React, { Fragment, useEffect } from "react";
-import Navbar from "./components/Layout/Navbar";
+import Navbar from "./components/layout/Navbar";
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,8 +14,9 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import Community from "./components/Pages/Community/Community";
 import MyBooks from "./components/Pages/MyBooks/MyBooks";
-import Alert from "./components/Layout/Alert";
+import Alert from "./components/layout/Alert";
 import BookProfile from "./components/Pages/BookProfile/BookProfile";
+import Profile from "./components/Profile/Profile";
 import { loadPage } from "./actions/auth";
 import BookBot from "./components/Pages/BookBot/BookBot";
 
@@ -84,6 +85,14 @@ const App = () => {
             }
           />
           <Route
+            path="/profile"
+            element={
+              <section className="container">
+                <Profile />
+              </section>
+            }
+          />
+          <Route
             path="/bookbot"
             element={
               <section className="container">
@@ -91,6 +100,7 @@ const App = () => {
               </section>
             }
           />
+
           {/* Default redirect to home */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

@@ -63,6 +63,3 @@ export const login = (username, password, navigate) => async (dispatch) => {
     });
   }
 };
-
-// Logout
-export const logout = () => ({ type: LOGOUT });
