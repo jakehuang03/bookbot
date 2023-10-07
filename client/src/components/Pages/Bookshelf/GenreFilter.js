@@ -17,7 +17,7 @@ export default function GenreFilter() {
       onChange={handleGenreChange}
     >
       {genres.map((genre) => (
-      <ToggleButton value={genre} aria-label={genre}>
+      <ToggleButton key={genre} value={genre} aria-label={genre}>
       {genre}
       </ToggleButton>
       ))}

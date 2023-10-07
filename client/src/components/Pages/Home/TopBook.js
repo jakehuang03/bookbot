@@ -26,6 +26,7 @@ function TopBook(props) {
         <img
           style={{ display: "none" }}
           src={book.image}
+          alt={book.title}
         />
       }
       <Box
@@ -59,7 +60,7 @@ function TopBook(props) {
             </Typography>
             <Button
               component={Link}
-              to={`/books/${book.title}`}
+              to={`/books/${book.id}`}
               variant="outlined"
             >
               Continue reading...

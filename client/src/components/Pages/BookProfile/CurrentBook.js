@@ -1,10 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 
 function CurrentBook(props) {

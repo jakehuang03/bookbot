@@ -15,16 +15,14 @@ export default function AskQuestion() {
   const [question, setQuestion] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // todo: send the question to backend
-  // add the question to the state
   const Asked = () => {
-    console.log(question);
+    // add the question to the store
+    // TODO: send the question to backend
     dispatch(askQuestion(question));
     navigate("/bookbot");
   };
 
   return (
-      
       <Paper component="form" sx={{ display: "flex", alignItems: "center", margin: 2 }}>
       <InputBase
         sx={{ ml: 1, flex: 1 }}

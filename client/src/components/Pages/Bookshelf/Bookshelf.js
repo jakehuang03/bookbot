@@ -78,8 +78,8 @@ export default function BookShelf() {
 
   return (
     <>
-      <Container maxWidth="sm">
-        <Typography variant="h2" align="center" color="text.primary">
+      <Container>
+        <Typography variant="h2" align="center">
           Bookshelf
         </Typography>
       </Container>
@@ -93,8 +93,8 @@ export default function BookShelf() {
       </div>
       <Container sx={{ py: 8 }} maxWidth="lg">
         <Grid container spacing={4}>
-          {BookList.map((post) => (
-            <Book key={post.id} post={post} />
+          {BookList.map((book) => (
+            <Book key={book.id} book={book} />
           ))}
         </Grid>
       </Container>

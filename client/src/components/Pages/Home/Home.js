@@ -63,8 +63,8 @@ export default function Home() {
       </Container>
       <Container className="middlehalf">
         <Grid container spacing={4}>
-          {RecommendBooks.map((post) => (
-            <Book key={post.id} post={post} /> //Grid item as card
+          {RecommendBooks.map((book) => (
+            <Book key={book.id} book={book} /> //Grid item as card
           ))}
         </Grid>
       </Container>

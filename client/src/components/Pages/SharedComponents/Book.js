@@ -9,28 +9,28 @@ import CardMedia from '@mui/material/CardMedia';
 import { Link as RouterLink } from 'react-router-dom'
 
 function Book(props) {
-  const { post } = props;
+  const { book } = props;
 
   return (
     <Grid item xs={12} md ={6}>
       {/* TODO: Change to book profile for each book */}
-      <CardActionArea component={RouterLink} to={`/books/${post.title}`}>
+      <CardActionArea component={RouterLink} to={`/books/${book.id}`}>
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component="h2" variant="h5">
-              {post.title}
+              {book.title}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
-              {post.author}
+              {book.author}
             </Typography>
             <Typography variant="subtitle1" paragraph>
-              {post.description}
+              {book.description}
             </Typography>
           </CardContent>
           <CardMedia
             component="img"
             sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
-            image={post.image}
+            image={book.image}
           />
         </Card>
       </CardActionArea>
@@ -39,7 +39,7 @@ function Book(props) {
 }
 
 Book.propTypes = {
-  post: PropTypes.shape({
+  book: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,

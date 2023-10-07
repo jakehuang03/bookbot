@@ -9,39 +9,44 @@ import { selectBook } from "../../../actions/bookbot";
 
 import { Container, Grid } from "@mui/material";
 
-//TODO: get book from database based on book name or book id
 const TempBook = {
   id: 1,
   title: "The Element of Scrum",
   author: "Chris Sims",
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+  image: "https://source.unsplash.com/random?wallpapers",
 };
-//TODO: 1) get past questions for the book from database based on book name or book id
+//TODO: 1) get past questions for the book from database based on book id
 // 2) get the user who asked the question, linked to the user profile
 const QuestionList = [
   {
     id: 1,
     userAsked: "John Doe",
-    question: "Analysis of Algorithms",
-    answer: "Robert Sedgewick",
+    question: "What is Scrum?",
+    answer:
+      "Scrum is an Agile framework that can help teams work together. Scrum can enable teams to learn from experiences, self-organize while working on problems, to reflect on their victories and failures, to make improvements. This Agile Scrum interview question is often used as a starter question to get the interview moving. ",
   },
   {
     id: 2,
     userAsked: "Jane Doe",
-    question: "The Art of Computer Programming",
-    answer: "AAA",
+    question: "Define the roles in Scrum?",
+    answer:
+      "Product Owner: The product owner is an individual who is responsible for increasing the ROI by determining product features, prioritizing these features into a list, what needs to be focused on the upcoming sprint, and much more. These are constantly re-prioritized and refined. Scrum Master: This individual helps the team in learning to apply Scrum to ensure optimum business value. The scrum master removes impediments, shields the team from distractions, and enables them to adopt agile practices.",
   },
   {
     id: 3,
     userAsked: "John Doe",
-    question: "Analysis of Algorithms",
-    answer: "Robert Sedgewick",
+    question: "What is Velocity?",
+    answer:
+      "Velocity is a metric used to measure the amount of work completed by a team during a sprint. It refers to the number of user stories completed in a sprint.",
   },
 ];
 
 function BookProfile() {
-  const { bookname } = useParams();
+  //TODO: get book from database based on book id
+
+  const { bookid } = useParams();
   const dispatch = useDispatch();
   dispatch(selectBook(TempBook));
 
