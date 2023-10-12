@@ -1,7 +1,6 @@
-from temp370Project.Backend.api.ToLLM.localLLMCall import localcall
-from temp370Project.Backend.api.preLLM.keyexp import extract
-from temp370Project.Backend.api.preLLM.KeyWordExtractionLLM import extract_key_word
-from temp370Project.Backend.api.preLLM.WordSearch import WordSearch
+from ToLLM.localLLMCall import localcall
+from preLLM.keyexp import extract
+from preLLM.WordSearch import WordSearch
 
 if __name__ == "__main__":
     question = "give me the number of scenes that helen was talking with the voice"

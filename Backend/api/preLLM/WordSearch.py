@@ -1,3 +1,4 @@
+import os
 import re
 import string
 import tensorflow as tf
@@ -18,8 +19,17 @@ class WordSearch:
         """
         Extract text from a PDF file and return it as a string.
         """
-        folder_path = "./uploaded_files"
-        filepath = f"{folder_path}/{self.bookname}"
+        #folder_path = "./uploaded_files"
+        #filepath = f"{folder_path}/{self.bookname}"
+
+        # Getting the directory where the script is located
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Going one directory up to reach the 'api' directory from 'preLLM'
+        api_dir = os.path.dirname(script_dir)
+
+        # Constructing the absolute path to the file
+        filepath = os.path.join(api_dir, 'uploaded_files', 'b.pdf')
 
         with open(filepath, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
