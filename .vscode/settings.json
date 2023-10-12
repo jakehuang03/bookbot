@@ -1,6 +1,9 @@
 {
-	"[python]": {
-		"editor.defaultFormatter": "ms-python.black-formatter"
-	},
-	"python.formatting.provider": "none"
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none",
+    "python.autoComplete.extraPaths": ["C:/Users/cy295/OneDrive/Desktop/cs370 project/temp370Project"],
+    "python.analysis.extraPaths": ["C:/Users/cy295/OneDrive/Desktop/cs370 project/temp370Project"]
 }
+
