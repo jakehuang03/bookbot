@@ -1,10 +1,18 @@
 from temp370Project.Backend.api.ToLLM.localLLMCall import localcall
+from temp370Project.Backend.api.preLLM.keyexp import extract
+from temp370Project.Backend.api.preLLM.KeyWordExtractionLLM import extract_key_word
 from temp370Project.Backend.api.preLLM.WordSearch import WordSearch
 
 if __name__ == "__main__":
+    question = "give me the number of scenes that helen was talking with the voice"
+    question2 = ["what do directors do?","why do we need directors"]
+
+
     # initialize tensor and word finding
     bookname = "b.pdf"
-    word = "director"
+    word2 = extract(question2[0])
+    print(word2[0])
+    word = word2[0]
     word_search = WordSearch(bookname)
     word_positions = word_search.find_word(word)
     context = word_search.sentences_around_index(word_positions, 2)
@@ -17,8 +25,7 @@ if __name__ == "__main__":
             print(sentence)
         print("\n")
 
-    question = "give me the number of scenes that helen was talking with the voice"
-    question2 = ["what do directors do?","why do we need directors"]
+
 
     # asking the llm
     response = localcall(context, question2)
