@@ -31,6 +31,11 @@ export default function au(state = initialState, action) {
                 user: payload,
             }
         case REGISTER_SUCCESS: 
+            return {
+                ...state,
+                ...payload,
+                loading: false
+            }
         case LOGIN_SUCCESS:
             return {
                 ...state,

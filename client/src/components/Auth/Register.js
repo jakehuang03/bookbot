@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
@@ -9,36 +9,32 @@ import PropTypes from 'prop-types';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
     const [formData, setFormData] = useState({
-        name: '',
+        nickname: '',
         email: '',
         password: '',
         password2: '' 
     });
 
-    const {name, email, password, password2} = formData;
+    const {nickname, email, password, password2} = formData;
     const onChange = e => setFormData({  ...formData, [e.target.name]: e.target.value });
     const onSubmit = async e => {
         e.preventDefault();
         if(password !== password2){
-            alert("Passwords do not match", 'danger');
+            setAlert("Passwords do not match", 'danger');
         } else {
-            register({ name, email, password });
+            register( nickname, email, password );
         }
     }
 
-    
-    // Redirect after register
-    if (isAuthenticated) {
-      return <Navigate to="/" />
-    }
 
+    
   return (
     <Fragment>
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead"> Create Your Account</p>
       <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
-          <input type="text" placeholder="Name" name="name" value = {name} onChange = {e => onChange(e)} required />
+          <input type="text" placeholder="Nickname" name="nickname" value = {nickname} onChange = {e => onChange(e)} required />
         </div>
         <div className="form-group">
           <input type="email" placeholder="Email Address" name="email" value = {email} onChange = {e => onChange(e)} required />

@@ -11,20 +11,28 @@ import {
 } from './types';
 
 // Register User
-export const register = (formData) => async (dispatch) => {
+export const register = (nickname, email, password) => async (dispatch) => {
   try {
-    const res = await api.register('/users', formData);
-
+    var body = new URLSearchParams();
+    body.append("nickname", nickname);
+    body.append("email", email);
+    body.append("password", password);
+    const config = {
+      headers: {
+       "Content-Type": "application/x-www-form-urlencoded"
+      }
+    }
+    const res = await api.register(body, config);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
-    // dispatch(loadUser());
-  } catch (err) {
-    const errors = err.response.data.errors;
+    dispatch(setAlert("Register Success", 'success'));
 
+  } catch (err) {
+    const errors = err.response.data.detail;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      dispatch(setAlert(errors, 'danger'));
     }
 
     dispatch({
@@ -47,12 +55,14 @@ export const login = (username, password, navigate) => async (dispatch) => {
   }
   try {
     const res = await api.login(body, config);
+    console.log(res);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
     });
     navigate('/')
   } catch (err) {
+
     const errors = err.response.data.detail;
     if (errors) {
       dispatch(setAlert(errors, 'danger'));
