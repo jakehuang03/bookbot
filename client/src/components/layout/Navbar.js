@@ -110,9 +110,6 @@ const Navbar = ({ auth: {isAuthenticated, loading}}) => {
           <Link to="/community">Community</Link>
         </li>
         <li>
-          <Link to="/mybooks">MyBooks</Link>
-        </li>
-        <li>
           <div className='loginBtn'>
             <Link to="/login">Login</Link>
           </div>

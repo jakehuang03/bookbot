@@ -49,7 +49,7 @@ const Login = ({login}) => {
         <div className="form-group">
           <input
             type="email"
-            placeholder="Username (Email)"
+            placeholder="Email"
             name="username"
             value={username}
             onChange={onChange}
