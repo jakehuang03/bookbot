@@ -87,3 +87,17 @@ async def upload_file(
         }
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
+    
+
+@app.post("/signup")
+async def signup(
+    nickname: str = Form(),
+    email: str = Form(),
+    password: str = Form()):
+    user = db.crud.get_user_by_email(email)
+    if user:
+        raise HTTPException(status_code=400, detail="Email exists")
+
+    hashed_password = fake_hash_password(password)
+    db.crud.create_user(nickname,hashed_password,email)
+    return {"msg":"signin successed"}
