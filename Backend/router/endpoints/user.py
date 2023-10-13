@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 router = APIRouter()
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/token")
 
 @router.post("/token")
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
@@ -20,12 +20,6 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     return {"access_token": user["UserEmail"], "token_type": "bearer"}
 
-
-# @app.get("/users/me")
-# async def read_users_me(
-#     current_user: Annotated[User, Depends(get_current_active_user)]
-# ):
-#     return current_user
 
 @router.post("/books")
 async def upload_file(
@@ -67,3 +61,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         )
     user = user.__dict__
     return user
+
+@router.get("/me")
+async def read_users_me(current_user: Annotated[dict, Depends(get_current_user)]):
+    return current_user
