@@ -5,7 +5,7 @@ from preLLM.KeyWordHuggingFace import extract
 from preLLM.WordSearch import WordSearch
 from typing import List
 
-app = FastAPI()
+call = FastAPI()
 
 class Question(BaseModel):
     file: constr(strict=True)
@@ -34,7 +34,7 @@ def callwithquestions(file, question):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.post("/ask/")
+@call.post("/ask/")
 def ask_question(question: Question):
     return callwithquestions(question.file, question.questions)
 

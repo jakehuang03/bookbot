@@ -23,3 +23,8 @@ def callwithquestions(file, question):
     # asking the llm
     response = localcall(context, question)
     print(response)
+
+
+if __name__ == "__main__":
+    question = ["what do the director do?"]
+    callwithquestions("b.pdf", question)
