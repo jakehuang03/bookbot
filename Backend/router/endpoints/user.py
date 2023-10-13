@@ -37,7 +37,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     access_token = create_access_token(
         data={"sub": user["UserEmail"]}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"email":user["UserEmail"] ,"access_token": access_token, "token_type": "bearer"}
 
 
 @router.post("/books")
@@ -69,6 +69,17 @@ async def signup(
     hashed_password = hash_password(password)
     db.crud.create_user(nickname,hashed_password,email)
     return {"msg":"signup successed"}
+
+@router.post("/googlesignin")
+async def googlesignin(
+    nickname: str = Form(),
+    email: str = Form()):
+
+    user = db.crud.get_user_by_email(email)
+    if not user:
+        db.crud.create_user(nickname,"Google",email)
+        return {"msg":"google user created"}
+    return {"msg":"user existed"}
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     credentials_exception = HTTPException(
