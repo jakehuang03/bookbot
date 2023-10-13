@@ -3,9 +3,12 @@ import * as React from "react";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Book from "../SharedComponents/Book";
-
+import { styled } from '@mui/material/styles';
 import TopBook from "./TopBook";
 import FileUpload from "./FileUpload";
+import { Button, Box, Typography } from "@mui/material";
+
+
 
 // TODO: 1) get the top 1 and recommended books, 2) calculate the top 1 and recommended books
 const Top1Book = {
@@ -52,12 +55,24 @@ const RecommendBooks = [
   },
 ];
 
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: '#2c3463',
+  background: '#f0cb5f',
+  position: 'center',
+  margin: '20px',
+}));
+
 export default function Home() {
   return (
     <Container maxWidth="lg">
-      <Container className="bottomhalf">
-        <FileUpload />
-      </Container>
+      <h1 style={{textAlign: 'center', fontSize: '50px', marginTop: '100px'}}>
+        Ready to Start?
+      </h1>
+      <Box textAlign='center'>
+        <ColorButton variant="contained" href="/upload" size="large">
+          Upload Text
+        </ColorButton>
+      </Box>
       <Container className="tophalf">
         <TopBook book={Top1Book} />
       </Container>

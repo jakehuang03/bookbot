@@ -7,14 +7,13 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Link as RouterLink } from 'react-router-dom'
-
 function Book(props) {
   const { book } = props;
-
+ 
   return (
     <Grid item xs={12} md ={6}>
       {/* TODO: Change to book profile for each book */}
-      <CardActionArea component={RouterLink} to={`/books/${book.id}`}>
+      <CardActionArea component={RouterLink} to={`/books/${book.bookid}`}>
         <Card sx={{ display: 'flex' }}>
           <CardContent sx={{ flex: 1 }}>
             <Typography component="h2" variant="h5">

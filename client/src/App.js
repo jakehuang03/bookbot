@@ -19,6 +19,7 @@ import BookProfile from "./components/Pages/BookProfile/BookProfile";
 import Profile from "./components/Profile/Profile";
 import { loadPage } from "./actions/auth";
 import BookBot from "./components/Pages/BookBot/BookBot";
+import FileUpload from "./components/Pages/Home/FileUpload";
 
 const App = () => {
   return (
@@ -77,7 +78,7 @@ const App = () => {
             }
           />
           <Route
-            path="/books/:bookname"
+            path="/books/:bookid"
             element={
               <section className="container">
                 <BookProfile />
@@ -100,7 +101,14 @@ const App = () => {
               </section>
             }
           />
-
+           <Route
+            path="/upload"
+            element={
+              <section className="container">
+                <FileUpload />
+              </section>
+            }
+          />
           {/* Default redirect to home */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

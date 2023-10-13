@@ -1,7 +1,7 @@
 import React from 'react'
 const Community = () => {
     return(
-    <div>
+    <div style={{marginTop: '10px'}}>
         Community 
     </div>
     )

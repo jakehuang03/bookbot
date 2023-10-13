@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Button, Typography, Box, TextField } from "@mui/material";
+import React, { useState, createRef } from "react";
+import { Button, Typography, Box, TextField, InputLabel, Select, MenuItem, FormControl } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch } from "react-redux";
 import { createBook } from "../../../actions/fileUpload";
 import { useNavigate } from "react-router-dom";
+import "./FileUpload.css";
 
 function FileUpload() {
   const [bookData, setBookData] = useState({
@@ -11,11 +12,46 @@ function FileUpload() {
     author: "",
     summary: "",
     selectedFile: "",
+    genre: "",
   });
+  const [dragActive, setDragActive] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const inputRef = createRef();
 
   const user = JSON.parse(localStorage.getItem('profile'));
+
+  const handleDrag = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        setBookData({ ...bookData, selectedFile: e.dataTransfer.files[0]})
+    }
+  };
+  
+  const onButtonClick = (e) => {
+    e.preventDefault();
+    inputRef.current.click();
+  };
+  
+  const handleChange = function(e) {
+    e.preventDefault();
+    if (e.target.files && e.target.files[0]) {
+      setBookData({ ...bookData, selectedFile: e.target.files[0]})
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,7 +60,7 @@ function FileUpload() {
 
   }
 
-  const fileData = () => {
+  const inputText = () => {
     if (bookData.selectedFile) {
       return (
         <Box sx={{ padding: 2 }}>
@@ -38,6 +74,16 @@ function FileUpload() {
         </Box>
       );
     } 
+    else {
+      return (
+        <div>
+        <p style={{fontSize: '20px'}}>Drag and Drop File Here or</p>
+        <Button variant="contained" onClick={onButtonClick} >
+          Upload a File
+        </Button>
+      </div> 
+      )
+    }
   };
 
   return (
@@ -47,59 +93,75 @@ function FileUpload() {
         margin: 2,
         p: 2,
         minWidth: 300,
-      }}
+      }
+    }
     >
-        <label htmlFor="file-upload">
-          <Button variant="outlined" component="span" >
-            Choose File
-          </Button>
-        </label>
-        
-        <input
-          type="file"
-          id="file-upload"
-          onChange={(event) =>
-            setBookData({ ...bookData, selectedFile: event.target.files[0] })
-          }
-          style={{ display: "none" }}
-        />
-      {fileData()}
-      <TextField
-          name="title"
-          variant="outlined"
-          label="Title"
-          fullWidth
-          value={bookData.title}
-          onChange={(event) =>
-            setBookData({ ...bookData, title: event.target.value })
-          }
-        />
+        <div className="upload-area">
+          <form id="form-file-upload" onDragEnter={handleDrag} >
+            <input ref={inputRef} type="file" id="input-file-upload" multiple={false} onChange={handleChange}/>
+            <label id="label-file-upload" htmlFor="input-file-upload">
+              {inputText()}
+            </label>
+            { dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div> }
+          </form>
+        </div>
+      <div className="form-content">
         <TextField
-          name="author"
-          variant="outlined"
-          label="Author (Optional) "
-          fullWidth
-          value={bookData.author}
-          onChange={(event) =>
-            setBookData({ ...bookData, author: event.target.value })
-          }
-        />
-        <TextField
-          name="summary"
-          variant="outlined"
-          label="Summary (Optional)"
-          fullWidth
-          multiline
-          minRows={4}
-          value={bookData.summary}
-          onChange={(event) =>
-            setBookData({ ...bookData, summary: event.target.value})
-          }
-        />
-      <Button variant="contained" onClick={handleSubmit} startIcon={<CloudUploadIcon />}>
-        Upload
-      </Button>
-    </Box>
+            name="title"
+            variant="outlined"
+            label="Title"
+            fullWidth
+            value={bookData.title}
+            onChange={(event) =>
+              setBookData({ ...bookData, title: event.target.value })
+            }
+            
+          />
+          <TextField
+            name="author"
+            variant="outlined"
+            label="Author (Optional) "
+            fullWidth
+            value={bookData.author}
+            onChange={(event) =>
+              setBookData({ ...bookData, author: event.target.value })
+            }
+          
+          />
+          <TextField
+            name="summary"
+            variant="outlined"
+            label="Summary (Optional)"
+            fullWidth
+            multiline
+            minRows={3}
+            value={bookData.summary}
+            onChange={(event) =>
+              setBookData({ ...bookData, summary: event.target.value})
+            }
+           
+          />
+        <FormControl fullWidth>
+         <InputLabel id="genre-field">Genre</InputLabel>
+          <Select
+            labelId="genre-field"
+            id="genre-select"
+            value={bookData.genre}
+            label="Genre"
+            onChange={(event) =>
+              setBookData({ ...bookData, genre: event.target.value})
+            }
+          >
+            <MenuItem value={"Fantasy"}>Fantasy</MenuItem>
+            <MenuItem value={"Science Fiction"}>Science Fiction</MenuItem>
+            <MenuItem value={"Mystery"}>Mystery</MenuItem>
+          </Select>
+          </FormControl>
+        <Button variant="contained" onClick={handleSubmit}  startIcon={<CloudUploadIcon /> }>
+          Upload
+        </Button>
+      </div>
+      </Box>
   );
 }
 
