@@ -1,5 +1,5 @@
 import db.crud
-from utils.user import hash_password, decode_token
+from utils.user import hash_password, decode_token, verify_password
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -15,8 +15,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     user = user.__dict__
 
-    hashed_password = hash_password(form_data.password)
-    if not hashed_password == user["UserPassword"]:
+    if not verify_password(form_data.password,user["UserPassword"]):
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     return {"access_token": user["UserEmail"], "token_type": "bearer"}
 
@@ -49,7 +48,7 @@ async def signup(
 
     hashed_password = hash_password(password)
     db.crud.create_user(nickname,hashed_password,email)
-    return {"msg":"signin successed"}
+    return {"msg":"signup successed"}
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     user = decode_token(token)
