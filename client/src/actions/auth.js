@@ -11,7 +11,7 @@ import {
 } from './types';
 
 // Register User
-export const register = (nickname, email, password) => async (dispatch) => {
+export const register = (nickname, email, password, navigate) => async (dispatch) => {
   try {
     var body = new URLSearchParams();
     body.append("nickname", nickname);
@@ -28,7 +28,7 @@ export const register = (nickname, email, password) => async (dispatch) => {
       payload: res.data
     });
     dispatch(setAlert("Register Success", 'success'));
-
+    navigate('/login')
   } catch (err) {
     const errors = err.response.data.detail;
     if (errors) {

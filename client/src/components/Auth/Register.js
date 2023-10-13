@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, Navigate, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
@@ -7,14 +7,15 @@ import PropTypes from 'prop-types';
 
 
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ setAlert, register }) => {
     const [formData, setFormData] = useState({
         nickname: '',
         email: '',
         password: '',
         password2: '' 
     });
-
+    const navigate = useNavigate();
+    
     const {nickname, email, password, password2} = formData;
     const onChange = e => setFormData({  ...formData, [e.target.name]: e.target.value });
     const onSubmit = async e => {
@@ -22,7 +23,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         if(password !== password2){
             setAlert("Passwords do not match", 'danger');
         } else {
-            register( nickname, email, password );
+            register( nickname, email, password, navigate );
         }
     }
 
