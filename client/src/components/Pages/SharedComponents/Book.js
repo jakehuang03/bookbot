@@ -1,37 +1,38 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { Link as RouterLink } from 'react-router-dom'
+import * as React from "react";
+import PropTypes from "prop-types";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import { Link as RouterLink } from "react-router-dom";
 
 function Book(props) {
   const { book } = props;
 
   return (
-    <Grid item xs={12} md ={6}>
+    <Grid item xs={6} md={3}>
       {/* TODO: Change to book profile for each book */}
       <CardActionArea component={RouterLink} to={`/books/${book.id}`}>
-        <Card sx={{ display: 'flex' }}>
-          <CardContent sx={{ flex: 1 }}>
-            <Typography component="h2" variant="h5">
+        <Card>
+          <CardMedia
+            component="img"
+            alt={book.title}
+            height='160'
+            image={book.image}
+          />
+          <CardContent>
+            <Typography variant="h5" component="div">
               {book.title}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
+            <Typography variant="h6" color="text.secondary">
               {book.author}
             </Typography>
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="h6" noWrap>
               {book.description}
             </Typography>
           </CardContent>
-          <CardMedia
-            component="img"
-            sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
-            image={book.image}
-          />
         </Card>
       </CardActionArea>
     </Grid>

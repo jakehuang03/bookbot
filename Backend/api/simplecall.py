@@ -34,7 +34,7 @@ def callwithquestions(file, question):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@call.post("/ask/")
+@call.get("/ask/")
 def ask_question(question: Question):
     return callwithquestions(question.file, question.questions)
 
