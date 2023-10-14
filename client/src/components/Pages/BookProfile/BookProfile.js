@@ -53,7 +53,7 @@ function BookProfile() {
   return (
     <Container>
       <CurrentBook book={TempBook} />
-      <AskQuestion />
+      <AskQuestion book={TempBook}/>
       <Box
         sx={{
           margin: 2,

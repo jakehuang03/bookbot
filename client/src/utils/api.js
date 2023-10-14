@@ -39,5 +39,6 @@ export const register = (formData) => api.post('/user/signup', formData);
 export const login = (body, config) => api.post('/user/token', body, config);
 export const auth = () => api.get('/user/me');
 export const createBook = (formData, config) => api.post('/books/', formData, config);
-export const askQuestion = (body) => api.get('/ask/', body);
+// export const askQuestion = (book, question) => api.get(`/ask/${book}/${question}`);
+export const askQuestion = (book, question) => api.get('/ask/', { params: { book: book, question: question } });
 export default api;

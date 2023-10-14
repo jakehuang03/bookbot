@@ -1,17 +1,31 @@
 import { SELECT_BOOK, ASK_QUESTION, ANSWER_SUCCESS } from "./types";
-import * as api from '../utils/api';
+import * as api from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
-export const selectBook = (book) => dispatch => {
+export const selectBook = (book) => (dispatch) => {
   dispatch({ type: SELECT_BOOK, payload: book });
 };
 
-export const askQuestion = (question) => async (dispatch) => {
+export const askQuestion = (book, question) => async (dispatch) => {
   // TODO: send the question to backend
   dispatch({ type: ASK_QUESTION, payload: question });
+  const body = new FormData();
+  body.append("book_title", book.title);
+  body.append("book_id", book.id);
+  body.append("question", question);
+  const config = {
+    headers: {
+      "Content-Type": "application/form-data",
+    },
+  };
   try {
-    const { answer } = await api.askQuestion(question);
-    dispatch({ type: ANSWER_SUCCESS, payload: answer });
+    // const answer = await api.askQuestion(body, config);
+    const answer = await api.askQuestion(book.title, question);
+    console.log(answer.data.answer);
+    dispatch({ type: ANSWER_SUCCESS, payload: answer.data.answer });
+    const navigate = useNavigate();
+    navigate("/bookbot");
   } catch (error) {
     console.log(error.message);
   }
-}
+};

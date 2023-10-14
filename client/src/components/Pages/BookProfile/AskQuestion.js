@@ -1,7 +1,7 @@
 // input question
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 
 import { askQuestion } from "../../../actions/bookbot";
 
@@ -11,15 +11,14 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function AskQuestion() {
+export default function AskQuestion(props) {
+  const { book } = props;
   const [question, setQuestion] = useState("");
-  const navigate = useNavigate();
+  // get current book from redux state
   const dispatch = useDispatch();
   const Asked = () => {
-    // add the question to the store
     // TODO: send the question to backend
-    dispatch(askQuestion(question));
-    navigate("/bookbot");
+    dispatch(askQuestion(book, question));
   };
 
   return (
@@ -38,3 +37,13 @@ export default function AskQuestion() {
     </Paper>
   );
 }
+
+AskQuestion.propTypes = {
+  book: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+  }).isRequired,
+};
