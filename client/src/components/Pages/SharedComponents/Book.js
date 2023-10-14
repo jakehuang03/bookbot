@@ -10,7 +10,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 function Book(props) {
   const { book } = props;
-
+ 
   return (
     <Grid item xs={6} md={3}>
       {/* TODO: Change to book profile for each book */}

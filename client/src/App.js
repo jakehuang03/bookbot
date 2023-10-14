@@ -18,9 +18,21 @@ import Alert from "./components/layout/Alert";
 import BookProfile from "./components/Pages/BookProfile/BookProfile";
 import Profile from "./components/Profile/Profile";
 import { loadPage } from "./actions/auth";
+import { loadUser } from './actions/auth'
 import BookBot from "./components/Pages/BookBot/BookBot";
+import FileUpload from "./components/Pages/Home/FileUpload";
+import store from './store';
+import { LOGOUT } from './actions/types';
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+
+    // log user out from all tabs if they log out in one tab
+    window.addEventListener('storage', () => {
+      if (!localStorage.token) store.dispatch({ type: LOGOUT });
+    });    
+  }, []);
   return (
     <Router>
       <Fragment>
@@ -77,7 +89,7 @@ const App = () => {
             }
           />
           <Route
-            path="/books/:bookname"
+            path="/books/:bookid"
             element={
               <section className="container">
                 <BookProfile />
@@ -100,7 +112,15 @@ const App = () => {
               </section>
             }
           />
-
+           <Route
+            path="/upload"
+            element={
+              <section className="container">
+                <FileUpload />
+              </section>
+            }
+          />
+          
           {/* Default redirect to home */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

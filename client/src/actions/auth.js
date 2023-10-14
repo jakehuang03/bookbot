@@ -10,6 +10,34 @@ import {
   LOGOUT
 } from './types';
 
+// Load User
+export const loadUser = () => async dispatch => {
+
+  if (!localStorage.token){
+    dispatch({
+      type: AUTH_ERROR,
+      }
+    )
+  } else {
+    
+    try {
+      const result = await api.auth();
+      if (result.data.UserId != localStorage.user || result.detail){
+        dispatch({
+          type: AUTH_ERROR
+        })
+      } else {
+        dispatch({
+          type: USER_LOADED,
+          payload: result
+        })
+      }
+    } catch (err) {
+      console.log('error', err.msg)
+    }
+  }
+}
+
 // Register User
 export const register = (nickname, email, password, navigate) => async (dispatch) => {
   try {
