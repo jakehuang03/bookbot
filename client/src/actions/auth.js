@@ -10,6 +10,44 @@ import {
   LOGOUT
 } from './types';
 
+// Load User
+export const loadUser = () => async dispatch => {
+  var myHeaders = new Headers();
+  if (!localStorage.token){
+    dispatch({
+      type: AUTH_ERROR,
+      }
+    )
+  } else {
+    myHeaders.append("Authorization", "Bearer "+localStorage.token);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("http://127.0.0.1:8000/user/me", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if (result.UserID != localStorage.user || result.detail){
+          dispatch({
+            type: AUTH_ERROR
+          })
+        } else {
+          dispatch({
+            type: USER_LOADED,
+            payload: result
+          })
+        }
+        
+      }
+        )
+      .catch(error => console.log('error', error));
+  }
+  
+}
+
 // Register User
 export const register = (nickname, email, password, navigate) => async (dispatch) => {
   try {
