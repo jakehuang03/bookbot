@@ -41,40 +41,43 @@ const Login = ({login}) => {
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign In</h1>
-      <p className="lead">
-         Sign Into Your Account
-      </p>
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Email"
-            name="username"
-            value={username}
-            onChange={onChange}
-            required
-          />
+      <div className="loginsignin">
+        <h1 className="large text-primary">Sign In</h1>
+        <p className="lead">
+          Sign Into Your Account
+        </p>
+        <form className="form" onSubmit={onSubmit}>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              name="username"
+              value={username}
+              onChange={onChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={onChange}
+              minLength="6"
+              required
+            />
+          </div>
+          <input type="submit" className="btn btn-primary" value="Login" />
+        </form>
+        <div className="googleLog">
+        <GoogleLogin onSuccess={handleCallBack} onError={errorMessage} />
         </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={onChange}
-            minLength="6"
-            required
-          />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
-      </form>
-      <div className="googleLog">
-      <GoogleLogin onSuccess={handleCallBack} onError={errorMessage} />
+        <p className="my-1">
+          Don't have an account? <Link to="/register">Sign Up</Link>
+        </p>
       </div>
-      <p className="my-1">
-        Don't have an account? <Link to="/register">Sign Up</Link>
-      </p>
+      
     </Fragment>
   );
 };
