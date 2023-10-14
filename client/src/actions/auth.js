@@ -22,7 +22,7 @@ export const loadUser = () => async dispatch => {
     
     try {
       const result = await api.auth();
-      if (result.detail){
+      if (result.data.UserId != localStorage.user || result.detail){
         dispatch({
           type: AUTH_ERROR
         })
