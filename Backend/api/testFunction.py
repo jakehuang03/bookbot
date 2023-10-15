@@ -49,11 +49,12 @@ def ask_questions(book, question):
         print(result)
         print(type(result))
         res = {}
-        res['answer'] = result['response']
+        temp = {'id': 1, 'answer': result['response']}
+        res['answer'] = temp
         res['extractedpar'] = result['extractedpar']
         res['book'] = book[:-4]
         res['question'] = question
-        print(res['answer'])
+        print(res)
         return res
     
 if __name__ == "__main__":
