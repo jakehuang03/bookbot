@@ -13,5 +13,29 @@ app.add_middleware(
 )
 
 app.include_router(api_router)
+    
+# @app.get("ask/{book}/{question}")
+# async def answer(book, question):
+#     print(book, question)
+#     answer = book + question + "answer"
+#     return {"answer": answer}
 
-
+@app.get("/ask")
+async def answer(book: str, question: str):
+    # use bookid and userid 
+    # find bookname with bookid in db
+    # if no such book then return error
+    # else proceed
+    print(book, question)
+    answer = {1: {'page': 1,
+              'answer': book + question + "answer"}, 
+                2: {'page': 2,
+                'answer': book + question + "answer"}}
+    extractedpar = "extracted book"
+    # wording finding
+    result = {}
+    result['answer'] = answer
+    result['extractedpar'] = extractedpar
+    result['book'] = book
+    result['question'] = question
+    return result
