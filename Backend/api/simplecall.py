@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, constr
 from ToLLM.localLLMCall import localcall
@@ -36,9 +38,14 @@ def callwithquestions(file, question):
 
 @call.get("/ask/")
 def ask_question(question: Question):
-    return callwithquestions(question.file, question.questions)
+    current_directory = os.path.dirname(__file__)
+    folder_name = "upload_files"  # Replace with the name of your folder
+    folder_path = os.path.join(current_directory, folder_name).replace('\\', '\\\\')
+    s = question.book
+    path = folder_path + '\\\\' +s
+    return callwithquestions(path, question.questions)
 
-    """testing_procedures:
+"""testing_procedures:
     open postman
     set method to "POST"
     and the following url:"http://127.0.0.1:8000/ask/"
@@ -50,4 +57,13 @@ def ask_question(question: Question):
       "questions": ["What do the director do?","another one?"]
     }
     """
-
+@call.get("/ask2")
+async def answer(book: str, question: str):
+    # print(book, question)
+    # answer = book + question + "answer"
+    # # wording finding
+    # result = {}
+    # result['answer'] = answer
+    # result['book'] = book
+    # result['question'] = question
+    return callwithquestions(book, question)

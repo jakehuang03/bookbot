@@ -6,11 +6,11 @@ from receiveUploadFile import app
 
 # Use threads to run both apps
 def run_simplecall():
-    uvicorn.run(call, host="0.0.0.0", port=8000)
+    uvicorn.run(call, host="127.0.0.1", port=8000)
 
 
 def run_receivefile():
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="127.0.0.1", port=8001)
 
 
 # Execute threads
