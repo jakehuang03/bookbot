@@ -37,6 +37,8 @@ export default function au(state = initialState, action) {
                 loading: false
             }
         case LOGIN_SUCCESS:
+            localStorage.setItem('token', payload.access_token);
+            localStorage.setItem('user', payload.userID);
             return {
                 ...state,
                 ...payload,

@@ -10,7 +10,7 @@ function CurrentBook(props) {
           <Box
             sx={{
               position: "relative",
-              p: { xs: 3, md: 6 },
+              p: { xs: 1, md: 2 },
             }}
           >
             <Typography

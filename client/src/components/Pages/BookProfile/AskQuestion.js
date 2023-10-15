@@ -23,16 +23,16 @@ export default function AskQuestion() {
   };
 
   return (
-      <Paper component="form" sx={{ display: "flex", alignItems: "center", margin: 2 }}>
+      <Paper component="form" elevation={8} sx={{ height: "50px", display: "flex", alignItems: "center", margin: 2 }}>
       <InputBase
-        sx={{ ml: 1, flex: 1 }}
+        sx={{ ml: 2, flex: 1 }}
         placeholder="Ask a question"
         onChange={(e) => {
           setQuestion(e.target.value);
         }}
       />
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <IconButton type="button" sx={{ p: "10px" }} aria-label="search" onClick={Asked}>
+      <Divider sx={{ height: 28, m: 1 }} orientation="vertical" />
+      <IconButton type="button" sx={{ mr: 1, p: "2" }} aria-label="search" onClick={Asked}>
         <SearchIcon />
       </IconButton>
     </Paper>

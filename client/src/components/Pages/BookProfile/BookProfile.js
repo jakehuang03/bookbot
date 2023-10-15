@@ -7,7 +7,7 @@ import AskQuestion from "./AskQuestion";
 
 import { selectBook } from "../../../actions/bookbot";
 
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Box, Typography } from "@mui/material";
 
 const TempBook = {
   id: 1,
@@ -54,11 +54,19 @@ function BookProfile() {
     <Container>
       <CurrentBook book={TempBook} />
       <AskQuestion />
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {QuestionList.map((question) => (
-          <PastQuestion key={question.id} pastQuestion={question} />
-        ))}
-      </Grid>
+      <Box
+        sx={{
+          margin: 2,
+          p: 2,
+        }}
+      >
+        <Typography variant="h4" align="center" sx={{m: 1}}>Past Questions</Typography>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          {QuestionList.map((question) => (
+            <PastQuestion key={question.id} pastQuestion={question} />
+          ))}
+        </Grid>
+      </Box>
     </Container>
   );
 }
