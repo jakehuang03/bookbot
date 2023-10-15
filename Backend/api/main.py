@@ -1,13 +1,10 @@
 import os
+import shutil
+from pathlib import Path
 import uvicorn
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, UploadFile,File
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from simplecall import callwithquestions
-from ToLLM.localLLMCall import localcall
-from preLLM.KeyWordHuggingFace import extract
-from preLLM.WordSearch import WordSearch
-from typing import List
+from testFunction import ask_questions
 
 # Create FastAPI app
 app = FastAPI()
@@ -28,24 +25,29 @@ async def ask_question(request: Request):
         # Access the "book" and "questions" fields from the request_data dictionary
         book = request.query_params.get("book")
         question = request.query_params.get("question")
+        print(book)
         print(question)
-        s = book
-
-        current_directory = os.path.dirname(__file__)
-        folder_name = "upload_files"  # Replace with the name of your folder
-        folder_path = os.path.join(current_directory, folder_name).replace('\\', '\\\\')
-
-        path = os.path.join(folder_path, s)
-        print(path)
-
-        result = callwithquestions(path, question)
-        
-        res = {}
-        res['answer'] = result['response']
-        res['extractedpar'] = res['page']
-        return result
+        res = ask_questions(book, question)
+        return res
     except KeyError as e:
         raise HTTPException(status_code=400, detail=f"Missing field: {e}")
+
+@app.post("/books")
+async def upload_file(file: UploadFile = File(...)):
+    try:
+
+        upload_folder = Path("api/uploaded_files")
+        upload_folder.mkdir(exist_ok=True)
+
+        with (upload_folder / file.filename).open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        return {
+            "filename": file.filename,
+            "content_type": file.content_type
+        }
+    except Exception as e:
+        raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
 
     
 if __name__ == "__main__":
