@@ -21,8 +21,8 @@ export const askQuestion = (book, question, navigate) => async (dispatch) => {
   try {
     // const answer = await api.askQuestion(body, config);
     const answer = await api.askQuestion(book.title, question);
-    console.log(answer.data.answer);
-    dispatch({ type: ANSWER_SUCCESS, payload: answer.data.answer });
+    console.log(answer.data);
+    dispatch({ type: ANSWER_SUCCESS, payload: answer.data });
     navigate("/bookbot");
   } catch (error) {
     console.log(error.message);
