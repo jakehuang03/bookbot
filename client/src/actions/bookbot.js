@@ -6,7 +6,7 @@ export const selectBook = (book) => (dispatch) => {
   dispatch({ type: SELECT_BOOK, payload: book });
 };
 
-export const askQuestion = (book, question) => async (dispatch) => {
+export const askQuestion = (book, question, navigate) => async (dispatch) => {
   // TODO: send the question to backend
   dispatch({ type: ASK_QUESTION, payload: question });
   const body = new FormData();
@@ -23,7 +23,6 @@ export const askQuestion = (book, question) => async (dispatch) => {
     const answer = await api.askQuestion(book.title, question);
     console.log(answer.data.answer);
     dispatch({ type: ANSWER_SUCCESS, payload: answer.data.answer });
-    const navigate = useNavigate();
     navigate("/bookbot");
   } catch (error) {
     console.log(error.message);

@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import CurrentBook from "../BookProfile/CurrentBook";
 import Answer from "./Answer";
 import { Typography, Container, Grid } from "@mui/material";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 //TODO: get answer from backend
 //TODO: debug – if user refresh the page, the redux state is gone
 const answers = [
@@ -19,9 +21,11 @@ const answers = [
 },
 ]; 
 
-function BookBot() {
-  const book = useSelector((state) => state.bookbot.selectedBook);
-  const question = useSelector((state) => state.bookbot.question);
+function BookBot(props) {
+  const book = props.book;
+  const question = props.question;
+  const answer = props.answer;  
+
   return (
     <Container>
       <CurrentBook book={book} />
@@ -34,4 +38,21 @@ function BookBot() {
     </Container>
   );
 }
-export default BookBot;
+
+BookBot.propTypes = {
+  book: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+  question: PropTypes.shape({
+  }).isRequired,
+  answer: PropTypes.shape({
+  }).isRequired,
+}
+
+const mapStateToProps = (state) => ({
+  book: state.bookbot.selectedBook,
+  question: state.bookbot.question,
+  answer: state.bookbot.answer,
+});
+export default connect(mapStateToProps)(BookBot);

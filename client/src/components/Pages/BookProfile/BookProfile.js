@@ -11,7 +11,7 @@ import { Container, Grid, Box, Typography } from "@mui/material";
 
 const TempBook = {
   id: 1,
-  title: "The Element of Scrum",
+  title: "b.pdf",
   author: "Chris Sims",
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",

@@ -1,6 +1,7 @@
 // input question
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { askQuestion } from "../../../actions/bookbot";
@@ -16,9 +17,10 @@ export default function AskQuestion(props) {
   const [question, setQuestion] = useState("");
   // get current book from redux state
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const Asked = () => {
     // TODO: send the question to backend
-    dispatch(askQuestion(book, question));
+    dispatch(askQuestion(book, question, navigate));
   };
 
   return (
