@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import CurrentBook from "../BookProfile/CurrentBook";
 import Answer from "./Answer";
 import { Typography, Container, Grid } from "@mui/material";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { useState } from "react";
 //TODO: get answer from backend
 //TODO: debug – if user refresh the page, the redux state is gone
 const answers = [
@@ -30,20 +32,26 @@ const answers = [
 //   const answer = props.answer;
 
 function BookBot() {
-  const book = JSON.parse(localStorage.getItem("selectedBook"));
-  const question = JSON.parse(localStorage.getItem("question"));
-  const answer = JSON.parse(localStorage.getItem("answer"));
-  return (
-    <Container>
-      <CurrentBook book={book} />
-      <Typography variant="h1">{question}?</Typography>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {/* {answers.map((answer) => ( */}
-          <Answer key={answer.id} Answer={answer} />
-        {/* ))} */}
-      </Grid>
-    </Container>
-  );
+  const book = JSON.parse(sessionStorage.getItem("selectedBook"));
+  const question = JSON.parse(sessionStorage.getItem("question"));
+  const answers = JSON.parse(sessionStorage.getItem("answer"));
+  const navigate = useNavigate();
+  if (!book || !question || !answers) {
+    navigate("/home");
+    return null;
+  } else {
+    return (
+      <Container>
+        <CurrentBook book={book} />
+        <Typography variant="h1">{question}?</Typography>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          { Array.isArray(answers) ? answers.map((answer) => (
+            <Answer key={answer.id} Answer={answer} />
+          )): []}
+        </Grid>
+      </Container>
+    );
+  }
 }
 
 // BookBot.propTypes = {

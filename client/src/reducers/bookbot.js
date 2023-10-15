@@ -14,18 +14,18 @@ export default function bookbot(state = initialState, action) {
     const {type, payload} = action;
     switch(type) {
         case SELECT_BOOK:
-            localStorage.setItem('selectedBook', JSON.stringify(payload))
+            sessionStorage.setItem('selectedBook', JSON.stringify(payload))
             return {...state,
                 selectedBook: payload}
             ;
         case ASK_QUESTION:
-            localStorage.setItem('question', JSON.stringify(payload))
+            sessionStorage.setItem('question', JSON.stringify(payload))
             return {
                 ...state,
                 question: payload,
             }
         case ANSWER_SUCCESS:
-            localStorage.setItem('answer', JSON.stringify(payload))
+            sessionStorage.setItem('answer', JSON.stringify(payload))
             return {
                 ...state,
                 answer: payload,

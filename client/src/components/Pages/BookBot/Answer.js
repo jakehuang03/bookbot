@@ -27,6 +27,7 @@ function Answer(props) {
     console.log("More!");
   };
   return (
+    
     <Grid item xs={12} md={12}>
       <Card sx={{ display: "flex" }}>
         <CardActionArea onClick={More}>

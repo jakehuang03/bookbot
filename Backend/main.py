@@ -27,10 +27,10 @@ async def answer(book: str, question: str):
     # if no such book then return error
     # else proceed
     print(book, question)
-    answer = {1: {'page': 1,
+    answer = [{'id': 1,
               'answer': book + question + "answer"}, 
-                2: {'page': 2,
-                'answer': book + question + "answer"}}
+                {'id': 2,
+                'answer': book + question + "answer"}]
     extractedpar = "extracted book"
     # wording finding
     result = {}
