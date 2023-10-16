@@ -6,11 +6,9 @@ from fastapi import FastAPI, HTTPException, Request, UploadFile,File
 from fastapi.middleware.cors import CORSMiddleware
 from testFunction import ask_questions
 
-# Create FastAPI app
 app = FastAPI()
 
-# Configure CORS (Cross-Origin Resource Sharing)
-origins = ["*"]  # Replace with your frontend URL
+origins = ["*"] 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -22,7 +20,6 @@ app.add_middleware(
 @app.get("/ask")
 async def ask_question(request: Request):
     try:
-        # Access the "book" and "questions" fields from the request_data dictionary
         book = request.query_params.get("book")
         question = request.query_params.get("question")
         print(book)
