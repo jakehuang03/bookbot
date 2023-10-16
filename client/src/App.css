@@ -500,3 +500,7 @@ button {
 .profile-inq p {
 	margin: 0.5rem 0;
 }
+
+.round-img {
+	border-radius: 50%;
+}
