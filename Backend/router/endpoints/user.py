@@ -2,7 +2,7 @@ import db.crud
 from datetime import datetime, timedelta
 from utils.user import hash_password, verify_password
 from typing import Annotated, Union
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, status
+from fastapi import APIRouter, Depends, HTTPException, File, Form, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 
@@ -45,23 +45,6 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
         "access_token": access_token,
         "token_type": "bearer",
     }
-
-
-@router.post("/books")
-async def upload_file(
-    title: str = Form(...),
-    author: str = Form(None),
-    summary: str = Form(None),
-    userid: int = Form(None),
-    file: UploadFile = File(...),
-):
-    try:
-        id = db.crud.create_book(
-            name=title, author=author, summary=summary, userid=userid
-        )
-        return {"msg": "book uploaded", "bookid": id}
-    except Exception as e:
-        raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
 
 
 @router.post("/signup")
