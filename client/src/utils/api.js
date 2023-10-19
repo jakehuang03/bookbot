@@ -6,13 +6,13 @@ const api = axios.create(
 );
 
 api.interceptors.request.use((req) => {
-  if (localStorage.getItem('profile')) {
-      if(JSON.parse(localStorage.getItem('profile'))?.token)
-          req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
-      else 
-          req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).sub}`;
-  }
-
+  // if (localStorage.getItem('profile')) {
+  //     if(JSON.parse(localStorage.getItem('profile'))?.token)
+  //         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+  //     else 
+  //         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).sub}`;
+  // }
+  req.headers.Authorization = `Bearer ${localStorage.token}`;
   return req;
 });
 
@@ -37,8 +37,14 @@ api.interceptors.request.use((req) => {
 export const loadUser = (formData) => api.post('/api/user/loadUser', formData);
 export const register = (formData) => api.post('/user/signup', formData);
 export const login = (body, config) => api.post('/user/token', body, config);
+export const auth = () => api.get('/user/me');
 export const createBook = (formData, config) => api.post('/books/', formData, config);
+
 export const fetchBook = (bookid) => api.get('/books/bookid');
 export const fetchBooks = () => api.get('/books/');
 export const fetchBooksBySearch = (searchQuery) => api.get(`/books/search?searchQuery=${searchQuery.searchBook || 'none'}&genre=${searchQuery.selectedGenre}`);
+
+// export const askQuestion = (book, question) => api.get(`/ask/${book}/${question}`);
+export const askQuestion = (book, question) => api.get('/ask/', { params: { book: book, question: question } });
+
 export default api;

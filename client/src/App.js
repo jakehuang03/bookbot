@@ -21,7 +21,6 @@ import { loadPage } from "./actions/auth";
 import { loadUser } from './actions/auth'
 import BookBot from "./components/Pages/BookBot/BookBot";
 import FileUpload from "./components/Pages/Home/FileUpload";
-import setAuthToken from './utils/setAuthToken';
 import store from './store';
 import { LOGOUT } from './actions/types';
 

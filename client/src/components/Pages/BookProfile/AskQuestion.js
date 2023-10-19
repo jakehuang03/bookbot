@@ -1,7 +1,8 @@
 // input question
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import { askQuestion } from "../../../actions/bookbot";
 
@@ -11,30 +12,40 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function AskQuestion() {
+export default function AskQuestion(props) {
+  const { book } = props;
   const [question, setQuestion] = useState("");
-  const navigate = useNavigate();
+  // get current book from redux state
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const Asked = () => {
-    // add the question to the store
     // TODO: send the question to backend
-    dispatch(askQuestion(question));
-    navigate("/bookbot");
+    dispatch(askQuestion(book, question, navigate));
   };
 
   return (
-      <Paper component="form" sx={{ display: "flex", alignItems: "center", margin: 2 }}>
+      <Paper component="form" elevation={8} sx={{ height: "50px", display: "flex", alignItems: "center", margin: 2 }}>
       <InputBase
-        sx={{ ml: 1, flex: 1 }}
+        sx={{ ml: 2, flex: 1 }}
         placeholder="Ask a question"
         onChange={(e) => {
           setQuestion(e.target.value);
         }}
       />
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-      <IconButton type="button" sx={{ p: "10px" }} aria-label="search" onClick={Asked}>
+      <Divider sx={{ height: 28, m: 1 }} orientation="vertical" />
+      <IconButton type="button" sx={{ mr: 1, p: "2" }} aria-label="search" onClick={Asked}>
         <SearchIcon />
       </IconButton>
     </Paper>
   );
 }
+
+AskQuestion.propTypes = {
+  book: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+  }).isRequired,
+};

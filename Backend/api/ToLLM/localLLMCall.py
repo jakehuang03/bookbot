@@ -14,6 +14,16 @@ def localcall(paragraphs, question):
     prompt_template = 'USER: {0}\nASSISTANT: '
 
     with model.chat_session(system_template, prompt_template):
-        for i in question:
-            response = model.generate(i, max_tokens=len(paragraphs) * 100)
-            print(response)
+        response = model.generate(question, max_tokens=len(paragraphs) * 100)
+        print(response)
+        return response
+
+
+    # system_template += question
+    # response = model.generate(system_template, max_tokens=len(paragraphs)*100)
+    # return response
+        
+            # for i in question:
+            # response = model.generate(i, max_tokens=len(paragraphs) * 100)
+            # print(response)
+

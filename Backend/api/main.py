@@ -1,25 +1,51 @@
+import os
+import shutil
+from pathlib import Path
 import uvicorn
-import threading
-from simplecall import call
-from receiveUploadFile import app
+from fastapi import FastAPI, HTTPException, Request, UploadFile,File
+from fastapi.middleware.cors import CORSMiddleware
+from testFunction import ask_questions
 
+app = FastAPI()
 
-# Use threads to run both apps
-def run_simplecall():
-    uvicorn.run(call, host="0.0.0.0", port=8000)
+origins = ["*"] 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+@app.get("/ask")
+async def ask_question(request: Request):
+    try:
+        book = request.query_params.get("book")
+        question = request.query_params.get("question")
+        print(book)
+        print(question)
+        res = ask_questions(book, question)
+        return res
+    except KeyError as e:
+        raise HTTPException(status_code=400, detail=f"Missing field: {e}")
 
-def run_receivefile():
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+@app.post("/books")
+async def upload_file(file: UploadFile = File(...)):
+    try:
 
+        upload_folder = Path("api/uploaded_files")
+        upload_folder.mkdir(exist_ok=True)
 
-# Execute threads
+        with (upload_folder / file.filename).open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        return {
+            "filename": file.filename,
+            "content_type": file.content_type
+        }
+    except Exception as e:
+        raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
+
+    
 if __name__ == "__main__":
-    t1 = threading.Thread(target=run_simplecall())
-    t2 = threading.Thread(target=run_receivefile())
-
-    t1.start()
-    t2.start()
-
-    t1.join()
-    t2.join()
+    uvicorn.run(app, host="127.0.0.1", port=8000)

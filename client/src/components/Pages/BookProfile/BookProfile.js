@@ -7,11 +7,11 @@ import AskQuestion from "./AskQuestion";
 
 import { selectBook } from "../../../actions/bookbot";
 
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Box, Typography } from "@mui/material";
 
 const TempBook = {
   id: 1,
-  title: "The Element of Scrum",
+  title: "b.pdf",
   author: "Chris Sims",
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
@@ -53,12 +53,20 @@ function BookProfile() {
   return (
     <Container>
       <CurrentBook book={TempBook} />
-      <AskQuestion />
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {QuestionList.map((question) => (
-          <PastQuestion key={question.id} pastQuestion={question} />
-        ))}
-      </Grid>
+      <AskQuestion book={TempBook}/>
+      <Box
+        sx={{
+          margin: 2,
+          p: 2,
+        }}
+      >
+        <Typography variant="h4" align="center" sx={{m: 1}}>Past Questions</Typography>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          {QuestionList.map((question) => (
+            <PastQuestion key={question.id} pastQuestion={question} />
+          ))}
+        </Grid>
+      </Box>
     </Container>
   );
 }
