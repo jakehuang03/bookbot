@@ -38,5 +38,7 @@ export const loadUser = (formData) => api.post('/api/user/loadUser', formData);
 export const register = (formData) => api.post('/user/signup', formData);
 export const login = (body, config) => api.post('/user/token', body, config);
 export const createBook = (formData, config) => api.post('/books/', formData, config);
-
+export const fetchBook = (bookid) => api.get('/books/bookid');
+export const fetchBooks = () => api.get('/books/');
+export const fetchBooksBySearch = (searchQuery) => api.get(`/books/search?searchQuery=${searchQuery.searchBook || 'none'}&genre=${searchQuery.selectedGenre}`);
 export default api;

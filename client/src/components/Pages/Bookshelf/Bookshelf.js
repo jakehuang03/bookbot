@@ -3,8 +3,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Book from "../SharedComponents/Book";
-import SearchBar from "./SearchBar";
-import GenreFilter from "./GenreFilter";
+import SearchGenre from "./Search_Genre";
 
 export default function BookShelf() {
   //TODO: get book list from database
@@ -86,8 +85,7 @@ export default function BookShelf() {
       <div>
         <Grid container spacing={2} justifyContent="center">
           <Grid item>
-            <SearchBar />
-            <GenreFilter />
+            <SearchGenre />
           </Grid>
         </Grid>
       </div>

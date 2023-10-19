@@ -8,6 +8,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CREATE_BOOK = 'CREATE_BOOK';
+export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH';
+export const FETCH_BOOK = 'FETCH_BOOK';
 export const AUTH = "AUTH";
 
 export const SELECT_BOOK = 'SELECT_BOOK';
