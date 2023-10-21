@@ -129,3 +129,6 @@ def main():
     word_positions = word_search.find_word("example")
     context_sentences = word_search.sentences_around_index(word_positions)
     print(context_sentences)
+
+if __name__ == "__main__":
+    main()
