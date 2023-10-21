@@ -13,8 +13,8 @@ def create_user(name:str, passw:str, email:str):
 def get_user_by_email(email: str):
     return db.query(database.User).filter(database.User.UserEmail == email).first()
 
-def create_book(name:str, author:str, summary:str, userid:str):
-    db_book = database.Book(BookName=name, Author=author, BookContent=summary, UserId=userid)
+def create_book(name:str, author:str, summary:str, userid:str, genre:str):
+    db_book = database.Book(BookName=name, Author=author, BookContent=summary, UserId=userid, Genre=genre)
     db.add(db_book)
     db.commit()
     db.refresh(db_book)
@@ -22,6 +22,9 @@ def create_book(name:str, author:str, summary:str, userid:str):
 
 def get_book_by_id(bookid: int):
     return db.query(database.Book).filter(database.Book.BookId == bookid).first()
+
+def get_book_by_name(bookname: int, genre:str):
+    return db.query(database.Book).filter(database.Book.BookName == bookname and database.Book.Genre == genre).all()
 
 def create_question(userid:int, bookid:int, content:str, answer:str):
     db_question = database.Question(UserId=userid, BookId=bookid, QuestionContent=content, QuestionAnswer=answer)
