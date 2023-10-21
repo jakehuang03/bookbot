@@ -1,14 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const ProfileAbout = ({}) => {
+const ProfileAbout = ({ profile }) => {
 	return (
-		<div className='profile-about bg-light p-2'>
-			Hi! I am a junior at Emory studying Computer Science. Nice to meet you.
-		</div>
+		<div className='profile-about bg-light p-2'>{profile.profile.bio}</div>
 	);
 };
 
-ProfileAbout.propTypes = {};
+ProfileAbout.propTypes = {
+	profile: PropTypes.object.isRequired,
+};
 
-export default ProfileAbout;
+const mapStateToProps = (state) => ({
+	profile: state.profile,
+});
+export default connect(mapStateToProps)(ProfileAbout);

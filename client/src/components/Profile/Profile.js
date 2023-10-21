@@ -7,7 +7,7 @@ import ProfileBook from "./ProfileBook";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const Profile = (auth) => {
+const Profile = (auth, profile) => {
 	return (
 		<div className='contentBox'>
 			<Fragment>
@@ -20,11 +20,11 @@ const Profile = (auth) => {
 					<ProfileTop></ProfileTop>
 					<ProfileAbout></ProfileAbout>
 					<div className='profile-inq bg-white p-2'>
-						<h2 className='text-primary'>Education</h2>
+						<h2 className='text-primary'>History Inquiry</h2>
 						<ProfileInq></ProfileInq>
 					</div>
 					<div className='profile-book bg-white p-2'>
-						<h2 className='text-primary'>Experience</h2>
+						<h2 className='text-primary'>History Text</h2>
 						<ProfileBook></ProfileBook>
 					</div>
 				</div>
@@ -35,10 +35,12 @@ const Profile = (auth) => {
 
 Profile.propTypes = {
 	auth: PropTypes.object.isRequired,
+	profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
+	profile: state.profile,
 });
 
 export default connect(mapStateToProps)(Profile);
