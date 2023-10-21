@@ -10,7 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import pickle
 
-DATABASE_URL = "sqlite:///./books.db"
+DATABASE_URL = "mysql+pymysql://root:Bookbot123456!@104.198.232.175:3306/bookbot"
 
 Base = declarative_base()
 engine = create_engine(DATABASE_URL)
