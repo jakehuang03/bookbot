@@ -18,7 +18,7 @@ class User(Base):
 
     book = relationship("Book", backref="user")
     question = relationship("Question", backref="question")
-    answer = relationship("Answer", backref="answer")
+    # answer = relationship("Answer", backref="answer")
 
 
 class Book(Base):
@@ -37,17 +37,18 @@ class Question(Base):
 
     QuestionId = Column(Integer, primary_key=True, index=True)
     QuestionContent = Column(String)
+    QuestionAnswer = Column(String)
     UserId = Column(Integer, ForeignKey("user.UserId"))
     BookId = Column(Integer, ForeignKey("book.BookId"))
 
-    answer = relationship("Answer", backref="quest_answer")
+    # answer = relationship("Answer", backref="quest_answer")
 
-class Answer(Base):
-    __tablename__ = "answer"
+# class Answer(Base):
+#     __tablename__ = "answer"
 
-    AnswerId = Column(Integer, primary_key=True, index=True)
-    AnswerContent = Column(String)
-    Save = Column(Integer)
-    UserId = Column(Integer, ForeignKey("user.UserId"))
-    QuestionId = Column(Integer, ForeignKey("question.QuestionId"))
+#     AnswerId = Column(Integer, primary_key=True, index=True)
+#     AnswerContent = Column(String)
+#     Save = Column(Integer)
+#     UserId = Column(Integer, ForeignKey("user.UserId"))
+#     QuestionId = Column(Integer, ForeignKey("question.QuestionId"))
 

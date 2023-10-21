@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 
 router = APIRouter()
 
-@router.post("/books")
+@router.post("/savebook")
 async def upload_file(
     title: str = Form(...),
     author: str = Form(None),
@@ -18,3 +18,4 @@ async def upload_file(
         return {"msg": "book uploaded", "bookid": id}
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
+    

@@ -22,3 +22,10 @@ def create_book(name:str, author:str, summary:str, userid:str):
 
 def get_book_by_id(bookid: int):
     return db.query(database.Book).filter(database.Book.BookId == bookid).first()
+
+def create_question(userid:int, bookid:int, content:str, answer:str):
+    db_question = database.Question(UserId=userid, BookId=bookid, QuestionContent=content, QuestionAnswer=answer)
+    db.add(db_question)
+    db.commit()
+    db.refresh(db_question)
+    return db_question.QuestionId
