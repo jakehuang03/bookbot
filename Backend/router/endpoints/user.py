@@ -95,3 +95,12 @@ async def create_profile(current_user: Annotated[dict, Depends(get_current_user)
     db.crud.create_user_profile(userid=userid, bio=bio, avatar=avatar, gender=gender)
     return {"msg": "profile created"}
 
+@router.get("/getprofile")
+async def get_profile(current_user: Annotated[dict, Depends(get_current_user)]):
+    return {"nickname": current_user["UserName"],
+            "gender": current_user["Gender"],
+            "bio": current_user["UserBio"],
+            "avatar": current_user["Avatar"]}
+
+
+
