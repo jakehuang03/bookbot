@@ -10,19 +10,26 @@ import IconButton from "@mui/material/IconButton";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import CommentIcon from "@mui/icons-material/Comment";
+import { CardHeader } from "@mui/material";
 
 function Source(props) {
   const { Source } = props;
-
+  console.log(Source.page);
   const More = () => {
     console.log("More!");
   };
   return (
-    
-    <Grid item xs={12} md={12}>
-      <Card sx={{ display: "flex" }}>
+    <Grid item xs={2} md={4}>
+      <Card>
+        <CardHeader 
+          title={
+            <Typography variant="caption" align="left">
+              Page {Source.page}
+            </Typography>
+          }
+        />
         <CardActionArea onClick={More}>
-          <CardContent sx={{ flex: 1 }}>
+          <CardContent>
             <Typography variant="subtitle1" paragraph>
               {Source.content}
             </Typography>

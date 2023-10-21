@@ -19,7 +19,7 @@ export default function AskQuestion(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const Asked = () => {
-    // TODO: send the question to backend
+    // send the question to backend
     dispatch(askQuestion(book, question, navigate));
   };
 

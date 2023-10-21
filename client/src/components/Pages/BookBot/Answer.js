@@ -10,7 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import CommentIcon from "@mui/icons-material/Comment";
-
+import Avatar from "@mui/material/Avatar";
+import CardHeader from "@mui/material/CardHeader";
+import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
 function Answer(props) {
   const { Answer } = props;
 
@@ -29,10 +31,14 @@ function Answer(props) {
   return (
     
     <Grid item xs={12} md={12}>
-      <Card sx={{ display: "flex" }}>
+      <Card sx={{ display: "flex", m: 1 }}>
+      <CardHeader avatar={<Avatar>
+        <SmartToyOutlinedIcon/>
+      </Avatar>        } />
+
         <CardActionArea onClick={More}>
           <CardContent sx={{ flex: 1 }}>
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="h5" align='left' paragraph>
               {Answer.answer}
             </Typography>
           </CardContent>

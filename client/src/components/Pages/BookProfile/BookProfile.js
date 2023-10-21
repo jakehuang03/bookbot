@@ -58,27 +58,20 @@ function BookProfile() {
       <CurrentBook book={TempBook} />
 
       <AskQuestion book={TempBook} />
-      <Box
-        sx={{
-          mt: 2,
-          p: 2,
-        }}
-          className="profile-about bg-light"
+      <Box sx={{ mt: 2, p: 2 }} className="profile-about bg-light">
+        <Typography
+          variant="h5"
+          align="left"
+          sx={{ fontStyle: "oblique", m: 1 }}
         >
-          <Typography variant="h5" align="left" sx={{ fontStyle: 'oblique', m: 1 }}>
-            Past Questions
-          </Typography>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            {QuestionList.map((question) => (
-              <PastQuestion key={question.id} pastQuestion={question} />
-            ))}
-          </Grid>
-        </Box>
-
+          Past Questions
+        </Typography>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          {QuestionList.map((question) => (
+            <PastQuestion key={question.id} pastQuestion={question} />
+          ))}
+        </Grid>
+      </Box>
     </Container>
   );
 }
