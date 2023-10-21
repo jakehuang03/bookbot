@@ -52,7 +52,7 @@ function BookBot() {
                 ))
               : []}
           </Grid>
-          <SourcePagination setSources={setSources} />
+          <SourcePagination setSources={setSources} fullSources={extractedpars}/>
         </Box>
       </Container>
     );

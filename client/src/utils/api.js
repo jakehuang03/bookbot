@@ -44,7 +44,6 @@ export const fetchBook = (bookid) => api.get('/books/bookid');
 export const fetchBooks = () => api.get('/books/');
 export const fetchBooksBySearch = (searchQuery) => api.get(`/books/search?searchQuery=${searchQuery.searchBook || 'none'}&genre=${searchQuery.selectedGenre}`);
 
-// export const askQuestion = (book, question) => api.get(`/ask/${book}/${question}`);
 export const askQuestion = (book, question) => api.get('/ask/', { params: { book: book, question: question } });
-
+export const saveAnswer = (body, config) => api.post('/bookbot/saveAnswer', body, config);
 export default api;

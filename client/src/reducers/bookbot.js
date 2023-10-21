@@ -1,10 +1,17 @@
-import { SELECT_BOOK, ASK_QUESTION, ANSWER_SUCCESS, SOURCE_SUCCESS } from "../actions/types";
+import {
+  SELECT_BOOK,
+  ASK_QUESTION,
+  ANSWER_SUCCESS,
+  SOURCE_SUCCESS,
+    SAVE_ANSWER,
+} from "../actions/types";
 
 const initialState = {
   selectedBook: [],
   question: [],
   answer: [],
-  extractedpar: []
+  extractedpar: [],
+  saved: false,
 };
 
 export default function bookbot(state = initialState, action) {
@@ -31,6 +38,9 @@ export default function bookbot(state = initialState, action) {
         ...state,
         extractedpar: payload,
       };
+    case SAVE_ANSWER:
+      sessionStorage.setItem("saved", true);
+      return { ...state, saved: true };
     default:
       return state;
   }
