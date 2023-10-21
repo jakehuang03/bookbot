@@ -13,12 +13,7 @@ app.add_middleware(
 )
 
 app.include_router(api_router)
-    
-# @app.get("ask/{book}/{question}")
-# async def answer(book, question):
-#     print(book, question)
-#     answer = book + question + "answer"
-#     return {"answer": answer}
+
 
 @app.get("/ask")
 async def answer(book: str, question: str):
