@@ -16,11 +16,14 @@ def callwithquestions(file, question):
     context = word_search.sentences_around_index(word_positions, 2)
 
     # wording finding
-    result = {"extractedpar": {}}
+    result = {"extractedpar": []}
+    i = 0
     
     for pos, surrounding_sentences in context.items():
         page_num = word_search.position_to_page_number(pos)
-        result["extractedpar"][f"Page {page_num + 1}"] = surrounding_sentences
+        temp = {"page": page_num + 1, 'content': surrounding_sentences, 'id': i}
+        i = i+1
+        result["extractedpar"].append(temp)
         print(f"At position {pos} (Page {page_num + 1}):")
         for sentence in surrounding_sentences:
             print(sentence)
