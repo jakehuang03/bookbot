@@ -23,6 +23,7 @@ const QuestionList = [
   {
     id: 1,
     userAsked: "John Doe",
+    timeAsked: "2021-10-01",
     question: "What is Scrum?",
     answer:
       "Scrum is an Agile framework that can help teams work together. Scrum can enable teams to learn from experiences, self-organize while working on problems, to reflect on their victories and failures, to make improvements. This Agile Scrum interview question is often used as a starter question to get the interview moving. ",
@@ -30,6 +31,7 @@ const QuestionList = [
   {
     id: 2,
     userAsked: "Jane Doe",
+    timeAsked: "2021-10-01",
     question: "Define the roles in Scrum?",
     answer:
       "Product Owner: The product owner is an individual who is responsible for increasing the ROI by determining product features, prioritizing these features into a list, what needs to be focused on the upcoming sprint, and much more. These are constantly re-prioritized and refined. Scrum Master: This individual helps the team in learning to apply Scrum to ensure optimum business value. The scrum master removes impediments, shields the team from distractions, and enables them to adopt agile practices.",
@@ -37,6 +39,7 @@ const QuestionList = [
   {
     id: 3,
     userAsked: "John Doe",
+    timeAsked: "2021-10-01",
     question: "What is Velocity?",
     answer:
       "Velocity is a metric used to measure the amount of work completed by a team during a sprint. It refers to the number of user stories completed in a sprint.",
@@ -53,20 +56,29 @@ function BookProfile() {
   return (
     <Container>
       <CurrentBook book={TempBook} />
-      <AskQuestion book={TempBook}/>
+
+      <AskQuestion book={TempBook} />
       <Box
         sx={{
-          margin: 2,
+          mt: 2,
           p: 2,
         }}
-      >
-        <Typography variant="h4" align="center" sx={{m: 1}}>Past Questions</Typography>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {QuestionList.map((question) => (
-            <PastQuestion key={question.id} pastQuestion={question} />
-          ))}
-        </Grid>
-      </Box>
+          className="profile-about bg-light"
+        >
+          <Typography variant="h5" align="left" sx={{ fontStyle: 'oblique', m: 1 }}>
+            Past Questions
+          </Typography>
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            {QuestionList.map((question) => (
+              <PastQuestion key={question.id} pastQuestion={question} />
+            ))}
+          </Grid>
+        </Box>
+
     </Container>
   );
 }

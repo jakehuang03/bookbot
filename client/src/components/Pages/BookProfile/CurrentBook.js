@@ -8,9 +8,11 @@ function CurrentBook(props) {
 
   return (
           <Box
+          className='profile-top bg-primary'
             sx={{
               position: "relative",
               p: { xs: 1, md: 2 },
+              mt: { xs: 2, md: 4 },
             }}
           >
             <Typography
@@ -25,7 +27,7 @@ function CurrentBook(props) {
             >
               {book.author}
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
+            <Typography variant="h6" color="inherit" paragraph>
               {book.description}
             </Typography>
           </Box>

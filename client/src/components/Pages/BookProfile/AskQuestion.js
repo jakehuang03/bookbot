@@ -24,7 +24,7 @@ export default function AskQuestion(props) {
   };
 
   return (
-      <Paper component="form" elevation={8} sx={{ height: "50px", display: "flex", alignItems: "center", margin: 2 }}>
+      <Paper component="form" elevation={8} sx={{ height: "50px", display: "flex", alignItems: "center", mt: 2 }}>
       <InputBase
         sx={{ ml: 2, flex: 1 }}
         placeholder="Ask a question"

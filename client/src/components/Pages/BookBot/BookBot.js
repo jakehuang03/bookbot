@@ -2,7 +2,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CurrentBook from "../BookProfile/CurrentBook";
 import Answer from "./Answer";
-import { Typography, Container, Grid } from "@mui/material";
+import Source from "./Source";
+import { Typography, Container, Grid, Box } from "@mui/material";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useState } from "react";
@@ -35,20 +36,34 @@ function BookBot() {
   const book = JSON.parse(sessionStorage.getItem("selectedBook"));
   const question = JSON.parse(sessionStorage.getItem("question"));
   const answers = JSON.parse(sessionStorage.getItem("answer"));
-  const navigate = useNavigate();
+  const extractedpars = JSON.parse(sessionStorage.getItem("extractedpar"));
   if (!book || !question || !answers) {
-    navigate("/home");
     return null;
   } else {
     return (
       <Container>
         <CurrentBook book={book} />
-        <Typography variant="h1">{question}?</Typography>
+        <Box
+        sx={{
+          mt: 2,
+          p: 2,
+        }}
+          className="profile-about bg-light"
+        >
+        <Typography variant="h5" align="left" sx={{ fontStyle: 'oblique', m: 1 }}>{question}</Typography>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          { Array.isArray(answers) ? answers.map((answer) => (
-            <Answer key={answer.id} Answer={answer} />
-          )): []}
+          {Array.isArray(answers)
+            ? answers.map((answer) => (
+                <Answer key={answer.id} Answer={answer} />
+              ))
+            : []}
+          {Array.isArray(extractedpars)
+            ? extractedpars.map((extractedpar) => (
+                <Source key={extractedpar.id} Source={extractedpar} />
+              ))
+            : []}
         </Grid>
+        </Box>
       </Container>
     );
   }

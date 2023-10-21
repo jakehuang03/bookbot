@@ -10,7 +10,10 @@ import IconButton from "@mui/material/IconButton";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import CommentIcon from "@mui/icons-material/Comment";
-
+import { red } from "@mui/material/colors";
+import Avatar from "@mui/material/Avatar";
+import CardHeader from "@mui/material/CardHeader";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 function PastQuestion(props) {
   const { pastQuestion } = props;
 
@@ -26,18 +29,29 @@ function PastQuestion(props) {
   const More = () => {
     console.log("More!");
   };
+
+  const User = () => {
+    console.log("User!");
+  };
   return (
     <Grid item xs={12} md={12}>
-      <Card sx={{ display: "flex" }}>
+      <Card>
+        <CardHeader
+          align="left"
+          avatar={
+            <IconButton onClick={User}>
+              <Avatar sx={{ bgcolor: red[500] }}>R</Avatar>
+            </IconButton>
+          }
+          title={pastQuestion.userAsked}
+          subheader={pastQuestion.timeAsked}
+        />
         <CardActionArea onClick={More}>
-          <CardContent sx={{ flex: 1 }}>
-            <Typography component="h2" variant="h5">
+          <CardContent>
+            <Typography variant="h5" align="left" sx={{ fontWeight: "bold" }}>
               {pastQuestion.question}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
-              {pastQuestion.userAsked}
-            </Typography>
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="subtitle1" align="left" paragraph>
               {pastQuestion.answer}
             </Typography>
           </CardContent>
@@ -59,6 +73,7 @@ PastQuestion.propTypes = {
   pastQuestion: PropTypes.shape({
     id: PropTypes.number.isRequired,
     userAsked: PropTypes.string.isRequired,
+    timeAsked: PropTypes.string.isRequired,
     question: PropTypes.string.isRequired,
     answer: PropTypes.string.isRequired,
   }).isRequired,
