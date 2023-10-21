@@ -88,3 +88,10 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
 @router.get("/me")
 async def read_users_me(current_user: Annotated[dict, Depends(get_current_user)]):
     return current_user
+
+@router.post("/createprofile")
+async def create_profile(current_user: Annotated[dict, Depends(get_current_user)], bio: str = Form(), avatar: str = Form(), gender: str = Form()):
+    userid = current_user["UserId"]
+    db.crud.create_user_profile(userid=userid, bio=bio, avatar=avatar, gender=gender)
+    return {"msg": "profile created"}
+

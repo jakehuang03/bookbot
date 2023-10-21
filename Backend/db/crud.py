@@ -10,8 +10,20 @@ def create_user(name:str, passw:str, email:str):
     db.refresh(db_user)
     return db_user
 
+def get_user_by_id(id: int):
+    return db.query(database.User).filter(database.User.UserId == id).first()
+
 def get_user_by_email(email: str):
     return db.query(database.User).filter(database.User.UserEmail == email).first()
+
+def create_user_profile(userid:int, bio:str, avatar:str, gender:str):
+    user = get_user_by_id(userid)
+    user.UserBio = bio
+    user.Avatar = avatar
+    user.Gender = gender
+    db.commit()
+    db.refresh(user)
+    return userid
 
 def create_book(name:str, author:str, summary:str, userid:str, genre:str):
     db_book = database.Book(BookName=name, Author=author, BookContent=summary, UserId=userid, Genre=genre)

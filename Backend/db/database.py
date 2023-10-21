@@ -15,6 +15,10 @@ class User(Base):
     UserEmail = Column(String, unique=True)
     UserName = Column(String)
     UserPassword = Column(String)
+    UserBio = Column(String)
+    Avatar = Column(String)
+    Gender = Column(String)
+    
 
     book = relationship("Book", backref="user")
     question = relationship("Question", backref="question")

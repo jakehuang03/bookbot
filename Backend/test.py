@@ -1,2 +1,2 @@
 import db.crud as crud
-print(crud.get_book_by_name(bookname="test", genre="Fiction"))
+print(crud.create_user_profile(1,"administrator","avatar.com","robot"))
