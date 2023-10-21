@@ -23,7 +23,17 @@ def create_book(name:str, author:str, summary:str, userid:str, genre:str):
 def get_book_by_id(bookid: int):
     return db.query(database.Book).filter(database.Book.BookId == bookid).first()
 
-def get_book_by_name(bookname: int, genre:str):
+def get_book_by_name(bookname: str, genre:str):
+    query1 = db.query(database.Book).filter(database.Book.Genre.like('%' + genre + '%'))
+    query2 = db.query(database.Book).filter(database.Book.BookName.like('%' + bookname + '%'))
+    
+    if bookname is None:
+        return query1.all()
+    elif genre is None:
+        return query2.all()
+    else:
+        combined_query = query1.union(query2)
+        return combined_query.all()
     return db.query(database.Book).filter(database.Book.BookName == bookname and database.Book.Genre == genre).all()
 
 def create_question(userid:int, bookid:int, content:str, answer:str):
