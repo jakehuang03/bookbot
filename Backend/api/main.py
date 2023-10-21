@@ -22,8 +22,8 @@ async def ask_question(request: Request):
     try:
         book = request.query_params.get("book")
         question = request.query_params.get("question")
-        print(book)
-        print(question)
+        #print(book)
+        #print(question)
         res = ask_questions(book, question)
         return res
     except KeyError as e:
@@ -46,6 +46,21 @@ async def upload_file(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
 
-    
+
+# @app.get("/search")
+# async def searchBar(request: Request):
+#     try:
+#         bookname = request.query_params.get("search")
+#         genra = request.query_params.get("tag")
+#         if genra is None:
+#         #binary search for db
+#         else:
+#         #go to tag then binary search
+#
+#         return 0
+#     except Exception as e:
+#         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
