@@ -29,6 +29,7 @@ class Book(Base):
     BookContent = Column(String)
     UserId = Column(Integer, ForeignKey("user.UserId"))
     Author = Column(String)
+    Genre = Column(String)
 
     question = relationship("Question", backref="book_question")
 
