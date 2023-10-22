@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request
+from Backend.db.crud import get_book_by_name
 from router.api import api_router
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -34,3 +35,13 @@ async def answer(book: str, question: str):
     result['book'] = book
     result['question'] = question
     return result
+
+@app.get("/search")
+async def searchBar(request: Request):
+    try:
+        bookname = request.query_params.get("search")
+        genre = request.query_params.get("tag")
+
+        return get_book_by_name(bookname, genre)
+    except Exception as e:
+        raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
