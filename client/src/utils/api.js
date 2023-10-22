@@ -51,7 +51,7 @@ export const fetchBooks = () => api.get("/books/");
 export const fetchBooksBySearch = (searchQuery) =>
 	api.get(
 		`/books/search?searchQuery=${searchQuery.searchBook || "none"}&genre=${
-			searchQuery.selectedGenre
+			searchQuery.genre || "none"
 		}`
 	);
 

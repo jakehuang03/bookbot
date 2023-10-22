@@ -78,6 +78,14 @@ const App = () => {
 						}
 					/>
 					<Route
+						path='/books/search'
+						element={
+							<section className='container'>
+								<Book />
+							</section>
+						}
+					/>
+					<Route
 						path='/community'
 						element={
 							<section className='container'>
@@ -143,7 +151,7 @@ const App = () => {
 					/>
 
 					{/* Default redirect to home */}
-					<Route path='*' element={<Navigate to='/' />} />
+					{/* <Route path='*' element={<Navigate to='/' />} /> */}
 				</Routes>
 			</Fragment>
 		</Router>

@@ -4,27 +4,31 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch } from "react-redux";
 import { getBooksBySearch } from "../../../actions/books";
 import { useNavigate } from "react-router-dom";
-import { Divider, ToggleButtonGroup, ToggleButton, Paper, TextField } from "@mui/material";
-// import InputBase from "@mui/material/InputBase";
+import { Divider, Paper, TextField } from "@mui/material";
+import './Search_Genre.css';
+
 
 export default function SearchBar() {
   const [searchBook, setSearchBook] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
-  const genres=["Genre 1", "Genre 2", "Genre 3", "Genre 4"]
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const searchBooks = () => {
-    console.log(searchBook);
-    console.log(selectedGenre);
-    if(searchBook.trim() || selectedGenre) {
-      dispatch(getBooksBySearch({searchBook, selectedGenre}));
-      navigate(`/posts/search?searchQuery=${searchBook || 'none'}&genre=${selectedGenre}`)
+  const searchBooks = (genre) => {
+    if(searchBook.trim() || genre || genre === null) {
+      dispatch(getBooksBySearch({searchBook, genre}));
+      navigate(`/books/search?searchQuery=${searchBook || 'none'}&genre=${genre === null ? "none" : genre}`)
     }
   };
 
-  const handleGenreChange = (event, newAlignment) => {
-    setSelectedGenre(newAlignment);
+  const handleGenreClick = (genre) => {
+    if (selectedGenre === genre) {
+      setSelectedGenre(null);
+    } 
+    else {
+      setSelectedGenre(genre);
+    }
+    searchBooks(selectedGenre === genre ? null : genre); 
   };
 
   const handleKeyPress = (event) => {
@@ -51,20 +55,33 @@ export default function SearchBar() {
           <SearchIcon />
         </IconButton>
       </Paper>
-  
 
-        <ToggleButtonGroup
-        value={selectedGenre}
-        exclusive
-        onChange={handleGenreChange}
+      <div>
+      <button
+        className={selectedGenre === "Genre 1" ? "selected" : ""}
+        onClick={() => handleGenreClick("Genre 1")}
       >
-        {genres.map((genre) => (
-        <ToggleButton key={genre} value={genre} aria-label={genre}>
-        {genre}
-        </ToggleButton>
-        ))}
-      </ToggleButtonGroup>
-      
+        Genre 1
+      </button>
+      <button
+        className={selectedGenre === "Genre 2" ? "selected" : ""}
+        onClick={() => handleGenreClick("Genre 2")}
+      >
+        Genre 2
+      </button>
+      <button
+        className={selectedGenre === "Genre 3" ? "selected" : ""}
+        onClick={() => handleGenreClick("Genre 3")}
+      >
+        Genre 3
+      </button>
+      <button
+        className={selectedGenre === "Genre 4" ? "selected" : ""}
+        onClick={() => handleGenreClick("Genre 4")}
+      >
+        Genre 4
+      </button>
+    </div>
       
     </div>
     
