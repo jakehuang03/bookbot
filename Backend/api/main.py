@@ -4,8 +4,7 @@ from pathlib import Path
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request, UploadFile,File
 from fastapi.middleware.cors import CORSMiddleware
-from Backend.api.preLLM.refactorexp import store_tensor_in_db
-from Backend.db.database import SessionLocal
+from preLLM.refactorexp import store_tensor_in_db, SessionLocal
 from testFunction import ask_questions
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
@@ -56,7 +55,7 @@ async def upload_file(file: UploadFile = File(...)):
 async def upload_file(file: UploadFile = File(...)):
     try:
         # Save the uploaded file locally
-        upload_folder = Path("api/uploaded_files")
+        upload_folder = Path("uploaded_files")
         upload_folder.mkdir(exist_ok=True)
 
         filepath = upload_folder / file.filename

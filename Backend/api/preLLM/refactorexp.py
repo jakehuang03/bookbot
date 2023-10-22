@@ -1,7 +1,7 @@
 import re
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
-from sqlalchemy import create_engine, Column, Integer, String, LargeBinary
+from sqlalchemy import create_engine, Column, Integer, String, LargeBinary, BigInteger, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import pickle
@@ -14,9 +14,9 @@ SessionLocal = sessionmaker(bind=engine)
 
 class BookTensor(Base):
     __tablename__ = "book_tensors"
-    bookname = Column(String, primary_key=True, index=True)
-    tensor = Column(LargeBinary)
-    tokenizer = Column(LargeBinary)
+    bookname = Column(String(255), primary_key=True, index=True)
+    tensor = Column(Text)
+    tokenizer = Column(Text)
 
 Base.metadata.create_all(bind=engine)
 
@@ -66,6 +66,26 @@ class WordSearch:
             context_sentences[index] = sentences[start:end]
         return context_sentences
 
+def store_tensor_in_db(bookname, tensor, tokenizer, session):
+    tensor_binary = pickle.dumps(tensor)
+    tokenizer_binary = pickle.dumps(tokenizer)
+
+    book_tensor = BookTensor(
+        bookname=bookname,
+        tensor=tensor_binary,
+        tokenizer=tokenizer_binary
+    )
+    session.add(book_tensor)
+    session.commit()
+
+
+def retrieve_tensor_from_db(bookname, session):
+    book_tensor = session.query(BookTensor).filter(BookTensor.bookname == bookname).first()
+    if book_tensor:
+        tensor = pickle.loads(book_tensor.tensor)
+        tokenizer = pickle.loads(book_tensor.tokenizer)
+        return tensor, tokenizer
+    return None, None
 def main():
     bookname_in_db = "sample_book_name"  # Replace with a book name from your DB
     book = RetrieveBook(bookname_in_db)

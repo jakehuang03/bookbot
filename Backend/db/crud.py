@@ -38,11 +38,13 @@ def get_book_by_id(bookid: int):
 def get_book_by_name(bookname: str, genre:str):
     query1 = db.query(database.Book).filter(database.Book.Genre.like('%' + genre + '%'))
     query2 = db.query(database.Book).filter(database.Book.BookName.like('%' + bookname + '%'))
-    
+    query3 = db.query(database.Book).all()
     if bookname is None:
         return query1.all()
     elif genre is None:
         return query2.all()
+    elif bookname is None and genre is None:
+        return query3
     else:
         combined_query = query1.union(query2)
         return combined_query.all()
