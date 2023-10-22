@@ -81,7 +81,7 @@ export const login = (username, password, navigate) => async (dispatch) => {
 	};
 	try {
 		const res = await api.login(body, config);
-		console.log(res);
+
 		dispatch({
 			type: LOGIN_SUCCESS,
 			payload: res.data,
