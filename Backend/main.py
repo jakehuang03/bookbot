@@ -46,11 +46,11 @@ async def answer(book: str, question: str):
     result['question'] = question
     return result
 
-@app.get("/search")
+@app.get("/books/search")
 async def searchBar(request: Request):
     try:
-        bookname = request.query_params.get("search")
-        genre = request.query_params.get("tag")
+        bookname = request.query_params.get("searchBook")
+        genre = request.query_params.get("genre")
 
         return get_book_by_name(bookname, genre)
     except Exception as e:
