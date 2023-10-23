@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveAnswer } from "../../../actions/bookbot";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
@@ -20,20 +20,11 @@ function Answer(props) {
   const { Answer } = props;
   const [save, setSave] = useState(false);
   const dispatch = useDispatch();
-// Save the question to user profile
-const Save = () => {
-  const bookid = JSON.parse(sessionStorage.getItem("selectedBook")).id;
-  const userid = JSON.parse(localStorage.getItem("user"));
-  const question = JSON.parse(sessionStorage.getItem("question"));
-  const answers = JSON.parse(sessionStorage.getItem("answer"))[0].answer;
-  console.log(bookid, userid, question, answers);
-  if (bookid && userid && question && answers) {
-    dispatch(saveAnswer(bookid, userid, question, answers));
-    setSave(true);
-  } else {
-    console.log("Error saving answer");
-  }
-};
+  // Save the question to user profile
+  const Save = () => {
+      dispatch(saveAnswer());
+      setSave(true);
+  };
   //TODO: Save the comment to user profile and question
   const Comment = () => {
     console.log("Commented!");
@@ -61,10 +52,14 @@ const Save = () => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <IconButton aria-label="Bookmark">
-            {/* if save BookmarkIcon else BookmarkBorderIcon */}
-            {save ? <BookmarkIcon /> : <BookmarkBorderIcon onClick={Save} />}
-          </IconButton>
+          {/* if save BookmarkIcon else BookmarkBorderIcon */}
+          {save ? (
+            <BookmarkIcon />
+          ) : (
+            <IconButton aria-label="Bookmark" onClick={Save} >
+              <BookmarkBorderIcon/>
+            </IconButton>
+          )}
           <IconButton aria-label="Comment" onClick={Comment}>
             <CommentIcon />
           </IconButton>
