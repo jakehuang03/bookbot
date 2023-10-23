@@ -151,7 +151,7 @@ const App = () => {
 					/>
 
 					{/* Default redirect to home */}
-					{/* <Route path='*' element={<Navigate to='/' />} /> */}
+					<Route path='*' element={<Navigate to='/' />} />
 				</Routes>
 			</Fragment>
 		</Router>
