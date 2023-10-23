@@ -15,9 +15,9 @@ export default function SearchBar() {
   const navigate = useNavigate();
 
   const searchBooks = (genre) => {
-    if(searchBook.trim() || genre || genre === null) {
+   if(searchBook.trim() || genre || genre === null || genre === "") {
       dispatch(getBooksBySearch({searchBook, genre}));
-      navigate(`/books/search?searchBook=${searchBook || 'none'}&genre=${genre === null ? "none" : genre}`)
+      navigate(`/books/search?searchBook=${searchBook || 'none'}&genre=${genre || 'none'}`)
     }
   };
 
@@ -34,8 +34,13 @@ export default function SearchBar() {
   const handleKeyPress = (event) => {
     if(event.keyCode === 13) {
         event.preventDefault();
-        searchBooks();
+        searchBooks(selectedGenre);
     }
+  }
+
+  const handleButtonClick = () => {
+    const genre = selectedGenre;
+    searchBooks(genre);
   }
 
   return (
@@ -51,7 +56,7 @@ export default function SearchBar() {
           onChange={(event) => setSearchBook(event.target.value)}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton type="button" sx={{ p: "10px" }} aria-label="search" onClick={searchBooks}>
+        <IconButton type="button" sx={{ p: "10px" }} aria-label="search" onClick={handleButtonClick}>
           <SearchIcon />
         </IconButton>
       </Paper>
