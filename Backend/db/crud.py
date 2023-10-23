@@ -46,7 +46,6 @@ def get_book_by_name(bookname: str, genre:str):
     else:
         combined_query = query1.union(query2)
         return combined_query.all()
-    return db.query(database.Book).filter(database.Book.BookName == bookname and database.Book.Genre == genre).all()
 
 def create_question(userid:int, bookid:int, content:str, answer:str):
     db_question = database.Question(UserId=userid, BookId=bookid, QuestionContent=content, QuestionAnswer=answer)

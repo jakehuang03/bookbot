@@ -86,6 +86,7 @@ export const login = (username, password, navigate) => async (dispatch) => {
 			type: LOGIN_SUCCESS,
 			payload: res.data,
 		});
+		dispatch(loadUser());
 		navigate("/");
 	} catch (err) {
 		const errors = err.response.data.detail;
