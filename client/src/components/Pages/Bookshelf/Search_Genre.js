@@ -17,7 +17,7 @@ export default function SearchBar() {
   const searchBooks = (genre) => {
     if(searchBook.trim() || genre || genre === null) {
       dispatch(getBooksBySearch({searchBook, genre}));
-      navigate(`/books/search?searchQuery=${searchBook || 'none'}&genre=${genre === null ? "none" : genre}`)
+      navigate(`/books/search?searchBook=${searchBook || 'none'}&genre=${genre === null ? "none" : genre}`)
     }
   };
 

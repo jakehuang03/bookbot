@@ -2,9 +2,7 @@ import { Box, Pagination } from "@mui/material";
 import { useState, useEffect } from "react";
 
 export default function SourcePagination({setSources, fullSources}) {
-    // const fullSources = JSON.parse(sessionStorage.getItem("extractedpar"));
     const count = fullSources.length;
-    console.log(count);
     const pageSize = 3;
     const [page, setPage] = useState({
         from: 0,

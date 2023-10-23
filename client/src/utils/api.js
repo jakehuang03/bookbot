@@ -50,13 +50,13 @@ export const fetchBook = (bookid) => api.get("/books/bookid");
 export const fetchBooks = () => api.get("/books/");
 export const fetchBooksBySearch = (searchQuery) =>
 	api.get(
-		`/books/search?searchQuery=${searchQuery.searchBook || "none"}&genre=${
+		`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
 			searchQuery.genre || "none"
 		}`
 	);
 
 export const askQuestion = (book, question) =>
 	api.get("/ask/", { params: { book: book, question: question } });
-export const saveAnswer = (body, config) =>
-	api.post("/bookbot/saveAnswer", body, config);
+export const saveAnswer = (formData, config) =>
+	api.post("/com/saveques", formData, config);
 export default api;

@@ -5,11 +5,6 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import ShareIcon from "@mui/icons-material/Share";
-import CommentIcon from "@mui/icons-material/Comment";
 import { CardHeader } from "@mui/material";
 
 function Source(props) {
