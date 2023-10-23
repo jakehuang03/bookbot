@@ -57,6 +57,6 @@ export const fetchBooksBySearch = (searchQuery) =>
 
 export const askQuestion = (book, question) =>
 	api.get("/ask/", { params: { book: book, question: question } });
-export const saveAnswer = (body, config) =>
-	api.post("/bookbot/saveAnswer", body, config);
+export const saveAnswer = (formData, config) =>
+	api.post("/com/saveques", formData, config);
 export default api;
