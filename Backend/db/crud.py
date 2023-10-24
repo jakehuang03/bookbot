@@ -36,16 +36,18 @@ def get_book_by_id(bookid: int):
     return db.query(database.Book).filter(database.Book.BookId == bookid).first()
 
 def get_book_by_name(bookname: str, genre:str):
-    query1 = db.query(database.Book).filter(database.Book.Genre.like('%' + genre + '%'))
-    query2 = db.query(database.Book).filter(database.Book.BookName.like('%' + bookname + '%'))
-    query3 = db.query(database.Book).all()
-    if bookname is None:
-        return query1.all()
-    elif genre is None:
-        return query2.all()
-    elif bookname is None and genre is None:
-        return query3
+    if bookname == 'none' and genre == 'none':
+        query = db.query(database.Book).all()
+        return query
+    elif genre == 'none':
+        query = db.query(database.Book).filter(database.Book.BookName.like('%' + bookname + '%'))
+        return query.all()
+    elif bookname == 'none':
+        query = db.query(database.Book).filter(database.Book.Genre == genre)
+        return query.all()
     else:
+        query1 = db.query(database.Book).filter(database.Book.BookName.like('%' + bookname + '%'))
+        query2 = db.query(database.Book).filter(database.Book.Genre == genre)
         combined_query = query1.union(query2)
         return combined_query.all()
 

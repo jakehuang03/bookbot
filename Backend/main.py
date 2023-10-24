@@ -1,8 +1,7 @@
 from fastapi import FastAPI, Request, HTTPException
 from router.api import api_router
 from fastapi.middleware.cors import CORSMiddleware
-
-from temp370Project.Backend.db.crud import get_book_by_name
+from db.crud import get_book_by_name
 
 app = FastAPI()
 origins = ["*"]
@@ -37,13 +36,14 @@ async def answer(book: str, question: str):
     result['question'] = question
     return result
 
-@app.get("/books/search")
-async def searchBar(request: Request):
-    try:
-        bookname = request.query_params.get("searchBook")
-        genre = request.query_params.get("genre")
+# @app.get("/books/search")
+# async def searchBar(request: Request):
+#     try:
+#         print(request)
+#         bookname = request.query_params.get("searchBook")
+#         genre = request.query_params.get("genre")
 
-        return get_book_by_name(bookname, genre)
-    except Exception as e:
-        raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
+#         return get_book_by_name(bookname, genre)
+#     except Exception as e:
+#         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
     

@@ -29,8 +29,13 @@ class WordSearch:
         api_dir = os.path.dirname(script_dir)
 
         # Constructing the absolute path to the file
-        filepath = os.path.join(api_dir, 'uploaded_files', self.bookname)
 
+        filepath = os.path.join(api_dir, 'uploaded_files')
+        filepath = os.path.join(filepath, self.bookname)
+        #print(filepath)
+        filepath = str(filepath).replace("upload_files", "uploaded_files")
+
+        #print(filepath)
         with open(filepath, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
             pages_text = [reader.pages[page_num].extract_text() for page_num in range(len(reader.pages))]
