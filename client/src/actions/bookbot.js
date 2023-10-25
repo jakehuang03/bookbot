@@ -6,7 +6,7 @@ import {
   SAVE_ANSWER,
 } from "./types";
 import * as api from "../utils/api";
-
+import { setAlert } from "./alert";
 export const selectBook = (book) => (dispatch) => {
   dispatch({ type: SELECT_BOOK, payload: book });
 };
@@ -31,11 +31,16 @@ export const saveAnswer = () => async (dispatch, getState) => {
   // console.log(auth);
   // const userid = auth.UserId;
   const userid = 1;
-  const bookid = 9;
+  const bookid = 19;
   const question = "dsfsdkfks";
   const answer = "sdfsdf";
+  if (!auth.user) {
+    dispatch(setAlert("Please Login", "danger"));
+    return;
+  }
   // const userid = auth.user.data.UserId;
   // const bookid = bookbot.selectedBook.id;
+  // console.log(typeof bookid);
   // const question = bookbot.question;
   // const answer = bookbot.answer[0].answer;
   // console.log(userid, bookid, question, answer);
@@ -51,6 +56,7 @@ export const saveAnswer = () => async (dispatch, getState) => {
   };
   try {
     const questionID = await api.saveAnswer(body, config);
+    console.log(questionID);
     dispatch({ type: SAVE_ANSWER });
   } catch (error) {
     console.log(error.message);

@@ -59,4 +59,7 @@ export const askQuestion = (book, question) =>
 	api.get("/ask/", { params: { book: book, question: question } });
 export const saveAnswer = (formData, config) =>
 	api.post("/com/saveques", formData, config);
+export const getQuestionByUser = (userID) => api.get(`/com/getquesbyuser/${userID}`);
+export const getQuestionByBook = (bookID) => api.get(`/com/getquesbybook/${bookID}`);
+export const getQuestion = () => api.get(`/com/getques/`);
 export default api;

@@ -36,7 +36,6 @@ export const getProfileByID = (userID) => async (dispatch) => {
 };
 
 // Create or update profile
-
 export const createProfile =
 	(avatar, bio, gender, creating) => async (dispatch) => {
 		try {
