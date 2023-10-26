@@ -67,3 +67,18 @@ export const createProfile =
 			});
 		}
 	};
+
+//save image
+export const saveAvatar = (image) => async (dispatch) => {
+	try {
+		// get secure url from server
+		const res = await api.getImageUploadURL();
+		const url = res.data[0];
+		// post the image to s3
+		console.log(url);
+	} catch (error) {
+		console.log(error);
+	}
+
+	// post url to server
+};

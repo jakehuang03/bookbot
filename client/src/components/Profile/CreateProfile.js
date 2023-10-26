@@ -2,7 +2,11 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProfile, getCurrentProfile } from "../../actions/profile";
+import {
+	createProfile,
+	getCurrentProfile,
+	saveAvatar,
+} from "../../actions/profile";
 
 /*
   NOTE: declare initialState outside of component
@@ -19,6 +23,7 @@ const ProfileForm = ({
 	profile: { profile, loading },
 	createProfile,
 	getCurrentProfile,
+	saveAvatar,
 }) => {
 	const [formData, setFormData] = useState(initialState);
 
@@ -34,7 +39,6 @@ const ProfileForm = ({
 		// then build our profileData
 
 		if (!loading && profile) {
-			console.log(profile);
 			const profileData = { ...initialState };
 			for (const key in profile) {
 				if (key in profileData) profileData[key] = profile[key];
@@ -44,16 +48,22 @@ const ProfileForm = ({
 		}
 	}, [loading, profile]);
 
-	const { bio, avatar, gender } = formData;
+	const { bio, gender } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
+		saveAvatar();
 		e.preventDefault();
 		createProfile(avatar, bio, gender, creatingProfile).then(() => {
 			navigate("/getprofile");
 		});
 	};
+
+	const [avatar, setAvatar] = useState();
+	function handleChange(e) {
+		setAvatar(URL.createObjectURL(e.target.files[0]));
+	}
 
 	return (
 		<section className='container'>
@@ -68,6 +78,13 @@ const ProfileForm = ({
 			</p>
 			<small>* = required field</small>
 			<form className='form' onSubmit={onSubmit}>
+				<div className='form-group'>
+					<h1 className='medium'>Add Image*</h1>
+					<input type='file' onChange={handleChange} />
+					<div>
+						<img src={avatar} className='round-img my-1' />
+					</div>
+				</div>
 				<div className='form-group'>
 					<h1 className='medium'>Gender*</h1>
 					<select name='gender' value={gender} onChange={onChange} required>
@@ -104,6 +121,8 @@ const mapStateToProps = (state) => ({
 	profile: state.profile,
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-	ProfileForm
-);
+export default connect(mapStateToProps, {
+	createProfile,
+	getCurrentProfile,
+	saveAvatar,
+})(ProfileForm);

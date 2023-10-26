@@ -13,8 +13,8 @@ export const LOGOUT = "LOGOUT";
 export const GET_PROFILE = "GET_PROFILE";
 export const PROFILE_ERROR = "PROFILE_ERROR";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
-export const ACCOUNT_DELETED = "ACCOUNT_DELETED";
 export const CLEAR_PROFILE = "CLEAR_PROFILE";
+export const ACCOUNT_DELETED = "ACCOUNT_DELETED";
 
 export const CREATE_BOOK = "CREATE_BOOK";
 export const FETCH_BY_SEARCH = "FETCH_BY_SEARCH";
