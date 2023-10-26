@@ -23,11 +23,19 @@ export default function AskQuestion(props) {
     dispatch(askQuestion(book, question, navigate));
   };
 
+  const handleKeyPress = (event) => {
+    if(event.keyCode === 13) {
+        event.preventDefault();
+        Asked();
+    }
+  }
+
   return (
       <Paper component="form" elevation={8} sx={{ height: "50px", display: "flex", alignItems: "center", mt: 2 }}>
       <InputBase
         sx={{ ml: 2, flex: 1 }}
         placeholder="Ask a question"
+        onKeyDown={handleKeyPress}
         onChange={(e) => {
           setQuestion(e.target.value);
         }}
