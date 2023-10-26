@@ -95,12 +95,15 @@ async def read_users_me(current_user: Annotated[dict, Depends(get_current_user)]
 @router.post("/createprofile")
 async def create_profile(
     current_user: Annotated[dict, Depends(get_current_user)],
+    name: str = Form(),
     bio: str = Form(),
     avatar: str = Form(),
     gender: str = Form(),
 ):
     userid = current_user["UserId"]
-    db.crud.create_user_profile(userid=userid, bio=bio, avatar=avatar, gender=gender)
+    db.crud.create_user_profile(
+        userid=userid, name=name, bio=bio, avatar=avatar, gender=gender
+    )
     return {"msg": "profile created"}
 
 
