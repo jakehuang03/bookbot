@@ -3,7 +3,7 @@ import { connect, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
 import decode from "jwt-decode";
-import logo from "../../images/Logo.png";
+import logo from "../../images/bookbot_logo.png";
 import {
 	Box,
 	MenuItem,
@@ -128,7 +128,7 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
 		<div>
 			<nav className='navbar'>
 				<Link to='/'>
-					<img src={logo} alt='icon' height={50} />
+					<img src={logo} alt='icon' height={120} />
 				</Link>
 				{
 					<Fragment>
