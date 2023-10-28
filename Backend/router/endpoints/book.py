@@ -19,3 +19,13 @@ async def upload_file(
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
     
+@router.get("/search")
+async def searchBar(searchBook: str, genre: str):
+    try:
+        book = db.crud.get_book_by_name(searchBook, genre)
+        if not book:
+            raise HTTPException(status_code=404, detail="Book not found")
+        return book
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"An error occurred: {e}")
+    

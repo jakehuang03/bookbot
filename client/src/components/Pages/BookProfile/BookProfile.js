@@ -11,10 +11,10 @@ import { Container, Grid, Box, Typography } from "@mui/material";
 
 const TempBook = {
   id: 1,
-  title: "b.pdf",
+  title: "The Elements of Scrum.pdf",
   author: "Chris Sims",
   description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+    "A comprehensive guide to Scrum, breaking it down into its essential components. The book explores the key roles within Scrum, including the Product Owner, ScrumMaster, and Development Team, as well as the critical artifacts such as the Product Backlog, Sprint Backlog, and Increment.",
   image: "https://source.unsplash.com/random?wallpapers",
 };
 //1) get past questions for the book from database based on book id
