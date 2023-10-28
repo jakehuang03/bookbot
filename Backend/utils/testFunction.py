@@ -1,7 +1,7 @@
 import os
-from ToLLM.localLLMCall import localcall
-from preLLM.KeyWordHuggingFace import extract
-from preLLM.WordSearch import WordSearch
+from utils.ToLLM.localLLMCall import localcall
+from utils.preLLM.KeyWordHuggingFace import extract
+from utils.preLLM.WordSearch import WordSearch
 
 def callwithquestions(file, question):
 

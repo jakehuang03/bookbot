@@ -1,27 +1,18 @@
 import os
 import shutil
 from pathlib import Path
-import uvicorn
-from fastapi import FastAPI, HTTPException, Request, UploadFile,File
+from fastapi import APIRouter, HTTPException, Request, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from preLLM.refactorexp import store_tensor_in_db, SessionLocal
-from testFunction import ask_questions
+from utils.preLLM import store_tensor_in_db, SessionLocal
+from utils.testFunction import ask_questions
 import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
 import PyPDF2
 
-app = FastAPI()
+router = APIRouter()
 
-origins = ["*"] 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
-@app.get("/ask")
+@router.get("/ask")
 async def ask_question(request: Request):
     try:
         book = request.query_params.get("book")
@@ -33,11 +24,11 @@ async def ask_question(request: Request):
     except KeyError as e:
         raise HTTPException(status_code=400, detail=f"Missing field: {e}")
 
-@app.post("/books2")
+@router.post("/books2")
 async def upload_file(file: UploadFile = File(...)):
     try:
 
-        upload_folder = Path("api/uploaded_files")
+        upload_folder = Path("./uploaded_files")
         upload_folder.mkdir(exist_ok=True)
 
         with (upload_folder / file.filename).open("wb") as buffer:
@@ -51,7 +42,7 @@ async def upload_file(file: UploadFile = File(...)):
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
     
 
-@app.post("/books")
+@router.post("/books")
 async def upload_file(file: UploadFile = File(...)):
     try:
         # Save the uploaded file locally
@@ -88,6 +79,3 @@ async def upload_file(file: UploadFile = File(...)):
 
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
