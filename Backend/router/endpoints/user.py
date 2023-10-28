@@ -45,6 +45,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     return {
         "userID": user["UserId"],
         "access_token": access_token,
+        "name": user["UserName"], 
         "token_type": "bearer",
     }
 
