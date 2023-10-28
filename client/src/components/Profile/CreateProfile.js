@@ -90,7 +90,7 @@ const ProfileForm = ({
 					<h1 className='medium'>Add Image*</h1>
 					<input type='file' onChange={handleChange} />
 					<div>
-						{avatar && <img src={avatar} className='round-img my-1 avatar' />}
+						{avatar && <img src={avatar} alt="avatar" className='round-img my-1 avatar' />}
 					</div>
 				</div>
 				<div className='form-group'>

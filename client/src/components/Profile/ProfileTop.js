@@ -10,9 +10,9 @@ const ProfileTop = ({ profile }) => {
 			<img className='round-img my-1' src={avatar} alt='a' />
 			<h1 className='large'>{profile.profile.nickname}</h1>
 			<p className='lead'>
-				{profile.profile.gender == "Female" ? (
+				{profile.profile.gender === "Female" ? (
 					<i className='fas fa-female'></i>
-				) : profile.profile.gender == "Male" ? (
+				) : profile.profile.gender === "Male" ? (
 					<i className='fas fa-male'></i>
 				) : (
 					<i className='fas fa-genderless'></i>
