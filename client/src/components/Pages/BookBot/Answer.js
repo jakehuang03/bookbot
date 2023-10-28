@@ -11,7 +11,7 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import CommentIcon from "@mui/icons-material/Comment";
+import ShareIcon from "@mui/icons-material/Share";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
@@ -26,8 +26,8 @@ function Answer(props) {
       setSave(true);
   };
   //TODO: Save the comment to user profile and question
-  const Comment = () => {
-    console.log("Commented!");
+  const Share = () => {
+    console.log("Shared!");
   };
 
   const More = () => {
@@ -60,8 +60,8 @@ function Answer(props) {
               <BookmarkBorderIcon/>
             </IconButton>
           )}
-          <IconButton aria-label="Comment" onClick={Comment}>
-            <CommentIcon />
+          <IconButton aria-label="Share" onClick={Share}>
+            <ShareIcon />
           </IconButton>
         </CardActions>
       </Card>
