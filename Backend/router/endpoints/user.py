@@ -5,7 +5,7 @@ from typing import Annotated, Union
 from fastapi import APIRouter, Depends, HTTPException, File, Form, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
-from .s3 import generateUploadURL
+#from .s3 import generateUploadURL
 
 
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
@@ -91,30 +91,18 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
 async def read_users_me(current_user: Annotated[dict, Depends(get_current_user)]):
     return current_user
 
-
 @router.post("/createprofile")
-async def create_profile(
-    current_user: Annotated[dict, Depends(get_current_user)],
-    bio: str = Form(),
-    avatar: str = Form(),
-    gender: str = Form(),
-):
+async def create_profile(current_user: Annotated[dict, Depends(get_current_user)], bio: str = Form(), avatar: str = Form(), gender: str = Form()):
     userid = current_user["UserId"]
     db.crud.create_user_profile(userid=userid, bio=bio, avatar=avatar, gender=gender)
     return {"msg": "profile created"}
 
-
 @router.get("/getprofile")
 async def get_profile(current_user: Annotated[dict, Depends(get_current_user)]):
-    return {
-        "nickname": current_user["UserName"],
-        "gender": current_user["Gender"],
-        "bio": current_user["UserBio"],
-        "avatar": current_user["Avatar"],
-    }
+    return {"nickname": current_user["UserName"],
+            "gender": current_user["Gender"],
+            "bio": current_user["UserBio"],
+            "avatar": current_user["Avatar"]}
 
 
-# get secured url to save image
-@router.get("/s3url")
-async def get_secured_URL():
-    return {generateUploadURL()}
+

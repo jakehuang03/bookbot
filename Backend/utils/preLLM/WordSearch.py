@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import re
 import string
 import tensorflow as tf
@@ -22,18 +23,21 @@ class WordSearch:
         #folder_path = "./uploaded_files"
         #filepath = f"{folder_path}/{self.bookname}"
 
-        # Getting the directory where the script is located
-        script_dir = os.path.dirname(os.path.abspath(__file__))
+        endfile = self.bookname + ".pdf"
+        
+        # Get the current directory of the script
+        current_directory = Path(__file__).parent
 
-        # Going one directory up to reach the 'api' directory from 'preLLM'
-        api_dir = os.path.dirname(script_dir)
-
-        # Constructing the absolute path to the file
-
-        filepath = os.path.join(api_dir, 'uploaded_files')
-        filepath = os.path.join(filepath, self.bookname)
-        #print(filepath)
+        # Move up to the 'backend' directory
+        backend_directory = current_directory.parent.parent
+        
+        filepath =backend_directory / "uploaded_files" / endfile
+        
+        print(filepath)
+        
         filepath = str(filepath).replace("upload_files", "uploaded_files")
+        
+        filepath = filepath.replace("\\utils", "")
 
         #print(filepath)
         with open(filepath, 'rb') as file:
