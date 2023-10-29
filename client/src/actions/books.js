@@ -41,6 +41,15 @@ export const getBooks = () => async(dispatch) => {
     console.log(error.message);
   }
 }
+export const getMyBooks = (userId) => async(dispatch) => {
+  try {
+    const {data} = await api.fetchMyBooks(userId)
+    dispatch({type: FETCH_BOOKS, payload: data});
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
 
 export const getBooksBySearch = (searchQuery) => async(dispatch) => {
   try {

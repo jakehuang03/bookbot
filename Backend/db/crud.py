@@ -44,8 +44,10 @@ def get_books():
     return db.query(database.Book).all()
 
 def get_book_by_id(bookid: int):
-    return db.query(database.Book).filter(database.Book.BookId == bookid).first()
+    return db.query(database.Book).filter(database.Book.BooSkId == bookid).first()
 
+def get_my_books(userId: int):
+    return db.query(database.Book).filter(database.Book.UserId == userId).all()
 
 def get_book_by_name(bookname: str, genre: str):
     if bookname == "none" and genre == "none":
