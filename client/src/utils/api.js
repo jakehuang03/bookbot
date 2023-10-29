@@ -40,7 +40,7 @@ export const register = (formData) => api.post("/user/signup", formData);
 export const login = (body, config) => api.post("/user/token", body, config);
 export const auth = () => api.get("/user/me");
 export const createBook = (formData, config) =>
-	api.post("/books/", formData, config);
+	api.post("/books", formData, config);
 
 export const createProfile = (formData, config) =>
 	api.post("/user/createprofile", formData, config);

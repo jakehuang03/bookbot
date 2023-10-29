@@ -14,14 +14,12 @@ function Book(props) {
   const image = book?.image ? book.image : defaultCover;
 
   const handleImageError = (e) => {
-    console.log("here")
     e.target.onerror = null; 
-    e.target.src = "https://covers.openlibrary.org/b/isbn/9780385533225-S.jpg";
+    e.target.src = defaultCover;
   }
   
   return (
     <Grid item xs={6} md={3}>
-      {/* TODO: Change to book profile for each book */}
       <CardActionArea component={RouterLink} to={`/books/${book.BookId}`}>
         <Card>
           <CardMedia

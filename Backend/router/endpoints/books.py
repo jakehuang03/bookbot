@@ -3,17 +3,18 @@ from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 
 router = APIRouter()
 
-@router.post("/savebook")
+@router.post("")
 async def upload_file(
     title: str = Form(...),
     author: str = Form(None),
     summary: str = Form(None),
     userid: int = Form(None),
+    genre: str = Form(None),
     file: UploadFile = File(...),
 ):
     try:
         id = db.crud.create_book(
-            name=title, author=author, summary=summary, userid=userid
+            name=title, author=author, summary=summary, userid=userid, genre=genre
         )
         return {"msg": "book uploaded", "bookid": id}
     except Exception as e:
