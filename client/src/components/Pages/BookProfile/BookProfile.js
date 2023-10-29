@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import CurrentBook from "./CurrentBook";
 import PastQuestion from "./PastQuestion";
 import AskQuestion from "./AskQuestion";
 
 import { selectBook } from "../../../actions/bookbot";
-
+import { getQuestionByBook } from "../../../actions/community";
 import { Container, Grid, Box, Typography } from "@mui/material";
 
 const TempBook = {
@@ -51,8 +51,9 @@ function BookProfile() {
   const { bookid } = useParams();
   const dispatch = useDispatch();
   dispatch(selectBook(TempBook));
+  // TODO: get past questions for the book from database based on book id
+  dispatch(getQuestionByBook(bookid));
 
-  
   return (
     <Container>
       <CurrentBook book={TempBook} />

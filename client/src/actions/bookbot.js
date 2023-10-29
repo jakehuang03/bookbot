@@ -16,12 +16,11 @@ export const askQuestion = (book, question, navigate) => async (dispatch) => {
   dispatch({ type: ASK_QUESTION, payload: question });
   try {
     const answer = await api.askQuestion(book.title, question);
-    // console.log(answer.data.answer);
     dispatch({ type: ANSWER_SUCCESS, payload: answer.data.answer });
     dispatch({ type: SOURCE_SUCCESS, payload: answer.data.extractedpar });
     navigate("/bookbot");
   } catch (error) {
-    console.log(error.message);
+    dispatch(setAlert("Ask Question Fail", "danger"));
   }
 };
 
@@ -59,6 +58,6 @@ export const saveAnswer = () => async (dispatch, getState) => {
     console.log(questionID);
     dispatch({ type: SAVE_ANSWER });
   } catch (error) {
-    console.log(error.message);
+    dispatch(setAlert("Save Answer Fail", "danger"));
   }
 };
