@@ -27,22 +27,15 @@ export const askQuestion = (book, question, navigate) => async (dispatch) => {
 export const saveAnswer = () => async (dispatch, getState) => {
   
   const { auth, bookbot } = getState();
-  // console.log(auth);
-  // const userid = auth.UserId;
-  const userid = 1;
-  const bookid = 1;
-  const question = "dsfsdkadfks";
-  const answer = "sdfsdf";
+  //bookid and userid must already be in the database
   if (!auth.user) {
     dispatch(setAlert("Please Login", "danger"));
     return;
   }
-  // const userid = auth.user.data.UserId;
-  // const bookid = bookbot.selectedBook.id;
-  // console.log(typeof bookid);
-  // const question = bookbot.question;
-  // const answer = bookbot.answer[0].answer;
-  // console.log(userid, bookid, question, answer);
+  const userid = auth.user.data.UserId;
+  const bookid = bookbot.selectedBook.id;
+  const question = bookbot.question;
+  const answer = bookbot.answer[0].answer;
   var body = new URLSearchParams();
   body.append("userid", userid);
   body.append("bookid", bookid);
@@ -54,8 +47,8 @@ export const saveAnswer = () => async (dispatch, getState) => {
     },
   };
   try {
-    const questionID = await api.saveAnswer(body, config);
-    console.log(questionID);
+    const res = await api.saveAnswer(body, config);
+    // console.log(questionID);
     dispatch({ type: SAVE_ANSWER });
   } catch (error) {
     dispatch(setAlert("Save Answer Fail", "danger"));

@@ -44,7 +44,7 @@ export default function bookbot(state = initialState, action) {
         extractedpar: payload,
       };
     case SAVE_ANSWER:
-      sessionStorage.setItem("saved", true);
+      Storage.setItem("saved", true);
       return { ...state, saved: true };
     default:
       return state;
