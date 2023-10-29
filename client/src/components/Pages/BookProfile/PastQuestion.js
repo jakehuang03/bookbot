@@ -14,21 +14,10 @@ import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Link as RouterLink } from "react-router-dom";
+
 function PastQuestion(props) {
   const { pastQuestion } = props;
-
-  //TODO: Save the question to user profile
-  const Save = () => {
-    console.log("Saved!");
-  };
-  //TODO: Save the comment to user profile and question
-  const Comment = () => {
-    console.log("Commented!");
-  };
-
-  const More = () => {
-    console.log("More!");
-  };
 
   const User = () => {
     console.log("User!");
@@ -46,7 +35,7 @@ function PastQuestion(props) {
           title={pastQuestion.userAsked}
           subheader={pastQuestion.timeAsked}
         />
-        <CardActionArea onClick={More}>
+        <CardActionArea component={RouterLink} to={`/posts/${pastQuestion.id}`}>
           <CardContent>
             <Typography variant="h5" align="left" sx={{ fontWeight: "bold" }}>
               {pastQuestion.question}
@@ -56,14 +45,6 @@ function PastQuestion(props) {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <IconButton aria-label="Bookmark" onClick={Save}>
-            <BookmarkBorderIcon />
-          </IconButton>
-          <IconButton aria-label="Comment" onClick={Comment}>
-            <CommentIcon />
-          </IconButton>
-        </CardActions>
       </Card>
     </Grid>
   );

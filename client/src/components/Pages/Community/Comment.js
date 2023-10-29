@@ -16,8 +16,8 @@ import CardHeader from "@mui/material/CardHeader";
 import { TextField } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
-function Post(props) {
-  const { post } = props;
+function Comment(props) {
+  const { comment } = props;
   // get user profile from database based on user id
   const user = {
     id: 1,
@@ -36,44 +36,26 @@ function Post(props) {
 
   return (
     <Grid item xs={12} md={12}>
-      <Card>
-        <CardHeader
-          align="left"
-          avatar={
-            <IconButton onClick={User}>
-              <Avatar sx={{ bgcolor: red[500] }}>R</Avatar>
-            </IconButton>
-          }
-          title={user.name}
-          subheader={post.date}
-        />
-        <CardActionArea component={RouterLink} to={`/posts/${post.id}`}>
-          <CardContent>
-            <Typography variant="h5" align="left" sx={{ fontWeight: "bold" }}>
-              {post.question}
-            </Typography>
-            <Typography variant="subtitle1" align="left" paragraph>
-              {post.answer}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button component={RouterLink} to={`/books/${book.id}`}>{book.title} </Button>
-        </CardActions>
+      <Card sx={{p:1}}>
+        <IconButton onClick={User} sx={{ display: 'inline' }}>
+          <Avatar sx={{ bgcolor: red[500] }}>R</Avatar>
+        </IconButton>
+        <Typography variant="subtitle1" align="left" sx={{ display: 'inline' , m: 1}} paragraph>
+          {comment.comment}
+        </Typography>
       </Card>
     </Grid>
   );
 }
 
-Post.propTypes = {
-  post: PropTypes.shape({
+Comment.propTypes = {
+  comment: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    userid: PropTypes.number.isRequired,
-    bookid: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    question: PropTypes.string.isRequired,
-    answer: PropTypes.string.isRequired,
+    // userid: PropTypes.number.isRequired,
+    // questionid: PropTypes.string.isRequired,
+    // date: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default Post;
+export default Comment;
