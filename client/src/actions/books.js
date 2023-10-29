@@ -44,7 +44,7 @@ export const getBooks = () => async(dispatch) => {
 
 export const getBooksBySearch = (searchQuery) => async(dispatch) => {
   try {
-    const {data: {data}} = await api.fetchBooksBySearch(searchQuery);
+    const {data} = await api.fetchBooksBySearch(searchQuery);
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
   }
   catch (error) {
