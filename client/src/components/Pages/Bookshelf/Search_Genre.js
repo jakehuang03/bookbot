@@ -63,10 +63,10 @@ export default function SearchBar() {
 
       <div>
       <button
-        className={selectedGenre === "Genre 1" ? "selected" : ""}
-        onClick={() => handleGenreClick("Genre 1")}
+        className={selectedGenre === "Fiction" ? "selected" : ""}
+        onClick={() => handleGenreClick("Fiction")}
       >
-        Genre 1
+        Fiction
       </button>
       <button
         className={selectedGenre === "Genre 2" ? "selected" : ""}

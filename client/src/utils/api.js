@@ -40,14 +40,14 @@ export const register = (formData) => api.post("/user/signup", formData);
 export const login = (body, config) => api.post("/user/token", body, config);
 export const auth = () => api.get("/user/me");
 export const createBook = (formData, config) =>
-	api.post("/books/", formData, config);
+	api.post("/books", formData, config);
 
 export const createProfile = (formData, config) =>
 	api.post("/user/createprofile", formData, config);
 export const getProfile = () => api.get("/user/getprofile");
 
 export const fetchBook = (bookid) => api.get("/books/bookid");
-export const fetchBooks = () => api.get("/books/");
+export const fetchBooks = () => api.get("/books");
 export const fetchBooksBySearch = (searchQuery) =>
 	api.get(
 		`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
