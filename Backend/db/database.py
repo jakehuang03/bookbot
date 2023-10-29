@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Boolean, Column, ForeignKey, Integer, String, TIMESTAMP
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.orm import sessionmaker
+import datetime
 
 SQLALCHEMY_DATABASE_URL = "mysql+pymysql://root:Bookbot123456!@104.198.232.175:3306/bookbot"
 
@@ -34,7 +35,7 @@ class Book(Base):
     UserId = Column(Integer, ForeignKey("user.UserId"))
     Author = Column(String)
     Genre = Column(String)
-    CreateTime = Column(TIMESTAMP)
+    CreateTime = Column(TIMESTAMP,default=datetime.datetime.now)
 
     question = relationship("Question", backref="book_question")
 
@@ -46,7 +47,7 @@ class Question(Base):
     QuestionAnswer = Column(String)
     UserId = Column(Integer, ForeignKey("user.UserId"))
     BookId = Column(Integer, ForeignKey("book.BookId"))
-    CreateTime = Column()
+    CreateTime = Column(TIMESTAMP,default=datetime.datetime.now)
 
     # answer = relationship("Answer", backref="quest_answer")
 
