@@ -49,6 +49,16 @@ class Question(Base):
     BookId = Column(Integer, ForeignKey("book.BookId"))
     CreateTime = Column(TIMESTAMP,default=datetime.datetime.now)
 
+    comment = relationship("Comment", backref="book_comment")
+
+class Comment(Base):
+    __tablename__ = "comment"
+
+    CommentId = Column(Integer, primary_key=True, index=True)
+    Content = Column(String)
+    QuestionId = Column(Integer, ForeignKey("question.QuestionId"))
+    CreateTime = Column(TIMESTAMP,default=datetime.datetime.now)
+
     # answer = relationship("Answer", backref="quest_answer")
 
 # class Answer(Base):

@@ -93,9 +93,29 @@ def get_question_by_bookid(bookid:int):
         quelis.append(i.__dict__)
     return quelis
 
+def get_question_by_questionid(questionid:int):
+    ques = db.query(database.Question).filter(database.Question.QuestionId==questionid).first()
+    return ques.__dict__
+
 def get_question_all():
     ques = db.query(database.Question)
     quelis = []
     for i in ques:
         quelis.append(i.__dict__)
     return quelis
+
+def create_comment(quesid: int, content: str):
+    db_comment = database.Comment(
+        QuestionId=quesid, Content=content
+    )
+    db.add(db_comment)
+    db.commit()
+    db.refresh(db_comment)
+    return db_comment.CommentId
+
+def get_comment_by_questionid(questionid:int):
+    comment = db.query(database.Comment).filter(database.Comment.QuestionId == questionid).all()
+    commentlis = []
+    for i in comment:
+        commentlis.append(i.__dict__)
+    return commentlis
