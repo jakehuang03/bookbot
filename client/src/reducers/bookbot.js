@@ -4,10 +4,12 @@ import {
   ANSWER_SUCCESS,
   SOURCE_SUCCESS,
     SAVE_ANSWER,
+  GET_QUESTION_BOOK,
 } from "../actions/types";
 
 const initialState = {
   selectedBook: [],
+  pastQuestion: [],
   question: [],
   answer: [],
   extractedpar: [],
@@ -20,6 +22,9 @@ export default function bookbot(state = initialState, action) {
     case SELECT_BOOK:
       sessionStorage.setItem("selectedBook", JSON.stringify(payload));
       return { ...state, selectedBook: payload };
+    case GET_QUESTION_BOOK:
+      sessionStorage.setItem("pastQuestion", JSON.stringify(payload));
+      return { ...state, pastQuestion: payload };
     case ASK_QUESTION:
       sessionStorage.setItem("question", JSON.stringify(payload));
       return {

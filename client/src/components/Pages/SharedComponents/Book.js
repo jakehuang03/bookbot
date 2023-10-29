@@ -7,30 +7,37 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Link as RouterLink } from "react-router-dom";
+import defaultCover from '../../../images/Default Book Cover.jpg';
 
 function Book(props) {
   const { book } = props;
- 
+  const image = book?.image ? book.image : defaultCover;
+
+  const handleImageError = (e) => {
+    e.target.onerror = null; 
+    e.target.src = defaultCover;
+  }
+  
   return (
     <Grid item xs={6} md={3}>
-      {/* TODO: Change to book profile for each book */}
-      <CardActionArea component={RouterLink} to={`/books/${book.id}`}>
+      <CardActionArea component={RouterLink} to={`/books/${book.BookId}`}>
         <Card>
           <CardMedia
             component="img"
-            alt={book.title}
+            alt={book.BookName}
             height='160'
-            image={book.image}
+            image={image}
+            onError={handleImageError}
           />
           <CardContent>
             <Typography variant="h5" component="div">
-              {book.title}
+              {book.BookName}
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {book.author}
+              {book.Author}
             </Typography>
             <Typography variant="h6" noWrap>
-              {book.description}
+              {book.BookContent}
             </Typography>
           </CardContent>
         </Card>
@@ -41,11 +48,11 @@ function Book(props) {
 
 Book.propTypes = {
   book: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    BookId: PropTypes.number.isRequired,
+    BookName: PropTypes.string.isRequired,
+    Author: PropTypes.string.isRequired,
+    BookContent: PropTypes.string.isRequired,
+    // image: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -37,7 +37,7 @@ export default function au(state = initialState, action) {
 		case LOGIN_SUCCESS:
 			localStorage.setItem(
 				"profile",
-				JSON.stringify({ token: payload.access_token, user: payload.userID })
+				JSON.stringify({ token: payload.access_token, user: payload.userID, name: payload.name })
 			);
 
 			return {

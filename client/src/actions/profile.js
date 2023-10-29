@@ -37,9 +37,10 @@ export const getProfileByID = (userID) => async (dispatch) => {
 
 // Create or update profile
 export const createProfile =
-	(avatar, bio, gender, creating) => async (dispatch) => {
+	(name, avatar, bio, gender, creating) => async (dispatch) => {
 		try {
 			var body = new URLSearchParams();
+			body.append("name", name);
 			body.append("bio", bio);
 			body.append("avatar", avatar);
 			body.append("gender", gender);

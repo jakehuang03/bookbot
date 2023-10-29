@@ -14,6 +14,7 @@ import {
   we can then safely use this to construct our profileData
  */
 const initialState = {
+	nickname: "",
 	gender: "",
 	bio: "",
 	avatar: "",
@@ -47,23 +48,21 @@ const ProfileForm = ({
 			setFormData(profileData);
 		}
 	}, [loading, profile]);
-
-	const { bio, gender } = formData;
+	const [avatar, setAvatar] = useState();
+	function handleChange(e) {
+		setAvatar(URL.createObjectURL(e.target.files[0]));
+	}
+	const { nickname, bio, gender } = formData;
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
 		saveAvatar();
 		e.preventDefault();
-		createProfile(avatar, bio, gender, creatingProfile).then(() => {
+		createProfile(nickname, avatar, bio, gender, creatingProfile).then(() => {
 			navigate("/getprofile");
 		});
 	};
-
-	const [avatar, setAvatar] = useState();
-	function handleChange(e) {
-		setAvatar(URL.createObjectURL(e.target.files[0]));
-	}
 
 	return (
 		<section className='container'>
@@ -79,10 +78,19 @@ const ProfileForm = ({
 			<small>* = required field</small>
 			<form className='form' onSubmit={onSubmit}>
 				<div className='form-group'>
+					<h1 className='medium'>User Name*</h1>
+					<input
+						type='text'
+						name='nickname'
+						value={nickname}
+						onChange={onChange}
+					/>
+				</div>
+				<div className='form-group'>
 					<h1 className='medium'>Add Image*</h1>
 					<input type='file' onChange={handleChange} />
 					<div>
-						<img src={avatar} className='round-img my-1' />
+						{avatar && <img src={avatar} alt="avatar" className='round-img my-1 avatar' />}
 					</div>
 				</div>
 				<div className='form-group'>

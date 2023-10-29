@@ -40,14 +40,14 @@ export const register = (formData) => api.post("/user/signup", formData);
 export const login = (body, config) => api.post("/user/token", body, config);
 export const auth = () => api.get("/user/me");
 export const createBook = (formData, config) =>
-	api.post("/books/", formData, config);
+	api.post("/books", formData, config);
 
 export const createProfile = (formData, config) =>
 	api.post("/user/createprofile", formData, config);
 export const getProfile = () => api.get("/user/getprofile");
 
 export const fetchBook = (bookid) => api.get("/books/bookid");
-export const fetchBooks = () => api.get("/books/");
+export const fetchBooks = () => api.get("/books");
 export const fetchBooksBySearch = (searchQuery) =>
 	api.get(
 		`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
@@ -56,7 +56,7 @@ export const fetchBooksBySearch = (searchQuery) =>
 	);
 
 export const askQuestion = (book, question) =>
-	api.get("/ask/", { params: { book: book, question: question } });
+	api.get("/bookbot/ask/", { params: { book: book, question: question } });
 export const saveAnswer = (formData, config) =>
 	api.post("/com/saveques", formData, config);
 
@@ -67,5 +67,6 @@ export const getQuestionByUser = (userID) =>
 export const getQuestionByBook = (bookID) =>
 	api.get(`/com/getquesbybook/${bookID}`);
 export const getQuestion = () => api.get(`/com/getques/`);
+// return list of dicts [{userid: int, bookid: int, question: str, answer: str, date: date}]
 
 export default api;

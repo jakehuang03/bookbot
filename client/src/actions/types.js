@@ -19,6 +19,7 @@ export const ACCOUNT_DELETED = "ACCOUNT_DELETED";
 export const CREATE_BOOK = "CREATE_BOOK";
 export const FETCH_BY_SEARCH = "FETCH_BY_SEARCH";
 export const FETCH_BOOK = "FETCH_BOOK";
+export const FETCH_BOOKS = "FETCH_BOOKS";
 
 export const SELECT_BOOK = "SELECT_BOOK";
 export const ASK_QUESTION = "ASK_QUESTION";
@@ -30,3 +31,5 @@ export const SAVE_ANSWER = "SAVE_ANSWER";
 export const GET_QUESTION = "GET_QUESTION";
 export const GET_QUESTION_USER = "GET_QUESTION_USER";
 export const GET_QUESTION_BOOK = "GET_QUESTION_BOOK";
+
+export const SELECT_POST = "SELECT_POST";

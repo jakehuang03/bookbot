@@ -25,7 +25,7 @@ import FileUpload from "./components/Pages/Home/FileUpload";
 import store from "./store";
 import { CLEAR_PROFILE, LOGOUT } from "./actions/types";
 import Holder from "./components/Profile/Holder";
-
+import PostDetail from "./components/Pages/Community/PostDetail";
 const App = () => {
 	useEffect(() => {
 		store.dispatch(loadUser());
@@ -149,7 +149,14 @@ const App = () => {
 							</section>
 						}
 					/>
-
+					<Route
+						path='/posts/:postid'
+						element={
+							<section className='container'>
+								<PostDetail />
+							</section>
+						}
+					/>
 					{/* Default redirect to home */}
 					<Route path='*' element={<Navigate to='/' />} />
 				</Routes>
