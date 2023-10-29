@@ -8,7 +8,7 @@ async def upload_file(
     title: str = Form(...),
     author: str = Form(None),
     summary: str = Form(None),
-    userid: int = Form(None),
+    userid: int = Form(...),
     genre: str = Form(None),
     file: UploadFile = File(...),
 ):
