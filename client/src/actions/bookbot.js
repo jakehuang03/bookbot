@@ -25,7 +25,6 @@ export const askQuestion = (book, question, navigate) => async (dispatch) => {
 };
 
 export const saveAnswer = () => async (dispatch, getState) => {
-  
   const { auth, bookbot } = getState();
   //bookid and userid must already be in the database
   if (!auth.user) {
@@ -48,7 +47,6 @@ export const saveAnswer = () => async (dispatch, getState) => {
   };
   try {
     const res = await api.saveAnswer(body, config);
-    // console.log(questionID);
     dispatch({ type: SAVE_ANSWER });
   } catch (error) {
     dispatch(setAlert("Save Answer Fail", "danger"));

@@ -25,7 +25,6 @@ export const SELECT_BOOK = "SELECT_BOOK";
 export const ASK_QUESTION = "ASK_QUESTION";
 export const ANSWER_SUCCESS = "ANSWER_SUCCESS";
 export const SOURCE_SUCCESS = "SOURCE_SUCCESS";
-
 export const SAVE_ANSWER = "SAVE_ANSWER";
 
 export const GET_QUESTION = "GET_QUESTION";
@@ -33,3 +32,4 @@ export const GET_QUESTION_USER = "GET_QUESTION_USER";
 export const GET_QUESTION_BOOK = "GET_QUESTION_BOOK";
 
 export const SELECT_POST = "SELECT_POST";
+export const SAVE_COMMENT = "SAVE_COMMENT";

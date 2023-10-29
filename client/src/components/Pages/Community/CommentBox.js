@@ -1,16 +1,18 @@
 import React, { useState, useRef } from "react";
-import { Container, IconButton, InputBase } from "@mui/material";
-import Divider from "@mui/material/Divider";
+import { IconButton, InputBase } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ClearIcon from "@mui/icons-material/Clear";
 import Avatar from "@mui/material/Avatar";
+import { saveComment } from "../../../actions/community";
+import { useDispatch } from "react-redux";
 const CommentBox = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   const [commentValue, setCommentValue] = useState("");
 
   const [ rows, setRows ] = useState("1");
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     setCommentValue(e.target.value);
@@ -22,7 +24,7 @@ const CommentBox = () => {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    dispatch(saveComment(commentValue));
     console.log("send the form data somewhere");
   };
 

@@ -68,8 +68,11 @@ export const getQuestionByUser = (userID) =>
 export const getQuestionByBook = (bookID) =>
   api.get(`/com/getquesbybook/${bookID}`);
 export const getQuestion = () => api.get(`/com/getques/`);
+
+export const saveComment = (formData, config) =>
+  api.post("/com/savecomment", formData, config);
 export const getQuesCommentByID = (questionID) =>
   api.get(`/com/getquescomment/${questionID}`);
-// return question and list of comments
+// return {"question": {questioninstance}, "comments": [{}]}
 
 export default api;

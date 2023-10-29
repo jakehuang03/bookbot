@@ -28,7 +28,6 @@ function BookProfile() {
   // get past questions for the book from database based on book id
   dispatch(getQuestionByBook(bookid));
   const QuestionList = JSON.parse(sessionStorage.getItem("pastQuestion"));
-  console.log(QuestionList)
   return (
     <Container>
       <CurrentBook book={TempBook} />
