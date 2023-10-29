@@ -34,6 +34,7 @@ class Book(Base):
     UserId = Column(Integer, ForeignKey("user.UserId"))
     Author = Column(String)
     Genre = Column(String)
+    CreateTime = Column()
 
     question = relationship("Question", backref="book_question")
 
@@ -45,6 +46,7 @@ class Question(Base):
     QuestionAnswer = Column(String)
     UserId = Column(Integer, ForeignKey("user.UserId"))
     BookId = Column(Integer, ForeignKey("book.BookId"))
+    CreateTime = Column()
 
     # answer = relationship("Answer", backref="quest_answer")
 

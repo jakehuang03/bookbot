@@ -57,7 +57,7 @@ export const fetchBooksBySearch = (searchQuery) =>
 	);
 
 export const askQuestion = (book, question) =>
-	api.get("/ask/", { params: { book: book, question: question } });
+	api.get("/bookbot/ask/", { params: { book: book, question: question } });
 export const saveAnswer = (formData, config) =>
 	api.post("/com/saveques", formData, config);
 
@@ -69,4 +69,5 @@ export const getQuestionByBook = (bookID) =>
 	api.get(`/com/getquesbybook/${bookID}`);
 export const getQuestion = () => api.get(`/com/getques/`);
 // return list of dicts [{userid: int, bookid: int, question: str, answer: str, date: date}]
+
 export default api;

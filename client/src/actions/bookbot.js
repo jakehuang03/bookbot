@@ -30,8 +30,8 @@ export const saveAnswer = () => async (dispatch, getState) => {
   // console.log(auth);
   // const userid = auth.UserId;
   const userid = 1;
-  const bookid = 19;
-  const question = "dsfsdkfks";
+  const bookid = 1;
+  const question = "dsfsdkadfks";
   const answer = "sdfsdf";
   if (!auth.user) {
     dispatch(setAlert("Please Login", "danger"));

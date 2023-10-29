@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER } from "./types";
+import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST } from "./types";
 import * as api from "../utils/api";
 
 
@@ -42,3 +42,15 @@ export const getQuestion = () => async (dispatch) => {
 		console.log(err);
 	}
 };
+
+export const selectPost = (post, navigate) => async (dispatch) => {
+	try {
+		dispatch({
+			type: SELECT_POST,
+			payload: post,
+		});
+		navigate(`/books/${post.id}`);
+	} catch (err) {
+		console.log(err);
+	}
+}

@@ -22,7 +22,7 @@ const Community = () => {
 
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       {PostList.map((post) => (
-        <Post key={post.id} Post={post} />
+        <Post key={post.id} post={post} />
       ))}
     </Grid>
     </Container>

@@ -78,3 +78,24 @@ def create_question(userid: int, bookid: int, content: str, answer: str):
     db.commit()
     db.refresh(db_question)
     return db_question.QuestionId
+
+def get_question_by_userid(userid:int):
+    ques = db.query(database.Question).filter(database.Question.UserId == userid).all()
+    quelis = []
+    for i in ques:
+        quelis.append(i.__dict__)
+    return quelis
+
+def get_question_by_bookid(bookid:int):
+    ques = db.query(database.Question).filter(database.Question.BookId == bookid).all()
+    quelis = []
+    for i in ques:
+        quelis.append(i.__dict__)
+    return quelis
+
+def get_question_all():
+    ques = db.query(database.Question)
+    quelis = []
+    for i in ques:
+        quelis.append(i.__dict__)
+    return quelis
