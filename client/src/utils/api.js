@@ -47,7 +47,7 @@ export const createProfile = (formData, config) =>
 export const getProfile = () => api.get("/user/getprofile");
 
 export const fetchBook = (bookid) => api.get("/books/bookid");
-export const fetchBooks = () => api.get("/books/");
+export const fetchBooks = () => api.get("/books");
 export const fetchBooksBySearch = (searchQuery) =>
 	api.get(
 		`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
