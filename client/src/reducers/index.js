@@ -1,9 +1,13 @@
-import { combineReducers } from 'redux';
-import alert from './alert';
-import auth from './auth';
-
+import { combineReducers } from "redux";
+import alert from "./alert";
+import auth from "./auth";
+import books from "./books";
+import bookbot from "./bookbot";
+import profile from "./profile.js";
 export default combineReducers({
-  alert,
-  auth,
-
+	alert,
+	auth,
+	books,
+	bookbot,
+	profile,
 });
