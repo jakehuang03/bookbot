@@ -59,8 +59,8 @@ const ProfileForm = ({
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
-		saveAvatar(Apath);
 		e.preventDefault();
+		saveAvatar(Apath);
 		createProfile(nickname, avatar, bio, gender, creatingProfile).then(() => {
 			navigate("/getprofile");
 		});
@@ -90,7 +90,7 @@ const ProfileForm = ({
 				</div>
 				<div className='form-group'>
 					<h1 className='medium'>Add Image*</h1>
-					<input type='file' onChange={handleChange} />
+					<input type='file' onChange={handleChange} required />
 					<div>
 						{avatar && (
 							<img

@@ -11,7 +11,7 @@ const ProfileTop = ({ profile }) => {
 				<img
 					className='avatar round-img my-1'
 					src={`data:image/jpeg;base64,${profile.avatar}`}
-					alt='loading'
+					alt={"loading"}
 				/>
 			</div>
 			<h1 className='large'>{profile.profile.nickname}</h1>

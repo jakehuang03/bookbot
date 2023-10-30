@@ -17,7 +17,7 @@ const Holder = ({
 		getCurrentProfile();
 		getAvatar();
 	}, [getCurrentProfile, getAvatar]);
-	return loading || profile === null ? (
+	return loading && profile === null ? (
 		<Spinner />
 	) : (
 		<div className='container'>

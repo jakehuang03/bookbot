@@ -85,7 +85,7 @@ export const saveAvatar = (avatar) => async (dispatch) => {
 		console.log(error);
 	}
 };
-//get image
+//get avatar
 export const getAvatar = () => async (dispatch) => {
 	try {
 		const res = await api.getAvatar();

@@ -40,6 +40,7 @@ export default function a(state = initialState, action) {
 				...state,
 				profile: null,
 				loading: false,
+				avatar: null,
 			};
 		default:
 			return state;
