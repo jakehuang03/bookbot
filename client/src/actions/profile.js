@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_PROFILE, PROFILE_ERROR } from "./types";
+import { GET_PROFILE, PROFILE_ERROR, GET_AVATAR } from "./types";
 import * as api from "../utils/api";
 
 // Get current users profile
@@ -81,6 +81,19 @@ export const saveAvatar = (avatar) => async (dispatch) => {
 
 		const res = await api.saveAvatar(body, config);
 		console.log("uploaded");
+	} catch (error) {
+		console.log(error);
+	}
+};
+//get image
+export const getAvatar = () => async (dispatch) => {
+	try {
+		const res = await api.getAvatar();
+
+		dispatch({
+			type: GET_AVATAR,
+			payload: res.data,
+		});
 	} catch (error) {
 		console.log(error);
 	}

@@ -1,3 +1,4 @@
+import base64
 import db.crud
 from datetime import datetime, timedelta
 from utils.user import hash_password, verify_password
@@ -125,7 +126,22 @@ async def upload(
     avatar: UploadFile = File(...),
 ):
     if avatar:
-        await s3.s3_upload(avatar, "user_image/" + str(current_user["UserId"]))
+        s3.s3_upload(avatar.file, "user_image/" + str(current_user["UserId"]))
         return "file uploaded"
     else:
         return "error in uploading"
+
+
+# get image from s3
+@router.get("/s3get")
+async def get(current_user: Annotated[dict, Depends(get_current_user)]):
+    try:
+        response = s3.s3_retrieve("user_image/" + str(current_user["UserId"]))
+        image_bytes = response["Body"].read()
+        # Decode the bytes using UTF-8 encoding
+        image_base64 = base64.b64encode(image_bytes).decode("utf-8")
+
+        return image_base64
+
+    except:
+        print("An exception occurred")
