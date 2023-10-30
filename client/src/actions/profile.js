@@ -69,16 +69,19 @@ export const createProfile =
 	};
 
 //save image
-export const saveAvatar = (image) => async (dispatch) => {
+export const saveAvatar = (avatar) => async (dispatch) => {
 	try {
-		// get secure url from server
-		const res = await api.getImageUploadURL();
-		const url = res.data[0];
-		// post the image to s3
-		console.log(url);
+		const body = new FormData();
+		const config = {
+			headers: {
+				"Content-Type": "application/form-data",
+			},
+		};
+		body.append("avatar", avatar);
+
+		const res = await api.saveAvatar(body, config);
+		console.log("uploaded");
 	} catch (error) {
 		console.log(error);
 	}
-
-	// post url to server
 };

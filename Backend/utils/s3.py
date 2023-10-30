@@ -24,17 +24,19 @@ def generateUploadURL():
     )
     return url
 
-# file, destination, userId
+
+# file, destination
 def s3_upload():
     try:
-        s3.upload_file('Backend/utils/user image.jpg', 'bookbotimg', 'user_image/user image2.jpg')
+        s3.upload_file("Backend/utils/user image.jpg", "bookbotimg", destination)
         # s3.upload_file(file, 'bookbotimg', 'user_image/'+userId+)
     except ClientError as e:
         logging.error(e)
 
+
 def s3_retrieve(destination):
     try:
-        obj = s3.get_object(Bucket='bookbotimg', Key=destination)
+        obj = s3.get_object(Bucket="bookbotimg", Key=destination)
     except ClientError as e:
         logging.error(e)
     else:

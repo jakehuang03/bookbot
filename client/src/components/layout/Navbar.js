@@ -73,7 +73,9 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
 				<Box sx={{ flexGrow: 0 }}>
 					<Tooltip title='Open settings'>
 						<IconButton onClick={handleOpenUserMenu} sx={{ p: 3 }}>
-							<Avatar src={user?.picture} alt={user?.name}>{user?.name.charAt(0)}</Avatar>
+							<Avatar src={user?.picture} alt={user?.name}>
+								{user?.name.charAt(0)}
+							</Avatar>
 						</IconButton>
 					</Tooltip>
 					<Menu
