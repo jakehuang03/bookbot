@@ -1,8 +1,6 @@
-import os
 import shutil
 from pathlib import Path
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
 # from utils.preLLM import store_tensor_in_db, SessionLocal
 from utils.testFunction import ask_questions
 import tensorflow as tf

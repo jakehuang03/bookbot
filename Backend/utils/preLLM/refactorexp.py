@@ -1,7 +1,6 @@
 import re
 import tensorflow as tf
-from tensorflow.keras.preprocessing.text import Tokenizer
-from sqlalchemy import create_engine, Column, Integer, String, LargeBinary, BigInteger, Text
+from sqlalchemy import create_engine, Column, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import pickle

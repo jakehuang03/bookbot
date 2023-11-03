@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Boolean, Column, ForeignKey, Integer, String, TIMESTAMP
+from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, TIMESTAMP
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.orm import sessionmaker
 import datetime

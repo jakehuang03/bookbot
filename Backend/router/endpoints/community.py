@@ -1,5 +1,5 @@
 import db.crud as crud
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form
+from fastapi import APIRouter, HTTPException, Form
 
 router = APIRouter()
 
