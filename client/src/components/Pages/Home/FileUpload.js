@@ -36,8 +36,24 @@ function FileUpload() {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        setBookData({ ...bookData, selectedFile: e.dataTransfer.files[0]})
+    if (e.dataTransfer.items) {
+      // Check if any of the dropped items are PDF files
+      const hasPDF = Array.from(e.dataTransfer.items).some(
+        (item) => item.type === 'application/pdf'
+      );
+  
+      if (hasPDF) {
+        // Find and set the first PDF file in the dropped items
+        const pdfFile = Array.from(e.dataTransfer.items).find(
+          (item) => item.type === 'application/pdf'
+        );
+  
+        // Read the PDF file or handle it as needed
+        const file = pdfFile.getAsFile();
+        setBookData({ ...bookData, selectedFile: file });
+      } else {
+        alert('Please drop a PDF file.');
+      }
     }
   };
   
@@ -49,7 +65,15 @@ function FileUpload() {
   const handleChange = function(e) {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
-      setBookData({ ...bookData, selectedFile: e.target.files[0]})
+      const selectedFile = e.target.files[0];
+      if (selectedFile.type === 'application/pdf') {
+        setBookData({ ...bookData, selectedFile: e.target.files[0]})
+      }
+      else {
+        alert('Please select a PDF file.');
+        // Clear the file input
+        e.target.value = null;
+      }
     }
   };
 
@@ -68,9 +92,6 @@ function FileUpload() {
           <Typography variant="body1">
             File Type: {bookData.selectedFile.type}
           </Typography>
-          <Typography variant="body1">
-            Last Modified: {bookData.selectedFile.lastModifiedDate.toDateString()}
-          </Typography>
         </Box>
       );
     } 
@@ -81,6 +102,9 @@ function FileUpload() {
         <Button variant="contained" onClick={onButtonClick} >
           Upload a File
         </Button>
+        <div className="file-upload-message">
+          <p style={{ fontSize: '16px', textAlign: 'center', bottom: '10px'}}>Accepted File Types: .pdf only</p>
+        </div>
       </div> 
       )
     }
@@ -98,7 +122,7 @@ function FileUpload() {
     >
         <div className="upload-area">
           <form id="form-file-upload" onDragEnter={handleDrag} >
-            <input ref={inputRef} type="file" id="input-file-upload" multiple={false} onChange={handleChange}/>
+            <input ref={inputRef} type="file" id="input-file-upload" accept="application/pdf" multiple={false} onChange={handleChange}/>
             <label id="label-file-upload" htmlFor="input-file-upload">
               {inputText()}
             </label>
