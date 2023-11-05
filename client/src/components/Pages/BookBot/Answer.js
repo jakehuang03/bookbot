@@ -25,7 +25,7 @@ function Answer(props) {
       dispatch(saveAnswer());
       setSave(true);
   };
-  //TODO: Save the comment to user profile and question
+  //TODO: Share the comment to community
   const Share = () => {
     console.log("Shared!");
   };

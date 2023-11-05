@@ -5,7 +5,6 @@ import Container from "@mui/material/Container";
 import Book from "../SharedComponents/Book";
 import { styled } from '@mui/material/styles';
 import TopBook from "./TopBook";
-import FileUpload from "./FileUpload";
 import { Button, Box, Typography } from "@mui/material";
 
 

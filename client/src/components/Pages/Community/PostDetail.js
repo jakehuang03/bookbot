@@ -4,6 +4,8 @@ import Post from "./Post";
 import CommentBox from "./CommentBox";
 import Comment from "./Comment";
 import Grid from "@mui/material/Grid";
+import { selectPost } from "../../../actions/community";
+import { useDispatch } from "react-redux";
 function PostDetail() {
   //TODO: get post from database based on post id
   const { postid } = useParams();
@@ -16,6 +18,8 @@ function PostDetail() {
     answer:
       "Scrum is an Agile framework that can help teams work together. Scrum can enable teams to learn from experiences, self-organize while working on problems, to reflect on their victories and failures, to make improvements. This Agile Scrum interview question is often used as a starter question to get the interview moving. ",
   };
+  const dispatch = useDispatch();
+  dispatch(selectPost(TempPost));
   //TODO: get previous comments from database based on post id
   const CommentList = [
     { id: 1, user: "John Doe", questionid: 1, comment: "This is a comment" },

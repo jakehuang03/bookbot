@@ -79,8 +79,7 @@ function FileUpload() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(bookData);
-    dispatch(createBook({...bookData}, navigate));
+    dispatch(createBook({...bookData}, user?.user, navigate));
 
   }
 

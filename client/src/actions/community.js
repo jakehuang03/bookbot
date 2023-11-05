@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST } from "./types";
+import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST, SAVE_COMMENT } from "./types";
 import * as api from "../utils/api";
 
 
@@ -17,7 +17,7 @@ export const getQuestionByUser = (userID) => async (dispatch) => {
 	}
 };
 
-// Get past question by bookID
+// Get past question by bookID, stored in bookbot reducer
 export const getQuestionByBook = (bookID) => async (dispatch) => {
 	try {
 		const res = await api.getQuestionByBook(bookID);
@@ -49,8 +49,34 @@ export const selectPost = (post, navigate) => async (dispatch) => {
 			type: SELECT_POST,
 			payload: post,
 		});
-		navigate(`/books/${post.id}`);
+		navigate(`/posts/${post.id}`);
 	} catch (err) {
 		console.log(err);
 	}
 }
+
+export const saveComment = (comment) => async (dispatch, getState) => {
+	const { auth, community } = getState();
+	//bookid and userid must already be in the database
+	if (!auth.user) {
+	  dispatch(setAlert("Please Login", "danger"));
+	  return;
+	}
+	const userid = auth.user.data.UserId;
+	const postid = community.selectedPost.id;
+	var body = new URLSearchParams();
+	body.append("userid", userid);
+	body.append("postid", postid);
+	body.append("comment", comment);
+	const config = {
+	  headers: {
+		"Content-Type": "application/x-www-form-urlencoded",
+	  },
+	};
+	try {
+	  const res = await api.saveComment(body, config);
+	  dispatch({ type: SAVE_COMMENT });
+	} catch (error) {
+	  dispatch(setAlert("Save Answer Fail", "danger"));
+	}
+  };
