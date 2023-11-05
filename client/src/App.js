@@ -21,7 +21,7 @@ import CreateProfile from "./components/Profile/CreateProfile";
 import { loadPage } from "./actions/auth";
 import { loadUser } from "./actions/auth";
 import BookBot from "./components/Pages/BookBot/BookBot";
-import FileUpload from "./components/Pages/Home/FileUpload";
+import FileUpload from "./components/Pages/FileUpload/FileUpload";
 import store from "./store";
 import { CLEAR_PROFILE, LOGOUT } from "./actions/types";
 import Holder from "./components/Profile/Holder";
