@@ -19,7 +19,8 @@ async def searchBar(request: Request):
         print(request)
         bookname = request.query_params.get("searchBook")
         genre = request.query_params.get("genre")
+        usrID = request.query_params.get("userId")
 
-        return db.crud.get_book_by_name(bookname, genre)
+        return db.crud.get_book_by_name(bookname, genre, usrID)
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
