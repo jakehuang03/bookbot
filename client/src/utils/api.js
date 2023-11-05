@@ -59,6 +59,12 @@ export const fetchBooksBySearch = (searchQuery) =>
       searchQuery.genre || "none"
     }`
   );
+export const fetchMyBooksBySearch = (searchQuery, userId) =>
+  api.get(
+    `/mybooks/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
+      searchQuery.genre || "none"
+    }&userId=${userId}`
+  );
 
 export const askQuestion = (book, question) =>
   api.get("/bookbot/ask/", { params: { book: book, question: question } });
