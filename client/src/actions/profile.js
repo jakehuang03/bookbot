@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_PROFILE, PROFILE_ERROR } from "./types";
+import { GET_PROFILE, PROFILE_ERROR, GET_AVATAR } from "./types";
 import * as api from "../utils/api";
 
 // Get current users profile
@@ -69,16 +69,32 @@ export const createProfile =
 	};
 
 //save image
-export const saveAvatar = (image) => async (dispatch) => {
+export const saveAvatar = (avatar) => async (dispatch) => {
 	try {
-		// get secure url from server
-		const res = await api.getImageUploadURL();
-		const url = res.data[0];
-		// post the image to s3
-		console.log(url);
+		const body = new FormData();
+		const config = {
+			headers: {
+				"Content-Type": "application/form-data",
+			},
+		};
+		body.append("avatar", avatar);
+
+		const res = await api.saveAvatar(body, config);
+		console.log("uploaded");
 	} catch (error) {
 		console.log(error);
 	}
+};
+//get avatar
+export const getAvatar = () => async (dispatch) => {
+	try {
+		const res = await api.getAvatar();
 
-	// post url to server
+		dispatch({
+			type: GET_AVATAR,
+			payload: res.data,
+		});
+	} catch (error) {
+		console.log(error);
+	}
 };

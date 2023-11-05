@@ -42,6 +42,9 @@ export const auth = () => api.get("/user/me");
 export const createBook = (formData, config) =>
   api.post("/books", formData, config);
 
+export const getAvatar = () => api.get("/user/s3get");
+export const saveAvatar = (formData, config) =>
+	api.put("/user/s3upload", formData, config);
 export const createProfile = (formData, config) =>
   api.post("/user/createprofile", formData, config);
 export const getProfile = () => api.get("/user/getprofile");

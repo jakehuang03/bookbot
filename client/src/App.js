@@ -26,10 +26,10 @@ import store from "./store";
 import { CLEAR_PROFILE, LOGOUT } from "./actions/types";
 import Holder from "./components/Profile/Holder";
 import PostDetail from "./components/Pages/Community/PostDetail";
+import { getAvatar } from "./actions/profile";
 const App = () => {
 	useEffect(() => {
 		store.dispatch(loadUser());
-
 		// log user out from all tabs if they log out in one tab
 		window.addEventListener("storage", () => {
 			if (!localStorage.profile) {

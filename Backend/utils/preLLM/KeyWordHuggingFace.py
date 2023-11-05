@@ -6,6 +6,7 @@ from transformers import (
 from transformers.pipelines import AggregationStrategy
 import numpy as np
 
+
 # Define keyphrase extraction pipeline
 class KeyphraseExtractionPipeline(TokenClassificationPipeline):
     def __init__(self, model, *args, **kwargs):

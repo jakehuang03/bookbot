@@ -1,13 +1,19 @@
 import React from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
-const avatar = require("./avatar.png");
+import { getAvatar } from "../../actions/profile";
 
 const ProfileTop = ({ profile }) => {
 	return (
 		<div className='profile-top bg-primary p-2'>
-			<img className='round-img my-1' src={avatar} alt='a' />
+			<div>
+				<img
+					className='avatar round-img my-1'
+					src={`data:image/jpeg;base64,${profile.avatar}`}
+					alt={"loading"}
+				/>
+			</div>
 			<h1 className='large'>{profile.profile.nickname}</h1>
 			<p className='lead'>
 				{profile.profile.gender === "Female" ? (

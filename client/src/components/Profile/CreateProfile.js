@@ -49,7 +49,9 @@ const ProfileForm = ({
 		}
 	}, [loading, profile]);
 	const [avatar, setAvatar] = useState();
+	const [Apath, setAPath] = useState();
 	function handleChange(e) {
+		setAPath(e.target.files[0]);
 		setAvatar(URL.createObjectURL(e.target.files[0]));
 	}
 	const { nickname, bio, gender } = formData;
@@ -57,8 +59,8 @@ const ProfileForm = ({
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
-		saveAvatar();
 		e.preventDefault();
+		saveAvatar(Apath);
 		createProfile(nickname, avatar, bio, gender, creatingProfile).then(() => {
 			navigate("/getprofile");
 		});
@@ -88,9 +90,15 @@ const ProfileForm = ({
 				</div>
 				<div className='form-group'>
 					<h1 className='medium'>Add Image*</h1>
-					<input type='file' onChange={handleChange} />
+					<input type='file' onChange={handleChange} required />
 					<div>
-						{avatar && <img src={avatar} alt="avatar" className='round-img my-1 avatar' />}
+						{avatar && (
+							<img
+								src={avatar}
+								alt='avatar'
+								className='round-img my-1 avatar'
+							/>
+						)}
 					</div>
 				</div>
 				<div className='form-group'>

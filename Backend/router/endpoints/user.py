@@ -1,11 +1,12 @@
+import base64
 import db.crud
 from datetime import datetime, timedelta
 from utils.user import hash_password, verify_password
 from typing import Annotated, Union
-from fastapi import APIRouter, Depends, HTTPException, File, Form, status
+from fastapi import APIRouter, Depends, HTTPException, File, Form, status, UploadFile
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
-from utils.s3 import generateUploadURL
+from utils import s3
 
 
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
@@ -45,7 +46,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     return {
         "userID": user["UserId"],
         "access_token": access_token,
-        "name": user["UserName"], 
+        "name": user["UserName"],
         "token_type": "bearer",
     }
 
@@ -118,7 +119,29 @@ async def get_profile(current_user: Annotated[dict, Depends(get_current_user)]):
     }
 
 
-# get secured url to save image
-@router.get("/s3url")
-async def get_secured_URL():
-    return {generateUploadURL()}
+# save image to s3
+@router.put("/s3upload")
+async def upload(
+    current_user: Annotated[dict, Depends(get_current_user)],
+    avatar: UploadFile = File(...),
+):
+    if avatar:
+        s3.s3_upload(avatar.file, "user_image/" + str(current_user["UserId"]))
+        return "file uploaded"
+    else:
+        return "error in uploading"
+
+
+# get image from s3
+@router.get("/s3get")
+async def get(current_user: Annotated[dict, Depends(get_current_user)]):
+    try:
+        response = s3.s3_retrieve("user_image/" + str(current_user["UserId"]))
+        image_bytes = response["Body"].read()
+        # Decode the bytes using UTF-8 encoding
+        image_base64 = base64.b64encode(image_bytes).decode("utf-8")
+
+        return image_base64
+
+    except:
+        print("An exception occurred")

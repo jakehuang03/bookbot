@@ -13,8 +13,13 @@ import {
 	Avatar,
 	Menu,
 } from "@mui/material";
+import { getAvatar } from "../../actions/profile";
 
-const Navbar = ({ auth: { isAuthenticated, loading } }) => {
+const Navbar = ({
+	auth: { isAuthenticated, loading },
+	profile: { avatar },
+	getAvatar,
+}) => {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const dispatch = useDispatch();
@@ -42,6 +47,7 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
 	};
 
 	useEffect(() => {
+		getAvatar();
 		if (user?.exp) {
 			if (user.exp * 1000 < new Date().getTime()) logout();
 		}
@@ -73,7 +79,16 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
 				<Box sx={{ flexGrow: 0 }}>
 					<Tooltip title='Open settings'>
 						<IconButton onClick={handleOpenUserMenu} sx={{ p: 3 }}>
-							<Avatar src={user?.picture} alt={user?.name}>{user?.name.charAt(0)}</Avatar>
+							<Avatar src={user?.picture} alt={user?.name}>
+								{avatar && !loading ? (
+									<img
+										src={`data:image/jpeg;base64,${avatar}`}
+										alt={"loading"}
+									/>
+								) : (
+									user?.name.charAt(0)
+								)}
+							</Avatar>
 						</IconButton>
 					</Tooltip>
 					<Menu
@@ -144,9 +159,12 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
 Navbar.propTypes = {
 	// logout: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
+	profile: PropTypes.object.isRequired,
+	getAvatar: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
 	auth: state.auth,
+	profile: state.profile,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { getAvatar })(Navbar);
