@@ -75,6 +75,16 @@ def get_book_by_name(bookname: str, genre: str, userId: int):
         query = db.query(database.Book).filter(
             database.Book.UserId == userId)
         return query.all()
+    elif genre == "none" and userId == "none":
+        query = db.query(database.Book).filter(
+            database.Book.BookName.like("%" + bookname + "%")
+        )
+        return query.all()
+    elif userId == "none" and bookname == "none":
+        query = db.query(database.Book).filter(
+            database.Book.Genre == genre
+        )
+        return query.all()
     else:
         query1 = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%")
