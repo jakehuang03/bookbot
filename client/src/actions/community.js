@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST, SAVE_COMMENT } from "./types";
+import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST, SAVE_COMMENT, GET_COMMENT } from "./types";
 import * as api from "../utils/api";
 
 
@@ -43,17 +43,35 @@ export const getQuestion = () => async (dispatch) => {
 	}
 };
 
-export const selectPost = (post, navigate) => async (dispatch) => {
+// export const selectPost = (post, navigate) => async (dispatch) => {
+// 	try {
+// 		dispatch({
+// 			type: SELECT_POST,
+// 			payload: post,
+// 		});
+// 		navigate(`/posts/${post.id}`);
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
+// }
+
+// Get all comments by question id
+export const getQuesCommentByID = (id) => async (dispatch) => {
 	try {
+		const comment = await api.getCommentByQues(id);
+		const post = await api.getQuestionByQues(id);
+		dispatch({
+			type: GET_COMMENT,
+			payload: comment.data,
+		});
 		dispatch({
 			type: SELECT_POST,
-			payload: post,
+			payload: post.data,
 		});
-		navigate(`/posts/${post.id}`);
 	} catch (err) {
 		console.log(err);
 	}
-}
+};
 
 export const saveComment = (comment) => async (dispatch, getState) => {
 	const { auth, community } = getState();
@@ -63,11 +81,11 @@ export const saveComment = (comment) => async (dispatch, getState) => {
 	  return;
 	}
 	const userid = auth.user.data.UserId;
-	const postid = community.selectedPost.id;
+	const questionid = community.selectedPost.QuestionId;
 	var body = new URLSearchParams();
+	body.append("questionid", questionid);
 	body.append("userid", userid);
-	body.append("postid", postid);
-	body.append("comment", comment);
+	body.append("content", comment);
 	const config = {
 	  headers: {
 		"Content-Type": "application/x-www-form-urlencoded",
@@ -76,6 +94,7 @@ export const saveComment = (comment) => async (dispatch, getState) => {
 	try {
 	  const res = await api.saveComment(body, config);
 	  dispatch({ type: SAVE_COMMENT });
+	//   dispatch(getQuesCommentByID(questionid));
 	} catch (error) {
 	  dispatch(setAlert("Save Answer Fail", "danger"));
 	}

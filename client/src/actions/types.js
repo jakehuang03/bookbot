@@ -29,9 +29,11 @@ export const ANSWER_SUCCESS = "ANSWER_SUCCESS";
 export const SOURCE_SUCCESS = "SOURCE_SUCCESS";
 export const SAVE_ANSWER = "SAVE_ANSWER";
 
-export const GET_QUESTION = "GET_QUESTION";
+export const GET_QUESTION = "GET_QUESTION_ALL";
 export const GET_QUESTION_USER = "GET_QUESTION_USER";
 export const GET_QUESTION_BOOK = "GET_QUESTION_BOOK";
 
 export const SELECT_POST = "SELECT_POST";
 export const SAVE_COMMENT = "SAVE_COMMENT";
+export const GET_COMMENT = "GET_COMMENT";
+export const GET_QUESTION_ID = "GET_QUESTION_ID";

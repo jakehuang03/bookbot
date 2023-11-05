@@ -3,18 +3,9 @@ import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import Button from "@mui/material/Button";
-import CommentIcon from "@mui/icons-material/Comment";
 import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
-import CardHeader from "@mui/material/CardHeader";
-import { TextField } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
 
 function Comment(props) {
   const { comment } = props;
@@ -41,7 +32,10 @@ function Comment(props) {
           <Avatar sx={{ bgcolor: red[500] }}>R</Avatar>
         </IconButton>
         <Typography variant="subtitle1" align="left" sx={{ display: 'inline' , m: 1}} paragraph>
-          {comment.comment}
+          {comment.Content}
+        </Typography>
+        <Typography variant="subtitle2" align="right">
+          {comment.CreateTime}
         </Typography>
       </Card>
     </Grid>
@@ -50,11 +44,10 @@ function Comment(props) {
 
 Comment.propTypes = {
   comment: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    // userid: PropTypes.number.isRequired,
-    // questionid: PropTypes.string.isRequired,
-    // date: PropTypes.string.isRequired,
-    comment: PropTypes.string.isRequired,
+    CommentId: PropTypes.number.isRequired,
+    UserId: PropTypes.number.isRequired,
+    QuestionId: PropTypes.number.isRequired,
+    CreateTime: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -45,15 +45,15 @@ function Post(props) {
             </IconButton>
           }
           title={user.name}
-          subheader={post.date}
+          subheader={post.CreateTime}
         />
-        <CardActionArea component={RouterLink} to={`/posts/${post.id}`}>
+        <CardActionArea component={RouterLink} to={`/posts/${post.QuestionId}`}>
           <CardContent>
             <Typography variant="h5" align="left" sx={{ fontWeight: "bold" }}>
-              {post.question}
+              {post.QuestionContent}
             </Typography>
             <Typography variant="subtitle1" align="left" paragraph>
-              {post.answer}
+              {post.QuestionAnswer}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -67,12 +67,12 @@ function Post(props) {
 
 Post.propTypes = {
   post: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    userid: PropTypes.number.isRequired,
-    bookid: PropTypes.number.isRequired,
-    date: PropTypes.string.isRequired,
-    question: PropTypes.string.isRequired,
-    answer: PropTypes.string.isRequired,
+    QuestionId: PropTypes.number.isRequired,
+    UserId: PropTypes.number.isRequired,
+    BookId: PropTypes.number.isRequired,
+    CreateTime: PropTypes.string.isRequired,
+    QuestionContent: PropTypes.string.isRequired,
+    QuestionAnswer: PropTypes.string.isRequired,
   }).isRequired,
 };
 

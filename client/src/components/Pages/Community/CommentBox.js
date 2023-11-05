@@ -25,7 +25,7 @@ const CommentBox = () => {
 
   const onSubmit = (e) => {
     dispatch(saveComment(commentValue));
-    console.log("send the form data somewhere");
+    onClose();
   };
 
   const handleKeyPress = (event) => {
