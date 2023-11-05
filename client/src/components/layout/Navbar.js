@@ -36,7 +36,7 @@ const Navbar = ({
 
 	const toProfile = () => {
 		handleCloseUserMenu();
-		navigate("/getprofile");
+		navigate(`/profile/${user.user}`);
 	};
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
