@@ -48,25 +48,42 @@ def get_book_by_id(bookid: int):
 def get_my_books(userId: int):
     return db.query(database.Book).filter(database.Book.UserId == userId).all()
 
-def get_book_by_name(bookname: str, genre: str):
-    if bookname == "none" and genre == "none":
+def get_book_by_name(bookname: str, genre: str, userId: int):
+    if bookname == "none" and genre == "none" and userId == "none":
         query = db.query(database.Book).all()
         return query
+    # single none
     elif genre == "none":
         query = db.query(database.Book).filter(
-            database.Book.BookName.like("%" + bookname + "%")
+            database.Book.BookName.like("%" + bookname + "%"),
+            database.Book.UserId == userId
         )
         return query.all()
     elif bookname == "none":
-        query = db.query(database.Book).filter(database.Book.Genre == genre)
+        query = db.query(database.Book).filter(
+            database.Book.Genre == genre,
+            database.Book.UserId == userId)
+        return query.all()
+    elif userId == "none":
+        query = db.query(database.Book).filter(
+            database.Book.BookName.like("%" + bookname + "%"),
+            database.Book.Genre == genre
+        )
+        return query.all()
+    # double none
+    elif genre == "none" and bookname == "none":
+        query = db.query(database.Book).filter(
+            database.Book.UserId == userId)
         return query.all()
     else:
         query1 = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%")
         )
         query2 = db.query(database.Book).filter(database.Book.Genre == genre)
+        query3 = db.query(database.Book).filter(database.Book.UserId == userId)
         combined_query = query1.union(query2)
-        return combined_query.all()
+        res = combined_query.union(query3)
+        return res.all()
 
 
 def create_question(userid: int, bookid: int, content: str, answer: str):
