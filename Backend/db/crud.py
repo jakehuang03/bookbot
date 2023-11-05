@@ -48,7 +48,27 @@ def get_book_by_id(bookid: int):
 def get_my_books(userId: int):
     return db.query(database.Book).filter(database.Book.UserId == userId).all()
 
-def get_book_by_name(bookname: str, genre: str, userId: int):
+def get_book_by_name(bookname: str, genre: str):
+    if bookname == "none" and genre == "none":
+        query = db.query(database.Book).all()
+        return query
+    elif genre == "none":
+        query = db.query(database.Book).filter(
+            database.Book.BookName.like("%" + bookname + "%")
+        )
+        return query.all()
+    elif bookname == "none":
+        query = db.query(database.Book).filter(database.Book.Genre == genre)
+        return query.all()
+    else:
+        query1 = db.query(database.Book).filter(
+            database.Book.BookName.like("%" + bookname + "%")
+        )
+        query2 = db.query(database.Book).filter(database.Book.Genre == genre)
+        combined_query = query1.union(query2)
+        return combined_query.all()
+
+def get_mybook_by_name(bookname: str, genre: str, userId: int):
     if bookname == "none" and genre == "none" and userId == "none":
         query = db.query(database.Book).all()
         return query

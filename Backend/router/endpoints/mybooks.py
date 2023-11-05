@@ -1,5 +1,5 @@
 import db.crud
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter()
 
@@ -14,13 +14,11 @@ async def getMyBooks(userId: int):
         raise HTTPException(status_code=400, detail=f"An error occurred: {e}")
     
 @router.get("/search")
-async def searchBar(request: Request):
+async def searchBar(searchBook: str, genre: str, userId: int):
     try:
-        print(request)
-        bookname = request.query_params.get("searchBook")
-        genre = request.query_params.get("genre")
-        usrID = request.query_params.get("userId")
-
-        return db.crud.get_book_by_name(bookname, genre, usrID)
+        book = db.crud.get_mybook_by_name(searchBook, genre, userId)
+        if not book:
+            raise HTTPException(status_code=404, detail="Book not found")
+        return book
     except Exception as e:
-        raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
+        raise HTTPException(status_code=400, detail=f"An error occurred: {e}")
