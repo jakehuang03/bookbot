@@ -103,9 +103,9 @@ def get_question_all():
         quelis.append(i.__dict__)
     return quelis
 
-def create_comment(quesid: int, content: str):
+def create_comment(quesid: int, userid: int, content: str):
     db_comment = database.Comment(
-        QuestionId=quesid, Content=content
+        QuestionId=quesid, UserId=userid, Content=content
     )
     db.add(db_comment)
     db.commit()
