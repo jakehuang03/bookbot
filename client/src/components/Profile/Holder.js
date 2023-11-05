@@ -1,22 +1,24 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentProfile } from "../../actions/profile";
+import { getProfileByID } from "../../actions/profile";
 import Spinner from "../layout/Spinner";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import { getAvatar } from "../../actions/profile";
+import { useParams } from "react-router-dom";
 
 const Holder = ({
-	getCurrentProfile,
+	getProfileByID,
 	getAvatar,
 	auth: { user },
 	profile: { profile, loading },
 }) => {
+	const { id } = useParams();
 	useEffect(() => {
-		getCurrentProfile();
+		getProfileByID(id);
 		getAvatar();
-	}, [getCurrentProfile, getAvatar]);
+	}, [getProfileByID, getAvatar, id]);
 	return loading && profile === null ? (
 		<Spinner />
 	) : (
@@ -55,6 +57,4 @@ const mapStateToProps = (state) => ({
 	profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getAvatar })(
-	Holder
-);
+export default connect(mapStateToProps, { getProfileByID, getAvatar })(Holder);
