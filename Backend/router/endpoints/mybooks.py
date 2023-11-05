@@ -1,3 +1,6 @@
+
+import traceback
+from fastapi.responses import JSONResponse
 import db.crud
 from fastapi import APIRouter, HTTPException
 
@@ -12,7 +15,7 @@ async def getMyBooks(userId: int):
         return books
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"An error occurred: {e}")
-    
+
 @router.get("/search")
 async def searchBar(searchBook: str, genre: str, userId: int):
     try:
@@ -20,5 +23,10 @@ async def searchBar(searchBook: str, genre: str, userId: int):
         if not book:
             raise HTTPException(status_code=404, detail="Book not found")
         return book
+    except HTTPException as http_exc:
+        # Directly re-raise the HTTPException
+        raise http_exc
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"An error occurred: {e}")
+        # Log or handle other unexpected exceptions
+        detail = f"An unexpected error occurred: {e}"
+        raise HTTPException(status_code=500, detail=detail)

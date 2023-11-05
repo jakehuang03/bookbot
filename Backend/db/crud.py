@@ -63,12 +63,11 @@ def get_book_by_name(bookname: str, genre: str):
     else:
         query1 = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%")
-        )
-        query2 = db.query(database.Book).filter(database.Book.Genre == genre)
-        combined_query = query1.union(query2)
-        return combined_query.all()
+        ).filter(database.Book.Genre == genre)
+        return query1.all()
 
 def get_mybook_by_name(bookname: str, genre: str, userId: int):
+    userId = str(userId)
     if bookname == "none" and genre == "none" and userId == "none":
         query = db.query(database.Book).all()
         return query
@@ -106,14 +105,8 @@ def get_mybook_by_name(bookname: str, genre: str, userId: int):
         )
         return query.all()
     else:
-        query1 = db.query(database.Book).filter(
-            database.Book.BookName.like("%" + bookname + "%")
-        )
-        query2 = db.query(database.Book).filter(database.Book.Genre == genre)
-        query3 = db.query(database.Book).filter(database.Book.UserId == userId)
-        combined_query = query1.union(query2)
-        res = combined_query.union(query3)
-        return res.all()
+        query1 = db.query(database.Book).filter(database.Book.BookName.like("%" + bookname + "%")).filter(database.Book.Genre == genre).filter(database.Book.UserId == userId)
+        return query1.all()
 
 
 def create_question(userid: int, bookid: int, content: str, answer: str):
