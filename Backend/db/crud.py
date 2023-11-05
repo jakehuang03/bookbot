@@ -31,6 +31,8 @@ def create_user_profile(userid: int, name: str, bio: str, avatar: str, gender: s
 
 
 def create_book(name: str, author: str, summary: str, userid: str, genre: str):
+    if genre is None:
+        genre = "none"
     db_book = database.Book(
         BookName=name, Author=author, BookContent=summary, UserId=userid, Genre=genre
     )
@@ -63,10 +65,49 @@ def get_book_by_name(bookname: str, genre: str):
     else:
         query1 = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%")
+        ).filter(database.Book.Genre == genre)
+        return query1.all()
+
+def get_mybook_by_name(bookname: str, genre: str, userId: int):
+    if bookname == "none" and genre == "none" and userId == "none":
+        query = db.query(database.Book).all()
+        return query
+    # single none
+    elif genre == "none" and bookname != "none" and userId != "none":
+        query = db.query(database.Book).filter(
+            database.Book.BookName.like("%" + bookname + "%"),
+            database.Book.UserId == userId
         )
-        query2 = db.query(database.Book).filter(database.Book.Genre == genre)
-        combined_query = query1.union(query2)
-        return combined_query.all()
+        return query.all()
+    elif bookname == "none" and genre != "none" and userId != "none":
+        query = db.query(database.Book).filter(
+            database.Book.Genre == genre,
+            database.Book.UserId == userId)
+        return query.all()
+    elif userId == "none" and bookname != "none" and genre != "none":
+        query = db.query(database.Book).filter(
+            database.Book.BookName.like("%" + bookname + "%"),
+            database.Book.Genre == genre
+        )
+        return query.all()
+    # double none
+    elif genre == "none" and bookname == "none" and userId != "none":
+        query = db.query(database.Book).filter(
+            database.Book.UserId == userId)
+        return query.all()
+    elif genre == "none" and userId == "none" and bookname != "none":
+        query = db.query(database.Book).filter(
+            database.Book.BookName.like("%" + bookname + "%")
+        )
+        return query.all()
+    elif userId == "none" and bookname == "none" and genre != "none":
+        query = db.query(database.Book).filter(
+            database.Book.Genre == genre
+        )
+        return query.all()
+    else:
+        query1 = db.query(database.Book).filter(database.Book.BookName.like("%" + bookname + "%")).filter(database.Book.Genre == genre).filter(database.Book.UserId == userId)
+        return query1.all()
 
 
 def create_question(userid: int, bookid: int, content: str, answer: str):
@@ -103,9 +144,9 @@ def get_question_all():
         quelis.append(i.__dict__)
     return quelis
 
-def create_comment(quesid: int, content: str):
+def create_comment(quesid: int, userid: int, content: str):
     db_comment = database.Comment(
-        QuestionId=quesid, Content=content
+        QuestionId=quesid, UserId=userid, Content=content
     )
     db.add(db_comment)
     db.commit()

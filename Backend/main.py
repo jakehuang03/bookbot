@@ -36,14 +36,4 @@ app.include_router(api_router)
 #     result['question'] = question
 #     return result
 
-# @app.get("/books/search")
-# async def searchBar(request: Request):
-#     try:
-#         print(request)
-#         bookname = request.query_params.get("searchBook")
-#         genre = request.query_params.get("genre")
-
-#         return get_book_by_name(bookname, genre)
-#     except Exception as e:
-#         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
     

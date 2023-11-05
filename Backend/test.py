@@ -1,2 +1,2 @@
 import db.crud as crud
-print(crud.get_comment_by_questionid(1))
+print(crud.create_comment(1,1,"test2"))

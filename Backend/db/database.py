@@ -23,6 +23,7 @@ class User(Base):
 
     book = relationship("Book", backref="user")
     question = relationship("Question", backref="question")
+    comment = relationship("Comment", backref="bookcomment")
     # answer = relationship("Answer", backref="answer")
 
 
@@ -56,6 +57,7 @@ class Comment(Base):
 
     CommentId = Column(Integer, primary_key=True, index=True)
     Content = Column(String)
+    UserId = Column(Integer, ForeignKey("user.UserId"))
     QuestionId = Column(Integer, ForeignKey("question.QuestionId"))
     CreateTime = Column(TIMESTAMP,default=datetime.datetime.now)
 
