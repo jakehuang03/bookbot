@@ -118,6 +118,17 @@ async def get_profile(current_user: Annotated[dict, Depends(get_current_user)]):
         "avatar": current_user["Avatar"],
     }
 
+@router.get("/getprofile/{userid}")
+async def get_profile(userid):
+    user = db.crud.get_user_by_id(userid).__dict__
+    return {
+        "nickname": user["UserName"],
+        "gender": user["Gender"],
+        "bio": user["UserBio"],
+        "avatar": user["Avatar"],
+    }
+
+
 
 # save image to s3
 @router.put("/s3upload")
