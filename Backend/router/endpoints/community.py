@@ -35,13 +35,14 @@ async def get_ques_all():
     return crud.get_question_all()
 
 @router.post("/savecomment")
-async def save_question(
+async def save_comment(
     questionid: int = Form(...),
+    userid: int = Form(...),
     content: str = Form(...)
 ):
     try:
         id = crud.create_comment(
-            quesid=questionid, content=content
+            quesid=questionid, userid=userid, content=content
         )
         return {"msg": "comment saved", "commentid": id}
     except Exception as e:

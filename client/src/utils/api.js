@@ -50,7 +50,7 @@ export const createProfile = (formData, config) =>
 	api.post("/user/createprofile", formData, config);
 export const getProfile = (userId) => api.get(`/user/getprofile/${userId}`);
 
-export const fetchBook = (bookid) => api.get("/books/bookid");
+export const fetchBook = (bookId) => api.get(`/books/${bookId}`);
 export const fetchBooks = () => api.get("/books");
 export const fetchMyBooks = (userId) => api.get(`/mybooks?userId=${userId}`);
 export const fetchBooksBySearch = (searchQuery) =>
@@ -58,6 +58,12 @@ export const fetchBooksBySearch = (searchQuery) =>
 		`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
 			searchQuery.genre || "none"
 		}`
+	);
+export const fetchMyBooksBySearch = (searchQuery, userId) =>
+	api.get(
+		`/mybooks/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
+			searchQuery.genre || "none"
+		}&userId=${userId}`
 	);
 
 export const askQuestion = (book, question) =>
@@ -75,8 +81,9 @@ export const getQuestion = () => api.get(`/com/getques/`);
 
 export const saveComment = (formData, config) =>
 	api.post("/com/savecomment", formData, config);
-export const getQuesCommentByID = (questionID) =>
-	api.get(`/com/getquescomment/${questionID}`);
-// return {"question": {questioninstance}, "comments": [{}]}
+export const getQuestionByQues = (questionID) =>
+	api.get(`/com/getquesbyques/${questionID}`);
+export const getCommentByQues = (questionID) =>
+	api.get(`/com/getcommentbyques/${questionID}`);
 
 export default api;

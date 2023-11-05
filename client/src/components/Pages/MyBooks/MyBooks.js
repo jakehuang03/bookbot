@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Book from "../SharedComponents/Book";
-import SearchGenre from "../Bookshelf/Search_Genre";
+import SearchGenre from "./Search_Genre";
 import { useSelector, useDispatch } from "react-redux";
 import {getMyBooks} from "../../../actions/books"
 import UploadBookButton from "./UploadBookButton";
