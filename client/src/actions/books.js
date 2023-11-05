@@ -1,12 +1,13 @@
 import * as api from '../utils/api';
 import { CREATE_BOOK, FETCH_BY_SEARCH, FETCH_BOOK, FETCH_BOOKS} from './types';
 
-export const createBook = (book, navigate) => async (dispatch) => {
+export const createBook = (book, userId, navigate) => async (dispatch) => {
     const body = new FormData();
     body.append("title", book.title);
     body.append("author", book.author);
     body.append("summary", book.summary);
-    body.append("genre", book.genre)
+    body.append("userid", userId);
+    body.append("genre", book.genre);
     body.append("file", book.selectedFile);
     const config = {
         headers: {
