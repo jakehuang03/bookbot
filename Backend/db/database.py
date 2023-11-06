@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, TIMESTAMP
+from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, TIMESTAMP, Boolean
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.orm import sessionmaker
 import datetime
@@ -36,6 +36,7 @@ class Book(Base):
     UserId = Column(Integer, ForeignKey("user.UserId"))
     Author = Column(String)
     Genre = Column(String)
+    Published = Column(Boolean)
     CreateTime = Column(TIMESTAMP,default=datetime.datetime.now)
 
     question = relationship("Question", backref="book_question")
