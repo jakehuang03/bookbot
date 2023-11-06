@@ -31,7 +31,7 @@ async def searchBar(searchBook: str, genre: str):
         raise HTTPException(status_code=400, detail=f"An error occurred: {e}")
     
 
-@router.get("/:id")
+@router.get("/{bookId}")
 async def getBook(bookId: int):
     try:
         book = db.crud.get_book_by_id(bookId)

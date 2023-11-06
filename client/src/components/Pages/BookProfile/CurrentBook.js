@@ -19,16 +19,16 @@ function CurrentBook(props) {
               variant="h3"
               gutterBottom
             >
-              {book.title}
+              {book.BookName}
             </Typography>
             <Typography
               variant="h5"
               gutterBottom
             >
-              {book.author}
+              {book.Author}
             </Typography>
             <Typography variant="h6" color="inherit" paragraph>
-              {book.description}
+              {book.BookContent}
             </Typography>
           </Box>
   );
@@ -36,11 +36,10 @@ function CurrentBook(props) {
 
 CurrentBook.propTypes = {
   book: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    BookId: PropTypes.number.isRequired,
+    BookName: PropTypes.string.isRequired,
+    Author: PropTypes.string.isRequired,
+    BookContent: PropTypes.string.isRequired,
   }).isRequired,
 };
 

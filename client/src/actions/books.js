@@ -1,5 +1,5 @@
 import * as api from '../utils/api';
-import { CREATE_BOOK, FETCH_BY_SEARCH, FETCH_BOOK, FETCH_BOOKS} from './types';
+import { CREATE_BOOK, FETCH_BY_SEARCH, FETCH_BOOK, FETCH_BOOKS, SELECT_BOOK} from './types';
 
 export const createBook = (book, userId, navigate) => async (dispatch) => {
     const body = new FormData();
@@ -27,6 +27,7 @@ export const getBook = (bookid) => async(dispatch) => {
   try {
     const {data} = await api.fetchBook(bookid);
     dispatch({ type: FETCH_BOOK, payload: { post: data } });
+    dispatch({ type: SELECT_BOOK, payload: data });
   }
   catch (error) {
     console.log(error.message);
