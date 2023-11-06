@@ -3,7 +3,14 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
-import { useState } from "react";
+//TODO: get user avatar
+/**
+ * Renders a question card with user avatar and question text.
+ * @param {Object} props.user - The user object containing user information.
+ * @param {string} props.user.picture - The URL of the user's profile picture.
+ * @param {string} props.question - The text of the question to be displayed.
+ * @returns {JSX.Element} - The JSX element representing the question card.
+ */
 
 function Question ({user, question}) {
   return (

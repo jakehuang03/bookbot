@@ -50,7 +50,7 @@ export const saveAnswer = () => async (dispatch, getState) => {
     },
   };
   try {
-    const res = await api.saveAnswer(body, config);
+    await api.saveAnswer(body, config);
     dispatch({ type: SAVE_ANSWER });
   } catch (error) {
     dispatch(setAlert("Save Answer Fail", "danger"));

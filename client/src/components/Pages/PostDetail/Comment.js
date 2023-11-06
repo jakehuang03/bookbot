@@ -7,18 +7,24 @@ import IconButton from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 
+/**
+ * A component that displays a comment card with user information, content, and timestamp.
+ * @param {Object} props.comment - The comment object containing the comment data.
+ * @param {number} props.comment.CommentId - The ID of the comment.
+ * @param {number} props.comment.UserId - The ID of the user who posted the comment.
+ * @param {number} props.comment.QuestionId - The ID of the question the comment belongs to.
+ * @param {string} props.comment.CreateTime - The timestamp when the comment was created.
+ * @returns {JSX.Element} - The Comment component.
+ */
+
 function Comment(props) {
   const { comment } = props;
-  // get user profile from database based on user id
+
+  // TODO: get user profile from database based on user id
   const user = {
     id: 1,
     name: "John Doe",
     email: "",
-  };
-  // get book name from database based on book id
-  const book = {
-    id: 1,
-    title: "The Elements of Scrum.pdf",
   };
 
   const User = () => {

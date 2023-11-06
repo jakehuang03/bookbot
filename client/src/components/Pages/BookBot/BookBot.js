@@ -1,10 +1,17 @@
+import { useState } from "react";
+
+import { Container, Grid, Box} from "@mui/material";
+
 import CurrentBook from "../BookProfile/CurrentBook";
 import Answer from "./Answer";
 import Source from "./Source";
 import Question from "./Question";
-import { Typography, Container, Grid, Box, Pagination } from "@mui/material";
 import SourcePagination from "./SourcePagination";
-import { useState } from "react";
+
+/**
+ * Renders the BookBot component, which displays the current book, a question, a list of answers, a list of sources, and a pagination component.
+ * @returns {JSX.Element} The BookBot component UI.
+ */
 
 function BookBot() {
   const book = JSON.parse(sessionStorage.getItem("selectedBook"));
@@ -59,21 +66,4 @@ function BookBot() {
   }
 }
 
-// BookBot.propTypes = {
-//   book: PropTypes.shape({
-//     id: PropTypes.number.isRequired,
-//     title: PropTypes.string.isRequired,
-//   }).isRequired,
-//   question: PropTypes.string.isRequired,
-//   answer: PropTypes.shape({
-//     answer1: PropTypes.string.isRequired,
-//   }).isRequired,
-// }
-
-// const mapStateToProps = (state) => ({
-//   book: state.bookbot.selectedBook,
-//   question: state.bookbot.question,
-//   answer: state.bookbot.answer,
-// });
-// export default connect(mapStateToProps)(BookBot);
 export default BookBot;

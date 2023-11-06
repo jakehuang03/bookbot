@@ -1,15 +1,19 @@
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+import { Container, Grid, Box, Typography } from "@mui/material";
+
 import CurrentBook from "./CurrentBook";
 import PastQuestion from "./PastQuestion";
 import AskQuestion from "./AskQuestion";
 import { getQuestionByBook } from "../../../actions/community";
-import { Container, Grid, Box, Typography } from "@mui/material";
 import { getBook } from "../../../actions/books";
 
-//1) get past questions for the book from database based on book id
-// 2) get the user who asked the question, linked to the user profile
+/**
+ * Renders the BookProfile component which displays the current book, allows users to ask questions about the book,
+ * and displays past questions related to the book.
+ * @returns {JSX.Element} BookProfile component
+ */
 
 function BookProfile() {
   //get book from database based on book id

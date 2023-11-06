@@ -1,10 +1,18 @@
 import React from "react";
-import Post from "./Post";
-import { Container, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+
+import { Container, Grid, Typography } from "@mui/material";
+
 import { getQuestion } from "../../../actions/community";
 import SourcePagination from "../BookBot/SourcePagination";
+import Post from "./Post";
+
+/**
+ * Renders the Community page component.
+ * @returns {JSX.Element} The Community page component.
+ */
+
 const Community = () => {
   const dispatch = useDispatch();
   dispatch(getQuestion());
@@ -17,9 +25,6 @@ const Community = () => {
     </Typography>
 
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-      {/* {PostList.map((post) => (
-        <Post key={post.id} post={post} />
-      ))} */}
       {Array.isArray(sources) 
       ? sources.map((post) => (
         <Post key={post.QuestionId} post={post} />
