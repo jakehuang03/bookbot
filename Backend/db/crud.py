@@ -30,9 +30,7 @@ def create_user_profile(userid: int, name: str, bio: str, avatar: str, gender: s
     return userid
 
 
-def create_book(name: str, author: str, summary: str, userid: str, genre: str, published=False):
-    if genre is None:
-        genre = "none"
+def create_book(name: str, author: str, summary: str, userid: str, genre="none", published=False):
     db_book = database.Book(
         BookName=name, Author=author, BookContent=summary, UserId=userid, Genre=genre, Published=published
     )
