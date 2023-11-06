@@ -23,7 +23,7 @@ import FileUpload from "./components/Pages/FileUpload/FileUpload";
 import store from "./store";
 import { CLEAR_PROFILE, LOGOUT } from "./actions/types";
 import Holder from "./components/Profile/Holder";
-import PostDetail from "./components/Pages/Community/PostDetail";
+import PostDetail from "./components/Pages/PostDetail/PostDetail";
 const App = () => {
 	useEffect(() => {
 		store.dispatch(loadUser());
