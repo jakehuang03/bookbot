@@ -9,36 +9,44 @@ import { getAvatar } from "../../actions/profile";
 import { useParams } from "react-router-dom";
 
 const Holder = ({
+	loadUser,
 	getProfileByID,
 	getAvatar,
 	auth: { user },
 	profile: { profile, loading },
 }) => {
 	const { id } = useParams();
+
 	useEffect(() => {
 		getProfileByID(id);
 		getAvatar();
 	}, [getProfileByID, getAvatar, id]);
-	return loading && profile === null ? (
+	return (loading && profile === null) || user == null ? (
 		<Spinner />
 	) : (
 		<div className='container'>
 			<Fragment>
-				<h1 className='text-primary large '>
-					<i className='fas fa-user'></i>
-					Welcome {user && user.data.UserName}
-				</h1>
+				{!loading && id == user.data.UserId && (
+					<h1 className='text-primary large '>
+						<i className='fas fa-user'></i>
+						Welcome {user && user.data.UserName}
+					</h1>
+				)}
 				{profile !== null && profile.bio !== null ? (
 					<Fragment>
-						<Profile></Profile>
+						<Profile id={id} />
 					</Fragment>
-				) : (
+				) : id === user.data.UserId ? (
 					<Fragment>
-						<p>You have not yet setup a profile, please add some info</p>
+						<p>You have not yet set up a profile, please add some info</p>
 						<Link to='/create-profile' className='btn btn-primary my-1'>
 							Create Profile
 						</Link>
 					</Fragment>
+				) : (
+					<h1 className='text-primary large '>
+						This user doesn't have a profile yet.
+					</h1>
 				)}
 			</Fragment>
 		</div>
@@ -57,4 +65,7 @@ const mapStateToProps = (state) => ({
 	profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProfileByID, getAvatar })(Holder);
+export default connect(mapStateToProps, {
+	getProfileByID,
+	getAvatar,
+})(Holder);

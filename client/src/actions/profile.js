@@ -6,6 +6,7 @@ import * as api from "../utils/api";
 export const getProfileByID = (userID) => async (dispatch) => {
 	try {
 		const res = await api.getProfile(userID);
+
 		dispatch({
 			type: GET_PROFILE,
 			payload: res.data,
@@ -13,7 +14,7 @@ export const getProfileByID = (userID) => async (dispatch) => {
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
-			payload: { msg: err.response.statusText, status: err.response.status },
+			payload: { msg: err.message },
 		});
 	}
 };

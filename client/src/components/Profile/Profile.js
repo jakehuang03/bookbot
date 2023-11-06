@@ -7,15 +7,17 @@ import ProfileBook from "./ProfileBook";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const Profile = (auth, profile) => {
+const Profile = ({ auth }, id) => {
 	return (
 		<div className='contentBox'>
 			<Fragment>
-				{auth.auth.isAuthenticated && auth.auth.loading === false && (
-					<Link to='/edit-profile' className='btn btn-secondary'>
-						Edit Profile
-					</Link>
-				)}
+				{auth.isAuthenticated &&
+					auth.loading === false &&
+					auth.user.data.UserId === id && (
+						<Link to='/edit-profile' className='btn btn-secondary'>
+							Edit Profile
+						</Link>
+					)}
 				<div className='profile-grid my-1'>
 					<ProfileTop></ProfileTop>
 					<ProfileAbout></ProfileAbout>
