@@ -30,16 +30,17 @@ def create_user_profile(userid: int, name: str, bio: str, avatar: str, gender: s
     return userid
 
 
-def create_book(name: str, author: str, summary: str, userid: str, genre: str):
+def create_book(name: str, author: str, summary: str, userid: str, genre: str, published=False):
     if genre is None:
         genre = "none"
     db_book = database.Book(
-        BookName=name, Author=author, BookContent=summary, UserId=userid, Genre=genre
+        BookName=name, Author=author, BookContent=summary, UserId=userid, Genre=genre, Published=published
     )
     db.add(db_book)
     db.commit()
     db.refresh(db_book)
     return db_book.BookId
+
 
 def get_books():
     return db.query(database.Book).all()
