@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Book from "../SharedComponents/Book";
+import Book from "./Book";
 import SearchGenre from "./Search_Genre";
 import { useSelector, useDispatch } from "react-redux";
 import {getMyBooks} from "../../../actions/books"
@@ -21,7 +21,7 @@ export default function MyBooks() {
     return(
     <>
       <Container>
-        <Typography variant="h2" align="center" marginTop='100px'>
+        <Typography variant="h2" align="center" marginTop='30px'>
           My Bookshelf
         </Typography>
       </Container>
