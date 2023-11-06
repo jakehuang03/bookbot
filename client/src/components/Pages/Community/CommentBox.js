@@ -60,7 +60,7 @@ const CommentBox = () => {
         <IconButton
           type="button"
           onClick={onSubmit}
-          disabled={commentValue.length < 1}
+          disabled={commentValue?.length < 1}
         >
           <ReplyIcon />
         </IconButton>
