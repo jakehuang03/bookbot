@@ -68,6 +68,9 @@ const Navbar = ({
 					<Link to='/home'>Home</Link>
 				</li>
 				<li>
+					<Link to='/upload'>Upload</Link>
+				</li>
+				<li>
 					<Link to='/books'>Books</Link>
 				</li>
 				<li>
@@ -124,6 +127,9 @@ const Navbar = ({
 			<ul>
 				<li>
 					<Link to='/home'>Home</Link>
+				</li>
+				<li>
+					<Link to='/upload'>Upload</Link>
 				</li>
 				<li>
 					<Link to='/books'>Books</Link>
