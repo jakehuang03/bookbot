@@ -78,15 +78,8 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 				<Box sx={{ flexGrow: 0 }}>
 					<Tooltip title='Open settings'>
 						<IconButton onClick={handleOpenUserMenu} sx={{ p: 3 }}>
-							<Avatar src={user?.picture} alt={user?.name}>
-								{avatar && !loading ? (
-									<img
-										src={`data:image/jpeg;base64,${avatar}`}
-										alt={"loading"}
-									/>
-								) : (
-									user?.name.charAt(0)
-								)}
+							<Avatar src={`data:image/jpeg;base64,${avatar}`} alt={user?.name}>
+								{user?.name.charAt(0)}
 							</Avatar>
 						</IconButton>
 					</Tooltip>
