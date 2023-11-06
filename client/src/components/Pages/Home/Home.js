@@ -14,7 +14,7 @@ const Top1Book = {
 	title: "The Element of Scrum",
 	author: "Chris Sims",
 	description:
-		"Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
+		"A comprehensive guide to Scrum, breaking it down into its essential components. The book explores the key roles within Scrum, including the Product Owner, ScrumMaster, and Development Team, as well as the critical artifacts such as the Product Backlog, Sprint Backlog, and Increment.",
 	image: TopbookCover,
 };
 
