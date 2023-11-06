@@ -37,3 +37,4 @@ export const SELECT_POST = "SELECT_POST";
 export const SAVE_COMMENT = "SAVE_COMMENT";
 export const GET_COMMENT = "GET_COMMENT";
 export const GET_QUESTION_ID = "GET_QUESTION_ID";
+export const LOAD_AVATAR = "LOAD_AVATAR";

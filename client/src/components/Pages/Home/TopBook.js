@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
+import { ThemeProvider, createTheme } from "@mui/material";
+const theme = createTheme({
+	typography: {
+		fontFamily: "Cardo, sans-serif",
+	},
+});
 function TopBook(props) {
 	const { book } = props;
 	return (
@@ -14,29 +19,31 @@ function TopBook(props) {
 					className='large text-primary'
 					style={{ textAlign: "center", padding: "30px 0 0 0" }}
 				>
-					Weekly TOP1 Book
+					WEEKLY BOOK
 				</h1>
 			</div>
 			<div className='parent'>
 				<div className='child'>
-					<Typography variant='h3' gutterBottom>
-						{book.title}
-					</Typography>
-					<Typography variant='h5' gutterBottom>
-						{book.author}
-					</Typography>
-					<Typography variant='h5' paragraph>
-						{book.description}
-					</Typography>
+					<ThemeProvider theme={theme}>
+						<Typography variant='h3' gutterBottom>
+							{book.title}
+						</Typography>
+						<Typography variant='h5' gutterBottom>
+							{book.author}
+						</Typography>
+						<Typography variant='h5' paragraph>
+							{book.description}
+						</Typography>
 
-					<Button
-						component={Link}
-						to={`/books/${book.id}`}
-						variant='contained'
-						size='large'
-					>
-						Continue reading...
-					</Button>
+						<Button
+							component={Link}
+							to={`/books/${book.id}`}
+							variant='contained'
+							size='large'
+						>
+							Continue reading...
+						</Button>
+					</ThemeProvider>
 				</div>
 				<div className='child'>
 					<img src={book.image} alt={book.title} />

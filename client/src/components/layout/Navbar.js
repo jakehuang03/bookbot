@@ -13,13 +13,9 @@ import {
 	Avatar,
 	Menu,
 } from "@mui/material";
-import { getAvatar } from "../../actions/profile";
+import { loadAvatar } from "../../actions/auth";
 
-const Navbar = ({
-	auth: { isAuthenticated, loading },
-	profile: { avatar },
-	getAvatar,
-}) => {
+const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const dispatch = useDispatch();
@@ -47,7 +43,7 @@ const Navbar = ({
 	};
 
 	useEffect(() => {
-		getAvatar();
+		if (user) loadAvatar(user.user);
 		if (user?.exp) {
 			if (user.exp * 1000 < new Date().getTime()) logout();
 		}
@@ -165,12 +161,10 @@ const Navbar = ({
 Navbar.propTypes = {
 	// logout: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
-	profile: PropTypes.object.isRequired,
-	getAvatar: PropTypes.func.isRequired,
+	loadAvatar: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
 	auth: state.auth,
-	profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getAvatar })(Navbar);
+export default connect(mapStateToProps, { loadAvatar })(Navbar);

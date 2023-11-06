@@ -3,7 +3,8 @@ const config = {
 		baseURL: process.env.REACT_APP_API_URL,
 	},
 	development: {
-		baseURL: "http://3.19.244.129",
+		baseURL: "http://localhost:8000",
+		// baseURL: "http://3.19.244.129",
 	},
 };
 

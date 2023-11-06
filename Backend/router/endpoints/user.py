@@ -144,10 +144,10 @@ async def upload(
 
 
 # get image from s3
-@router.get("/s3get")
-async def get(current_user: Annotated[dict, Depends(get_current_user)]):
+@router.get("/s3get/{userid}")
+async def get(userid):
     try:
-        response = s3.s3_retrieve("user_image/" + str(current_user["UserId"]))
+        response = s3.s3_retrieve("user_image/" + str(userid))
         image_bytes = response["Body"].read()
         # Decode the bytes using UTF-8 encoding
         image_base64 = base64.b64encode(image_bytes).decode("utf-8")

@@ -8,6 +8,7 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
+	LOAD_AVATAR,
 } from "./types";
 
 // Load User
@@ -97,5 +98,19 @@ export const login = (username, password, navigate) => async (dispatch) => {
 		dispatch({
 			type: LOGIN_FAIL,
 		});
+	}
+};
+
+//load avatar
+export const loadAvatar = (userID) => async (dispatch) => {
+	try {
+		const res = await api.getAvatar(userID);
+
+		dispatch({
+			type: LOAD_AVATAR,
+			payload: res.data,
+		});
+	} catch (error) {
+		console.log(error);
 	}
 };

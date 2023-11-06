@@ -16,10 +16,9 @@ const Holder = ({
 	profile: { profile, loading },
 }) => {
 	const { id } = useParams();
-
 	useEffect(() => {
 		getProfileByID(id);
-		getAvatar();
+		getAvatar(id);
 	}, [getProfileByID, getAvatar, id]);
 	return (loading && profile === null) || user == null ? (
 		<Spinner />
@@ -54,7 +53,7 @@ const Holder = ({
 };
 
 Holder.propTypes = {
-	getCurrentProfile: PropTypes.func.isRequired,
+	getProfileByID: PropTypes.func.isRequired,
 	getAvatar: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 	profile: PropTypes.object.isRequired,
