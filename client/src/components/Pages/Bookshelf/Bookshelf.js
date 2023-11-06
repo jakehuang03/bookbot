@@ -87,7 +87,7 @@ export default function BookShelf() {
   return (
     <>
       <Container>
-        <Typography variant="h2" align="center" marginTop='100px'>
+        <Typography variant="h2" align="center" marginTop='30px'>
           Bookshelf
         </Typography>
       </Container>
