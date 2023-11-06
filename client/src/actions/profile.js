@@ -70,9 +70,9 @@ export const saveAvatar = (avatar) => async (dispatch) => {
 	}
 };
 //get avatar
-export const getAvatar = () => async (dispatch) => {
+export const getAvatar = (userID) => async (dispatch) => {
 	try {
-		const res = await api.getAvatar();
+		const res = await api.getAvatar(userID);
 
 		dispatch({
 			type: GET_AVATAR,
