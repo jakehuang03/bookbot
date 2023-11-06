@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -26,9 +27,9 @@ function Comment(props) {
     name: "John Doe",
     email: "",
   };
-
+  const navigate = useNavigate();
   const User = () => {
-    console.log("User!");
+    navigate(`/profile/${comment.UserId}`);
   };
 
   return (

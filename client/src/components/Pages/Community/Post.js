@@ -13,7 +13,7 @@ import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import { Link as RouterLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 /**
  * A component that displays a post in the community page.
  *
@@ -43,8 +43,9 @@ function Post(props) {
    *
    * @function
    */
+  const navigate = useNavigate();
   const User = () => {
-    console.log("User!");
+    navigate(`/profile/${post.UserId}`);
   };
 
   return (
