@@ -49,10 +49,9 @@ export default function AskQuestion(props) {
 
 AskQuestion.propTypes = {
   book: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    BookId: PropTypes.number.isRequired,
+    BookName: PropTypes.string.isRequired,
+    Author: PropTypes.string.isRequired,
+    BookContent: PropTypes.string.isRequired,
   }).isRequired,
 };

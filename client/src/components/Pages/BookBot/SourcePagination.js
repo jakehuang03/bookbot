@@ -1,9 +1,8 @@
 import { Box, Pagination } from "@mui/material";
 import { useState, useEffect } from "react";
 
-export default function SourcePagination({setSources, fullSources}) {
+export default function SourcePagination({setSources, fullSources, pageSize=3}) {
     const count = fullSources.length;
-    const pageSize = 3;
     const [page, setPage] = useState({
         from: 0,
         to: pageSize,
