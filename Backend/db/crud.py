@@ -130,17 +130,37 @@ def get_question_by_bookid(bookid:int):
     quelis = []
     for i in ques:
         quelis.append(i.__dict__)
+        user = get_user_by_id(i.UserId)
+        dict = i.__dict__
+        dict['UserName'] = user.UserName
+        dict['Avatar'] = user.Avatar
+        book = get_book_by_id(i.BookId)
+        dict['BookName'] = book.BookName
+        quelis.append(dict)
     return quelis
 
 def get_question_by_questionid(questionid:int):
     ques = db.query(database.Question).filter(database.Question.QuestionId==questionid).first()
-    return ques.__dict__
+    dict = ques.__dict__
+    user = get_user_by_id(ques.UserId)
+    dict['UserName'] = user.UserName
+    dict['Avatar'] = user.Avatar
+    book = get_book_by_id(ques.BookId)
+    dict['BookName'] = book.BookName
+    return dict
 
 def get_question_all():
     ques = db.query(database.Question)
     quelis = []
     for i in ques:
         quelis.append(i.__dict__)
+        user = get_user_by_id(i.UserId)
+        dict = i.__dict__
+        dict['UserName'] = user.UserName
+        dict['Avatar'] = user.Avatar
+        book = get_book_by_id(i.BookId)
+        dict['BookName'] = book.BookName
+        quelis.append(dict)
     return quelis
 
 def create_comment(quesid: int, userid: int, content: str):
@@ -156,5 +176,9 @@ def get_comment_by_questionid(questionid:int):
     comment = db.query(database.Comment).filter(database.Comment.QuestionId == questionid).all()
     commentlis = []
     for i in comment:
-        commentlis.append(i.__dict__)
+        user = get_user_by_id(i.UserId)
+        dict = i.__dict__
+        dict['UserName'] = user.UserName
+        dict['Avatar'] = user.Avatar
+        commentlis.append(dict)
     return commentlis

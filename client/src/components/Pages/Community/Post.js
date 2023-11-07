@@ -8,7 +8,6 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
-import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import { Link as RouterLink } from "react-router-dom";
@@ -31,15 +30,8 @@ function Post(props) {
   const { post } = props;
   const dispatch = useDispatch();
 
-  // TODO: get user profile from database based on user id
-  const user = {
-    id: 1,
-    name: "John Doe",
-    email: "",
-  };
-
   /**
-   * TODO: go to user profile.
+   * go to user profile.
    *
    * @function
    */
@@ -55,10 +47,12 @@ function Post(props) {
           align="left"
           avatar={
             <IconButton onClick={User}>
-              <Avatar sx={{ bgcolor: red[500] }}>R</Avatar>
+              <Avatar src={`data:image/jpeg;base64,${post.Avatar}`} alt={post.UserName}>
+                {post.UserName.charAt(0)}
+              </Avatar>
             </IconButton>
           }
-          title={user.name}
+          title={post.UserName}
           // subheader={post.CreateTime}
         />
         <CardActionArea component={RouterLink} to={`/posts/${post.QuestionId}`}>
@@ -72,7 +66,9 @@ function Post(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button component={RouterLink} to={`/books/${post.BookId}`}>View the book </Button>
+          <Button component={RouterLink} to={`/books/${post.BookId}`}>
+          ${post.BookName}
+          </Button>
         </CardActions>
       </Card>
     </Grid>
@@ -87,6 +83,9 @@ Post.propTypes = {
     CreateTime: PropTypes.string.isRequired,
     QuestionContent: PropTypes.string.isRequired,
     QuestionAnswer: PropTypes.string.isRequired,
+    BookName: PropTypes.string,
+    UserName: PropTypes.string,
+    Avatar: PropTypes.string,
   }).isRequired,
 };
 
