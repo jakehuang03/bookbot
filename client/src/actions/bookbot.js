@@ -1,5 +1,4 @@
 import {
-  SELECT_BOOK,
   ASK_QUESTION,
   ANSWER_SUCCESS,
   SOURCE_SUCCESS,
@@ -7,11 +6,13 @@ import {
 } from "./types";
 import * as api from "../utils/api";
 import { setAlert } from "./alert";
-export const selectBook = (book) => (dispatch) => {
-  dispatch({ type: SELECT_BOOK, payload: book });
-};
 
-// send the question to chatbot and get the answer
+/**
+ * Sends a question to the chatbot and retrieves the answer.
+ * @param {Object} book - The book object.
+ * @param {string} question - The question to ask the chatbot.
+ * @param {function} navigate - The function to navigate to a new page.
+ */
 export const askQuestion = (book, question, navigate) => async (dispatch) => {
   dispatch({ type: ASK_QUESTION, payload: question });
   try {
@@ -24,6 +25,9 @@ export const askQuestion = (book, question, navigate) => async (dispatch) => {
   }
 };
 
+/**
+ * Saves the answer to a question in the database.
+ */
 export const saveAnswer = () => async (dispatch, getState) => {
   const { auth, bookbot } = getState();
   //bookid and userid must already be in the database
@@ -46,7 +50,7 @@ export const saveAnswer = () => async (dispatch, getState) => {
     },
   };
   try {
-    const res = await api.saveAnswer(body, config);
+    await api.saveAnswer(body, config);
     dispatch({ type: SAVE_ANSWER });
   } catch (error) {
     dispatch(setAlert("Save Answer Fail", "danger"));

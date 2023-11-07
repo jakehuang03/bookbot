@@ -11,28 +11,37 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import ShareIcon from "@mui/icons-material/Share";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
 
+/**
+ * Renders a single answer card for the BookBot page.
+ * @param {Object} props.Answer - The answer object containing the answer data.
+ * @param {number} props.Answer.id - The unique ID of the answer.
+ * @param {string} props.Answer.answer - The text content of the answer.
+ * @returns {JSX.Element} - The JSX code for the answer card.
+ */
 function Answer(props) {
   const { Answer } = props;
   const [save, setSave] = useState(false);
   const dispatch = useDispatch();
-  // Save the question to user profile
+
+  /**
+   * Saves the question and answer to server
+   */
   const Save = () => {
-      dispatch(saveAnswer());
-      setSave(true);
-  };
-  //TODO: Share the comment to community
-  const Share = () => {
-    console.log("Shared!");
+    dispatch(saveAnswer());
+    setSave(true);
   };
 
+  /**
+   * TODO: function for handling "More" button click.
+   */
   const More = () => {
     console.log("More!");
   };
+
   return (
     <Grid item xs={12} md={12}>
       <Card sx={{ display: "flex", m: 1 }}>
@@ -56,13 +65,10 @@ function Answer(props) {
           {save ? (
             <BookmarkIcon />
           ) : (
-            <IconButton aria-label="Bookmark" onClick={Save} >
-              <BookmarkBorderIcon/>
+            <IconButton aria-label="Bookmark" onClick={Save}>
+              <BookmarkBorderIcon />
             </IconButton>
           )}
-          <IconButton aria-label="Share" onClick={Share}>
-            <ShareIcon />
-          </IconButton>
         </CardActions>
       </Card>
     </Grid>

@@ -7,31 +7,37 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Button from "@mui/material/Button";
-import CommentIcon from "@mui/icons-material/Comment";
-import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
-import { TextField } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+/**
+ * A component that displays a post in the community page.
+ *
+ * @component
+ * @param {Object} props.post - The post to be displayed.
+ * @param {number} props.post.QuestionId - The ID of the question.
+ * @param {number} props.post.UserId - The ID of the user who posted the question.
+ * @param {number} props.post.BookId - The ID of the book related to the question.
+ * @param {string} props.post.CreateTime - The time when the question was created.
+ * @param {string} props.post.QuestionContent - The content of the question.
+ * @param {string} props.post.QuestionAnswer - The answer to the question.
+ * @returns {JSX.Element} - The JSX element representing the post.
+ */
 function Post(props) {
   const { post } = props;
-  // get user profile from database based on user id
-  const user = {
-    id: 1,
-    name: "John Doe",
-    email: "",
-  };
-  // get book name from database based on book id
-  const book = {
-    id: 1,
-    title: "The Elements of Scrum.pdf",
-  };
+  const dispatch = useDispatch();
 
+  /**
+   * go to user profile.
+   *
+   * @function
+   */
+  const navigate = useNavigate();
   const User = () => {
-    console.log("User!");
+    navigate(`/profile/${post.UserId}`);
   };
 
   return (
@@ -41,11 +47,13 @@ function Post(props) {
           align="left"
           avatar={
             <IconButton onClick={User}>
-              <Avatar sx={{ bgcolor: red[500] }}>R</Avatar>
+              <Avatar src={`data:image/jpeg;base64,${post.Avatar}`} alt={post.UserName}>
+                {post.UserName.charAt(0)}
+              </Avatar>
             </IconButton>
           }
-          title={user.name}
-          subheader={post.CreateTime}
+          title={post.UserName}
+          // subheader={post.CreateTime}
         />
         <CardActionArea component={RouterLink} to={`/posts/${post.QuestionId}`}>
           <CardContent>
@@ -58,7 +66,9 @@ function Post(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button component={RouterLink} to={`/books/${book.id}`}>{book.title} </Button>
+          <Button component={RouterLink} to={`/books/${post.BookId}`}>
+          ${post.BookName}
+          </Button>
         </CardActions>
       </Card>
     </Grid>
@@ -73,6 +83,9 @@ Post.propTypes = {
     CreateTime: PropTypes.string.isRequired,
     QuestionContent: PropTypes.string.isRequired,
     QuestionAnswer: PropTypes.string.isRequired,
+    BookName: PropTypes.string,
+    UserName: PropTypes.string,
+    Avatar: PropTypes.string,
   }).isRequired,
 };
 
