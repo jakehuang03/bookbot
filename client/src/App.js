@@ -99,6 +99,14 @@ const App = () => {
 						}
 					/>
 					<Route
+						path='/mybooks/search'
+						element={
+							<section className='container'>
+								<MyBooks />
+							</section>
+						}
+					/>
+					<Route
 						path='/books/:bookid'
 						element={
 							<section className='container'>
