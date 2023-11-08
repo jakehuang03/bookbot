@@ -39,6 +39,8 @@ def create_book(name: str, author: str, summary: str, userid: str, genre="none",
     db.refresh(db_book)
     return db_book.BookId
 
+def get_book_by_name(bkname: str):
+    return db.query(database.Book).filter(database.Book.BookName == bkname).first()
 
 def get_books():
     return db.query(database.Book).all()

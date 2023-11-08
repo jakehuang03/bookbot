@@ -6,6 +6,8 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import PyPDF2
 
+from db.crud import get_book_by_name
+
 
 class WordSearch:
     def __init__(self, bookname):
@@ -21,27 +23,27 @@ class WordSearch:
         """
         #folder_path = "./uploaded_files"
         #filepath = f"{folder_path}/{self.bookname}"
+        
+        # # Get the current directory of the script
+        # current_directory = Path(__file__).parent
 
-        endfile = self.bookname + ".pdf"
+        # # Move up to the 'backend' directory
+        # backend_directory = current_directory.parent.parent
         
-        # Get the current directory of the script
-        current_directory = Path(__file__).parent
+        # filepath =backend_directory / "uploaded_files" / endfile
+        
+        # print(filepath)
+        
+        # filepath = str(filepath).replace("upload_files", "uploaded_files")
+        
+        # filepath = filepath.replace("\\utils", "")
 
-        # Move up to the 'backend' directory
-        backend_directory = current_directory.parent.parent
+        # #print(filepath)
+        # with open(filepath, 'rb') as file:
         
-        filepath =backend_directory / "uploaded_files" / endfile
-        
-        print(filepath)
-        
-        filepath = str(filepath).replace("upload_files", "uploaded_files")
-        
-        filepath = filepath.replace("\\utils", "")
-
-        #print(filepath)
-        with open(filepath, 'rb') as file:
-            reader = PyPDF2.PdfReader(file)
-            pages_text = [reader.pages[page_num].extract_text() for page_num in range(len(reader.pages))]
+        file = get_book_by_name(self.bookname)
+        reader = PyPDF2.PdfReader(file)
+        pages_text = [reader.pages[page_num].extract_text() for page_num in range(len(reader.pages))]
 
         return pages_text
 
