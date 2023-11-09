@@ -40,11 +40,11 @@ function CurrentBook(props) {
 
 CurrentBook.propTypes = {
   book: PropTypes.shape({
-    BookId: PropTypes.number.isRequired,
-    BookName: PropTypes.string.isRequired,
-    Author: PropTypes.string.isRequired,
-    BookContent: PropTypes.string.isRequired,
-  }).isRequired,
+    BookId: PropTypes.number,
+    BookName: PropTypes.string,
+    Author: PropTypes.string,
+    BookContent: PropTypes.string,
+  }),
 };
 
 export default CurrentBook;

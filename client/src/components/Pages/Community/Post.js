@@ -28,7 +28,6 @@ import { useNavigate } from "react-router-dom";
  */
 function Post(props) {
   const { post } = props;
-  const dispatch = useDispatch();
 
   /**
    * go to user profile.
@@ -47,8 +46,11 @@ function Post(props) {
           align="left"
           avatar={
             <IconButton onClick={User}>
-              <Avatar src={`data:image/jpeg;base64,${post.Avatar}`} alt={post.UserName}>
-                {post.UserName.charAt(0)}
+              <Avatar
+                src={`data:image/jpeg;base64,${post.Avatar}`}
+                alt={post.UserName}
+              >
+                {post.UserName ? post.UserName.charAt(0) : []}
               </Avatar>
             </IconButton>
           }
@@ -67,7 +69,7 @@ function Post(props) {
         </CardActionArea>
         <CardActions>
           <Button component={RouterLink} to={`/books/${post.BookId}`}>
-          ${post.BookName}
+            ${post.BookName}
           </Button>
         </CardActions>
       </Card>

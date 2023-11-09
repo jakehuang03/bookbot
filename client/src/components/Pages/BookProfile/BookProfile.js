@@ -8,26 +8,32 @@ import PastQuestion from "./PastQuestion";
 import AskQuestion from "./AskQuestion";
 import { getQuestionByBook } from "../../../actions/community";
 import { getBook } from "../../../actions/books";
-
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 /**
  * Renders the BookProfile component which displays the current book, allows users to ask questions about the book,
  * and displays past questions related to the book.
  * @returns {JSX.Element} BookProfile component
  */
 
-function BookProfile() {
+const BookProfile = ({
+  getBook,
+  getQuestionByBook,
+  bookbot : { selectedBook, pastQuestion },
+}) => {
   //get book from database based on book id
   const { bookid } = useParams();
-  const dispatch = useDispatch();
-  dispatch(getBook(bookid));
-  const TempBook = JSON.parse(sessionStorage.getItem("selectedBook"));
-  // get past questions for the book from database based on book id
-  dispatch(getQuestionByBook(bookid));
-  const QuestionList = JSON.parse(sessionStorage.getItem("pastQuestion"));
+
+  useEffect(() => {
+		getBook(bookid);
+		getQuestionByBook(bookid);
+	}, [getBook, getQuestionByBook, bookid]);
+  
   return (
     <Container>
-      <CurrentBook book={TempBook} />
-      <AskQuestion book={TempBook} />
+      <CurrentBook book={selectedBook} />
+      <AskQuestion book={selectedBook} />
       <Box sx={{ mt: 2, p: 2 }} className="profile-about bg-light">
         <Typography
           variant="h5"
@@ -37,13 +43,29 @@ function BookProfile() {
           Past Questions
         </Typography>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {QuestionList.map((question) => (
+          { Array.isArray(pastQuestion) 
+          ? pastQuestion.map((question) => (
             <PastQuestion key={question.QuestionID} pastQuestion={question} />
-          ))}
+          ))
+          : []}
         </Grid>
       </Box>
     </Container>
   );
 }
 
-export default BookProfile;
+BookProfile.propTypes = {
+	getBook: PropTypes.func.isRequired,
+	getQuestionByBook: PropTypes.func.isRequired,
+	bookbot: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	bookbot: state.bookbot,
+});
+
+export default connect(mapStateToProps, {
+	getBook,
+	getQuestionByBook,
+})(BookProfile);
+
