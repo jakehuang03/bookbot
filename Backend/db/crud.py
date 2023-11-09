@@ -131,9 +131,8 @@ def get_question_by_bookid(bookid:int):
     ques = db.query(database.Question).filter(database.Question.BookId == bookid).all()
     quelis = []
     for i in ques:
-        quelis.append(i.__dict__)
-        user = get_user_by_id(i.UserId)
         dict = i.__dict__
+        user = get_user_by_id(i.UserId)
         dict['UserName'] = user.UserName
         dict['Avatar'] = user.Avatar
         book = get_book_by_id(i.BookId)
@@ -155,9 +154,8 @@ def get_question_all():
     ques = db.query(database.Question)
     quelis = []
     for i in ques:
-        quelis.append(i.__dict__)
-        user = get_user_by_id(i.UserId)
         dict = i.__dict__
+        user = get_user_by_id(i.UserId)
         dict['UserName'] = user.UserName
         dict['Avatar'] = user.Avatar
         book = get_book_by_id(i.BookId)
@@ -178,8 +176,8 @@ def get_comment_by_questionid(questionid:int):
     comment = db.query(database.Comment).filter(database.Comment.QuestionId == questionid).all()
     commentlis = []
     for i in comment:
-        user = get_user_by_id(i.UserId)
         dict = i.__dict__
+        user = get_user_by_id(i.UserId)
         dict['UserName'] = user.UserName
         dict['Avatar'] = user.Avatar
         commentlis.append(dict)
