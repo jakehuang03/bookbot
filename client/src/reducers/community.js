@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   post_list: [],
-  selectedPost: [],
+  selectedPost: {},
   comment_list: [],
   my_comment: [],
 };

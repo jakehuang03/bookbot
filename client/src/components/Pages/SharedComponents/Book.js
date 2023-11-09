@@ -21,7 +21,7 @@ function Book(props) {
   return (
     <Grid item xs={6} md={3}>
       <CardActionArea component={RouterLink} to={`/books/${book.BookId}`}>
-        <Card>
+        <Card >
           <CardMedia
             component="img"
             alt={book.BookName}
@@ -50,8 +50,8 @@ Book.propTypes = {
   book: PropTypes.shape({
     BookId: PropTypes.number.isRequired,
     BookName: PropTypes.string.isRequired,
-    Author: PropTypes.string.isRequired,
-    BookContent: PropTypes.string.isRequired,
+    Author: PropTypes.string,
+    BookContent: PropTypes.string,
     // image: PropTypes.string.isRequired,
   }).isRequired,
 };
