@@ -1,5 +1,5 @@
 from . import database
-
+from sqlalchemy import desc
 db = database.SessionLocal()
 
 
@@ -132,34 +132,19 @@ def get_question_by_bookid(bookid:int):
     quelis = []
     for i in ques:
         dict = i.__dict__
-        user = get_user_by_id(i.UserId)
-        dict['UserName'] = user.UserName
-        dict['Avatar'] = user.Avatar
-        book = get_book_by_id(i.BookId)
-        dict['BookName'] = book.BookName
         quelis.append(dict)
     return quelis
 
 def get_question_by_questionid(questionid:int):
     ques = db.query(database.Question).filter(database.Question.QuestionId==questionid).first()
     dict = ques.__dict__
-    user = get_user_by_id(ques.UserId)
-    dict['UserName'] = user.UserName
-    dict['Avatar'] = user.Avatar
-    book = get_book_by_id(ques.BookId)
-    dict['BookName'] = book.BookName
     return dict
 
 def get_question_all():
-    ques = db.query(database.Question)
+    ques = db.query(database.Question).order_by(desc(database.Question.CreateTime)).all()
     quelis = []
     for i in ques:
         dict = i.__dict__
-        user = get_user_by_id(i.UserId)
-        dict['UserName'] = user.UserName
-        dict['Avatar'] = user.Avatar
-        book = get_book_by_id(i.BookId)
-        dict['BookName'] = book.BookName
         quelis.append(dict)
     return quelis
 
@@ -173,12 +158,11 @@ def create_comment(quesid: int, userid: int, content: str):
     return db_comment.CommentId
 
 def get_comment_by_questionid(questionid:int):
-    comment = db.query(database.Comment).filter(database.Comment.QuestionId == questionid).all()
+    comment = db.query(database.Comment).filter(database.Comment.QuestionId == questionid).order_by(desc(database.Comment.CreateTime)).all()
     commentlis = []
     for i in comment:
         dict = i.__dict__
-        user = get_user_by_id(i.UserId)
-        dict['UserName'] = user.UserName
-        dict['Avatar'] = user.Avatar
         commentlis.append(dict)
+    if commentlis.__len__() > 10:
+        return commentlis[:10]
     return commentlis

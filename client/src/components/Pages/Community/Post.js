@@ -69,7 +69,7 @@ function Post(props) {
         </CardActionArea>
         <CardActions>
           <Button component={RouterLink} to={`/books/${post.BookId}`}>
-            ${post.BookName}
+            {post.BookName}
           </Button>
         </CardActions>
       </Card>

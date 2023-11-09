@@ -15,7 +15,6 @@ const PostDetail = ({
 }) => {
   //get post detail from database based on book id
   const { postid } = useParams();
-
   useEffect(() => {
 		getQuesCommentByID(postid);
 	}, [getQuesCommentByID, postid]);

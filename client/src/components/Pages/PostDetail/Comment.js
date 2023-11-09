@@ -21,12 +21,6 @@ import Avatar from "@mui/material/Avatar";
 function Comment(props) {
   const { comment } = props;
 
-  // TODO: get user profile from database based on user id
-  const user = {
-    id: 1,
-    name: "John Doe",
-    email: "",
-  };
   const navigate = useNavigate();
   const User = () => {
     navigate(`/profile/${comment.UserId}`);

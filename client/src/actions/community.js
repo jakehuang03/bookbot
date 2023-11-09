@@ -1,4 +1,3 @@
-import axios from "axios";
 import { setAlert } from "./alert";
 import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST, SAVE_COMMENT, GET_COMMENT } from "./types";
 import * as api from "../utils/api";
