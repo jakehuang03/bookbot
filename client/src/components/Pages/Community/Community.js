@@ -21,7 +21,7 @@ const Community = () => {
 	return (
 		<Container className='contentBox'>
 			<Typography
-				className='bg-primary'
+				className='bg-secondary text-primary'
 				variant='h1'
 				align='center'
 				sx={{ p: 4, mb: 4 }}
