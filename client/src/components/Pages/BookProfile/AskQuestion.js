@@ -27,7 +27,7 @@ export default function AskQuestion(props) {
    * Dispatches an action to ask a question about the current book.
    */
   const Asked = () => {
-    dispatch(askQuestion(book, question, navigate));
+    dispatch(askQuestion(book.BookName, question, navigate));
   };
 
   /**
@@ -71,9 +71,9 @@ export default function AskQuestion(props) {
 
 AskQuestion.propTypes = {
   book: PropTypes.shape({
-    BookId: PropTypes.number.isRequired,
-    BookName: PropTypes.string.isRequired,
-    Author: PropTypes.string.isRequired,
-    BookContent: PropTypes.string.isRequired,
-  }).isRequired,
+    BookId: PropTypes.number,
+    BookName: PropTypes.string,
+    Author: PropTypes.string,
+    BookContent: PropTypes.string,
+  }),
 };

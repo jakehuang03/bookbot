@@ -21,12 +21,6 @@ import Avatar from "@mui/material/Avatar";
 function Comment(props) {
   const { comment } = props;
 
-  // TODO: get user profile from database based on user id
-  const user = {
-    id: 1,
-    name: "John Doe",
-    email: "",
-  };
   const navigate = useNavigate();
   const User = () => {
     navigate(`/profile/${comment.UserId}`);
@@ -34,11 +28,21 @@ function Comment(props) {
 
   return (
     <Grid item xs={12} md={12}>
-      <Card sx={{p:1}}>
-        <IconButton onClick={User} sx={{ display: 'inline' }}>
-          <Avatar sx={{ bgcolor: red[500] }}>R</Avatar>
+      <Card sx={{ p: 1 }}>
+        <IconButton onClick={User} sx={{ display: "inline" }}>
+          <Avatar
+            src={`data:image/jpeg;base64,${comment.Avatar}`}
+            alt={comment.UserName}
+          >
+            {comment.UserName.charAt(0)}
+          </Avatar>
         </IconButton>
-        <Typography variant="subtitle1" align="left" sx={{ display: 'inline' , m: 1}} paragraph>
+        <Typography
+          variant="subtitle1"
+          align="left"
+          sx={{ display: "inline", m: 1 }}
+          paragraph
+        >
           {comment.Content}
         </Typography>
         <Typography variant="subtitle2" align="right">

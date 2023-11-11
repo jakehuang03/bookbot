@@ -25,6 +25,7 @@ export const FETCH_BOOKS = "FETCH_BOOKS";
 
 export const SELECT_BOOK = "SELECT_BOOK";
 export const ASK_QUESTION = "ASK_QUESTION";
+export const ASK_QUESTION_FAIL = "ASK_QUESTION_FAIL";
 export const ANSWER_SUCCESS = "ANSWER_SUCCESS";
 export const SOURCE_SUCCESS = "SOURCE_SUCCESS";
 export const SAVE_ANSWER = "SAVE_ANSWER";

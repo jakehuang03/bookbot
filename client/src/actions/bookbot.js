@@ -3,6 +3,7 @@ import {
   ANSWER_SUCCESS,
   SOURCE_SUCCESS,
   SAVE_ANSWER,
+  ASK_QUESTION_FAIL,
 } from "./types";
 import * as api from "../utils/api";
 import { setAlert } from "./alert";
@@ -16,11 +17,12 @@ import { setAlert } from "./alert";
 export const askQuestion = (book, question, navigate) => async (dispatch) => {
   dispatch({ type: ASK_QUESTION, payload: question });
   try {
-    const answer = await api.askQuestion(book.title, question);
+    const answer = await api.askQuestion(book, question);
     dispatch({ type: ANSWER_SUCCESS, payload: answer.data.answer });
     dispatch({ type: SOURCE_SUCCESS, payload: answer.data.extractedpar });
     navigate("/bookbot");
   } catch (error) {
+    dispatch({ type: ASK_QUESTION_FAIL });
     dispatch(setAlert("Ask Question Fail", "danger"));
   }
 };
@@ -36,7 +38,7 @@ export const saveAnswer = () => async (dispatch, getState) => {
     return;
   }
   const userid = auth.user.data.UserId;
-  const bookid = bookbot.selectedBook.id;
+  const bookid = bookbot.selectedBook.BookId;
   const question = bookbot.question;
   const answer = bookbot.answer[0].answer;
   var body = new URLSearchParams();
@@ -50,7 +52,7 @@ export const saveAnswer = () => async (dispatch, getState) => {
     },
   };
   try {
-    await api.saveAnswer(body, config);
+    const res = await api.saveAnswer(body, config);
     dispatch({ type: SAVE_ANSWER });
   } catch (error) {
     dispatch(setAlert("Save Answer Fail", "danger"));

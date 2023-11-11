@@ -1,3 +1,5 @@
+from utils import s3
+import base64
 import db.crud as crud
 from fastapi import APIRouter, HTTPException, Form
 
@@ -17,22 +19,56 @@ async def save_question(
         return {"msg": "question saved", "questionid": id}
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
-    
+
+def get_avartar(userid):
+    try:
+        response = s3.s3_retrieve("user_image/" + str(userid))
+        image_bytes = response["Body"].read()
+        # Decode the bytes using UTF-8 encoding
+        image_base64 = base64.b64encode(image_bytes).decode("utf-8")
+        return image_base64
+    except:
+        print("An exception occurred")
+        
+def append_user(dict):
+    userid = dict['UserId']
+    dict['UserName'] = crud.get_user_by_id(userid).UserName
+    # dict['Avatar'] = get_avartar(userid)
+    return dict
+
+def append_book(dict):
+    dict['BookName'] = crud.get_book_by_id(dict['BookId']).BookName
+    return dict
+
 @router.get("/getquesbyuser/{userid}")
 async def get_ques_by_user(userid):
     return crud.get_question_by_userid(userid=userid)
 
 @router.get("/getquesbybook/{bookid}")
 async def get_ques_by_book(bookid):
-    return crud.get_question_by_bookid(bookid=bookid)
+    quelis = crud.get_question_by_bookid(bookid=bookid)
+    for dict in quelis:
+        dict = append_user(dict)
+        dict = append_book(dict)
+    return quelis
 
 @router.get("/getquesbyques/{questionid}")
-async def get_ques_by_book(questionid):
-    return crud.get_question_by_questionid(questionid==questionid)
+async def get_ques_by_ques(questionid):
+    print(questionid)
+    dict = crud.get_question_by_questionid(questionid=questionid)
+    print(dict)
+    dict = append_book(dict)
+    dict = append_user(dict)
+    dict['Avatar'] = get_avartar(dict['UserId'])
+    return dict
 
 @router.get("/getques")
 async def get_ques_all():
-    return crud.get_question_all()
+    quelis = crud.get_question_all()
+    for dict in quelis:
+        dict = append_book(dict)
+        dict = append_user(dict)
+    return quelis
 
 @router.post("/savecomment")
 async def save_comment(
@@ -50,4 +86,7 @@ async def save_comment(
 
 @router.get("/getcommentbyques/{questionid}")
 async def get_comment_by_question(questionid):
-    return crud.get_comment_by_questionid(questionid==questionid)
+    commentlis = crud.get_comment_by_questionid(questionid=questionid)
+    for dict in commentlis:
+        dict = append_user(dict)
+    return commentlis

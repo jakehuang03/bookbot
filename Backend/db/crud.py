@@ -1,5 +1,5 @@
 from . import database
-
+from sqlalchemy import desc
 db = database.SessionLocal()
 
 
@@ -39,6 +39,8 @@ def create_book(name: str, author: str, summary: str, userid: str, genre="none",
     db.refresh(db_book)
     return db_book.BookId
 
+def get_book_by_name(bkname: str):
+    return db.query(database.Book).filter(database.Book.BookName == bkname).first()
 
 def get_books():
     return db.query(database.Book).all()
@@ -129,18 +131,21 @@ def get_question_by_bookid(bookid:int):
     ques = db.query(database.Question).filter(database.Question.BookId == bookid).all()
     quelis = []
     for i in ques:
-        quelis.append(i.__dict__)
+        dict = i.__dict__
+        quelis.append(dict)
     return quelis
 
 def get_question_by_questionid(questionid:int):
     ques = db.query(database.Question).filter(database.Question.QuestionId==questionid).first()
-    return ques.__dict__
+    dict = ques.__dict__
+    return dict
 
 def get_question_all():
-    ques = db.query(database.Question)
+    ques = db.query(database.Question).order_by(desc(database.Question.CreateTime)).all()
     quelis = []
     for i in ques:
-        quelis.append(i.__dict__)
+        dict = i.__dict__
+        quelis.append(dict)
     return quelis
 
 def create_comment(quesid: int, userid: int, content: str):
@@ -153,8 +158,11 @@ def create_comment(quesid: int, userid: int, content: str):
     return db_comment.CommentId
 
 def get_comment_by_questionid(questionid:int):
-    comment = db.query(database.Comment).filter(database.Comment.QuestionId == questionid).all()
+    comment = db.query(database.Comment).filter(database.Comment.QuestionId == questionid).order_by(desc(database.Comment.CreateTime)).all()
     commentlis = []
     for i in comment:
-        commentlis.append(i.__dict__)
+        dict = i.__dict__
+        commentlis.append(dict)
+    if commentlis.__len__() > 10:
+        return commentlis[:10]
     return commentlis

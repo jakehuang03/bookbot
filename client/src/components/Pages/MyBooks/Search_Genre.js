@@ -13,7 +13,7 @@ export default function SearchBar() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = localStorage.getItem("Profile");
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   const searchBooks = (genre) => {
    if(searchBook.trim() || genre || genre === null || genre === "") {
