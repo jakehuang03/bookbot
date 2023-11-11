@@ -43,12 +43,13 @@ def ask_questions(book, question):
 
         current_directory = os.path.dirname(__file__)
         folder_name = "upload_files"  # Replace with the name of your folder
-        folder_path = os.path.join(current_directory, folder_name).replace('\\', '\\\\')
+        # folder_path = os.path.join(current_directory, folder_name).replace('\\', '\\\\')
 
-        path = os.path.join(folder_path, s)
-        print(path)
+        # path = os.path.join(folder_path, s)
+        # print(path)
 
-        result = callwithquestions(path, question)
+        # result = callwithquestions(path, question)
+        result = {'response': "blahblahblah", 'extractedpar':['asdasd', 'sadasd', 'asdasd']}
         print(result)
         print(type(result))
         res = {}
