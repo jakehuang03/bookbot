@@ -62,10 +62,8 @@ def upload_pdf_stream_to_s3(bucket_name, file_stream, file_name, book_id):
     try:
         s3.upload_fileobj(file_stream, bucket_name, full_s3_path)
         print(f"File uploaded successfully to {full_s3_path} in bucket {bucket_name}.")
-    except NoCredentialsError:
-        print("Credentials not available.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    except ClientError as e:
+        logging.error(e)
 
 
 # response = s3_retrieve("user_image/user image2.jpg")
