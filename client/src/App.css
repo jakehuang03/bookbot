@@ -524,3 +524,16 @@ button {
 	padding: 10px;
 	background-color: #1b3764;
 }
+.header{
+	border-radius: 20px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	padding: 10px;
+	background-color: #1b3764;
+}
+.header-text{
+	color: white;
+	text-align: center;
+	font-size: 50px;
+	margin: 50px;
+}
