@@ -9,6 +9,7 @@ import { getAvatar } from "../../actions/profile";
 import { useParams } from "react-router-dom";
 
 const Holder = ({
+	loadUser,
 	getProfileByID,
 	getAvatar,
 	auth: { user },
