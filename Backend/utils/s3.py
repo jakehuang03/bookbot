@@ -44,6 +44,26 @@ def s3_retrieve(destination):
         logging.error(e)
     else:
         return obj
+    
+
+def upload_pdf_stream_to_s3(bucket_name, file_stream, file_name, book_id):
+    """
+    Uploads a PDF stream to an S3 bucket.
+
+    :param bucket_name: Name of the S3 bucket.
+    :param file_stream: The file-like object representing the PDF.
+    :param file_name: The name of the file.
+    :param book_id: The ID of the book.
+    :return: None
+    """
+
+    full_s3_path = f"books/{book_id}/{file_name}"
+
+    try:
+        s3.upload_fileobj(file_stream, bucket_name, full_s3_path)
+        print(f"File uploaded successfully to {full_s3_path} in bucket {bucket_name}.")
+    except ClientError as e:
+        logging.error(e)
 
 
 # response = s3_retrieve("user_image/user image2.jpg")

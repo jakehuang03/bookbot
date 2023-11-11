@@ -1,5 +1,5 @@
 import { setAlert } from "./alert";
-import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST, SAVE_COMMENT, GET_COMMENT, GET_QUESTION_COUNT } from "./types";
+import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST, SAVE_COMMENT, GET_COMMENT } from "./types";
 import * as api from "../utils/api";
 
 /**
@@ -40,23 +40,11 @@ export const getQuestionByBook = (bookID) => async (dispatch) => {
  * Retrieves all questions from the server and dispatches the result to the Redux store.
  * @returns {Function} An async function that dispatches the retrieved questions to the Redux store.
  */
-export const getQuestion = (page) => async (dispatch) => {
+export const getQuestion = () => async (dispatch) => {
 	try {
-		const res = await api.getQuestionByPage(page);
+		const res = await api.getQuestion();
 		dispatch({
 			type: GET_QUESTION,
-			payload: res.data,
-		});
-	} catch (err) {
-		console.log(err);
-	}
-};
-
-export const getQuestionCount = () => async (dispatch) => {
-	try {
-		const res = await api.getQuestionCount();
-		dispatch({
-			type: GET_QUESTION_COUNT,
 			payload: res.data,
 		});
 	} catch (err) {
