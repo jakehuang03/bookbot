@@ -3,9 +3,11 @@ import {
   SELECT_POST,
   SAVE_COMMENT,
   GET_COMMENT,
+  GET_QUESTION_COUNT
 } from "../actions/types";
 
 const initialState = {
+  count: 0,
   post_list: [],
   selectedPost: {},
   comment_list: [],
@@ -27,6 +29,8 @@ export default function community(state = initialState, action) {
     case GET_COMMENT:
       sessionStorage.setItem("comment_list", JSON.stringify(payload));
       return { ...state, comment_list: payload };
+    case GET_QUESTION_COUNT:
+      return { ...state, count: payload };
     default:
       return state;
   }
