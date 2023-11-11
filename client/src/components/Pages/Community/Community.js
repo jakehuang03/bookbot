@@ -8,38 +8,39 @@ import { getQuestion } from "../../../actions/community";
 import SourcePagination from "../BookBot/SourcePagination";
 import Post from "./Post";
 
-const Community = ({ getQuestion, community: { post_list } }) => {
-	const [page, setPage] = useState(0);
-	useEffect(() => {
-		getQuestion(page);
-	}, [page]);
+/**
+ * Renders the Community page component.
+ * @returns {JSX.Element} The Community page component.
+ */
 
+const Community = () => {
+	const dispatch = useDispatch();
+	dispatch(getQuestion());
+	const PostList = JSON.parse(sessionStorage.getItem("post_list"));
+	const [sources, setSources] = useState([]);
 	return (
-		<Container>
-			<div className='header'>
-				<Typography className='header-text' variant='h1'>
-					Community
-				</Typography>
-			</div>
+		<Container className='contentBox'>
+			<Typography
+				className='bg-primary'
+				variant='h1'
+				align='center'
+				sx={{ p: 4, mb: 4 }}
+			>
+				Community
+			</Typography>
+
 			<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-				{Array.isArray(post_list)
-					? post_list.map((post) => <Post key={post.QuestionId} post={post} />)
+				{Array.isArray(sources)
+					? sources.map((post) => <Post key={post.QuestionId} post={post} />)
 					: []}
 			</Grid>
-			<QuestionPagination setPage={setPage} />
+			<SourcePagination
+				setSources={setSources}
+				fullSources={PostList}
+				pageSize='5'
+			/>
 		</Container>
 	);
 };
 
-Community.propTypes = {
-	getQuestion: PropTypes.func.isRequired,
-	community: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	community: state.community,
-});
-
-export default connect(mapStateToProps, {
-	getQuestion,
-})(Community);
+export default Community;

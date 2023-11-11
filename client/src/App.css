@@ -1,7 +1,7 @@
 /* Global Styles */
 
 :root {
-	--primary-color: #1b3764;
+	--primary-color: #2e3b55;
 	--secondary-color: #ffca42;
 	--dark-color: #2e3b55;
 	--light-color: #f4f4f4;
@@ -425,7 +425,7 @@ button {
 	grid-template-areas:
 		"top top"
 		"about about"
-		"inq inq";
+		"inq book";
 	grid-gap: 1rem;
 }
 
