@@ -65,6 +65,6 @@ def upload_pdf_stream_to_s3(file_stream, book_id):
         logging.error(e)
 
 
-with open("Backend/uploaded_files/The Elements of Scrum.pdf", 'rb') as data:
-    upload_pdf_stream_to_s3(data, 15)
+# with open("Backend/uploaded_files/The Elements of Scrum.pdf", 'rb') as data:
+#     upload_pdf_stream_to_s3(data, 15)
         
