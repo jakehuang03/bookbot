@@ -10,7 +10,7 @@ import TopbookCover from "../../../images/TopbookCover.png";
 
 // TODO: 1) get the top 1 and recommended books, 2) calculate the top 1 and recommended books
 const Top1Book = {
-	id: 1,
+	id: 9,
 	title: "The Element of Scrum",
 	author: "Chris Sims",
 	description:
@@ -20,35 +20,29 @@ const Top1Book = {
 
 const RecommendBooks = [
 	{
-		id: 1,
-		title: "Analysis of Algorithms",
-		author: "Robert Sedgewick",
-		description:
+		BookId: 10,
+		BookName: "Analysis of Algorithms",
+		Author: "Robert Sedgewick",
+		BookContent:
 			"This is a wider card with supporting text below as a natural lead-in to additional content.",
 		image: "https://source.unsplash.com/random?wallpapers",
 	},
 	{
-		id: 2,
-		title: "The Art of Computer Programming",
-		author: "AAA",
-		description:
-			"This is a wider card with supporting text below as a natural lead-in to additional content.",
+		BookId: 11,
+		BookName: "The Art of Computer Programming",
+		Author: "AAA",
 		image: "https://source.unsplash.com/random?wallpapers",
 	},
 	{
-		id: 3,
-		title: "Analysis of Algorithms",
-		author: "Robert Sedgewick",
-		description:
-			"This is a wider card with supporting text below as a natural lead-in to additional content.",
+		BookId: 14,
+		BookName: "Analysis of Algorithms",
+		Author: "Robert Sedgewick",
 		image: "https://source.unsplash.com/random?wallpapers",
 	},
 	{
-		id: 4,
-		title: "The Art of Computer Programming",
-		author: "AAA",
-		description:
-			"This is a wider card with supporting text below as a natural lead-in to additional content.",
+		BookId: 15,
+		BookName: "The Art of Computer Programming",
+		Author: "AAA",
 		image: "https://source.unsplash.com/random?wallpapers",
 	},
 ];
