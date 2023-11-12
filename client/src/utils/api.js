@@ -40,8 +40,6 @@ export const loadUser = (formData) => api.post("/api/user/loadUser", formData);
 export const register = (formData) => api.post("/user/signup", formData);
 export const login = (body, config) => api.post("/user/token", body, config);
 export const auth = () => api.get("/user/me");
-export const createBook = (formData, config) =>
-	api.post("/books", formData, config);
 
 export const getAvatar = (userId) => api.get(`/user/s3get/${userId}`);
 export const saveAvatar = (formData, config) =>
@@ -50,21 +48,14 @@ export const createProfile = (formData, config) =>
 	api.post("/user/createprofile", formData, config);
 export const getProfile = (userId) => api.get(`/user/getprofile/${userId}`);
 
+export const createBook = (formData, config) => api.post("/books", formData, config);
 export const fetchBook = (bookId) => api.get(`/books/${bookId}`);
 export const fetchBooks = () => api.get("/books");
 export const fetchMyBooks = (userId) => api.get(`/mybooks?userId=${userId}`);
-export const fetchBooksBySearch = (searchQuery) =>
-	api.get(
-		`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
-			searchQuery.genre || "none"
-		}`
-	);
-export const fetchMyBooksBySearch = (searchQuery, userId) =>
-	api.get(
-		`/mybooks/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
-			searchQuery.genre || "none"
-		}&userId=${userId}`
-	);
+export const fetchBooksBySearch = (searchQuery) => api.get(`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${searchQuery.genre || "none"}`)
+export const fetchMyBooksBySearch = (searchQuery, userId) => api.get(`/mybooks/search?searchBook=${searchQuery.searchBook || "none"}&genre=${searchQuery.genre || "none"}&userId=${userId}`);
+export const deleteBook = (userId, bookId) => api.delete(`/mybooks?userId=${userId}&bookId=${bookId}`);
+export const updateBook = (userId, published) => api.patch(`/mybook?userId=${userId}&published=${published}`);
 
 export const askQuestion = (book, question) =>
 	api.get("/bookbot/ask/", { params: { book: book, question: question } });

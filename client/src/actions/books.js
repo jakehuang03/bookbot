@@ -1,5 +1,5 @@
 import * as api from '../utils/api';
-import { CREATE_BOOK, FETCH_BY_SEARCH, FETCH_BOOK, FETCH_BOOKS, SELECT_BOOK} from './types';
+import { CREATE_BOOK, FETCH_BY_SEARCH, FETCH_BOOK, FETCH_BOOKS, SELECT_BOOK, UPDATE_BOOK, DELETE_BOOK} from './types';
 
 export const createBook = (book, userId, navigate) => async (dispatch) => {
     const body = new FormData();
@@ -68,6 +68,25 @@ export const getMyBooksBySearch = (searchQuery, userId) => async(dispatch) => {
   try {
     const {data} = await api.fetchMyBooksBySearch(searchQuery, userId);
     dispatch({ type: FETCH_BY_SEARCH, payload: data });
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
+
+
+export const deleteBook = (userId, bookId) => async(dispatch) => {
+  try {
+    const {data} = await api.deleteBook(userId, bookId);
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const updateBook = (userId, published) => async(dispatch) => {
+  try {
+    const {data} = await api.updateBook(userId, published);
   }
   catch (error) {
     console.log(error.message);
