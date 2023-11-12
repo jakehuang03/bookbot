@@ -60,16 +60,16 @@ def create_book(name: str, author: str, summary: str, userid: str, genre="none",
     return db_book.BookId
 
 def get_book_by_name(bkname: str):
-    return db.query(database.Book).filter(database.Book.BookName == bkname).first()
+    return db.query(database.Book).filter(database.Book.BookName == bkname).order_by(database.Book.CreateTime.desc()).first()
 
 def get_books():
-    return db.query(database.Book).all()
+    return db.query(database.Book).order_by(database.Book.CreateTime.desc()).all()
 
 def get_book_by_id(bookid: int):
-    return db.query(database.Book).filter(database.Book.BookId == bookid).first()
+    return db.query(database.Book).filter(database.Book.BookId == bookid).order_by(database.Book.CreateTime.desc()).first()
 
 def get_my_books(userId: int):
-    return db.query(database.Book).filter(database.Book.UserId == userId).all()
+    return db.query(database.Book).filter(database.Book.UserId == userId).order_by(database.Book.CreateTime.desc()).all()
 
 def get_book_by_name(bookname: str, genre: str):
     if bookname == "none" and genre == "none":
