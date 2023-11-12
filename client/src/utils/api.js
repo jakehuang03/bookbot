@@ -89,3 +89,4 @@ export const getCommentByQues = (questionID) =>
   api.get(`/com/getcommentbyques/${questionID}`);
 
 export default api;
+

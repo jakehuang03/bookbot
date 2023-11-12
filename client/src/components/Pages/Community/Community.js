@@ -37,6 +37,7 @@ const Community = ({
   );
 };
 
+
 Community.propTypes = {
   getQuestion: PropTypes.func.isRequired,
 	community: PropTypes.object.isRequired,

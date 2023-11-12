@@ -65,6 +65,7 @@ async def get_question_count():
     count = crud.get_question_count()
     return count
 
+
 @router.get("/getquesbypage/{page}")
 async def get_ques_by_page(page: int):
     quelis = crud.get_question_by_page(page=page, num_per_page=5)
