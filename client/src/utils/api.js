@@ -55,7 +55,7 @@ export const fetchMyBooks = (userId) => api.get(`/mybooks?userId=${userId}`);
 export const fetchBooksBySearch = (searchQuery) => api.get(`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${searchQuery.genre || "none"}`)
 export const fetchMyBooksBySearch = (searchQuery, userId) => api.get(`/mybooks/search?searchBook=${searchQuery.searchBook || "none"}&genre=${searchQuery.genre || "none"}&userId=${userId}`);
 export const deleteBook = (userId, bookId) => api.delete(`/mybooks?userId=${userId}&bookId=${bookId}`);
-export const updateBook = (userId, bookId, published) => api.patch(`/mybook?userId=${userId}&bookId=${bookId}&published=${published}`);
+export const updateBook = (userId, bookId, published) => api.patch(`/mybooks?userId=${userId}&bookId=${bookId}&published=${published}`);
 
 export const askQuestion = (book, question) =>
   api.get("/bookbot/ask/", { params: { book: book, question: question } });
@@ -68,6 +68,7 @@ export const getQuestionByUser = (userID) =>
   api.get(`/com/getquesbyuser/${userID}`);
 export const getQuestionByBook = (bookID) =>
   api.get(`/com/getquesbybook/${bookID}`);
+
 export const getQuestionCount = () => api.get(`/com/getquescount/`);
 export const getQuestionByPage = (page) =>
   api.get(`/com/getquesbypage/${page}`);

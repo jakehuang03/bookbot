@@ -73,62 +73,62 @@ def get_my_books(userId: int):
 
 def get_book_by_name(bookname: str, genre: str):
     if bookname == "none" and genre == "none":
-        query = db.query(database.Book).all()
+        query = db.query(database.Book).order_by(database.Book.CreateTime.desc()).all()
         return query
     elif genre == "none":
         query = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%")
         )
-        return query.all()
+        return query.order_by(database.Book.CreateTime.desc()).all()
     elif bookname == "none":
         query = db.query(database.Book).filter(database.Book.Genre == genre)
-        return query.all()
+        return query.order_by(database.Book.CreateTime.desc()).all()
     else:
         query1 = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%")
         ).filter(database.Book.Genre == genre)
-        return query1.all()
+        return query1.order_by(database.Book.CreateTime.desc()).all()
 
 def get_mybook_by_name(bookname: str, genre: str, userId: int):
     if bookname == "none" and genre == "none" and userId == "none":
         query = db.query(database.Book).all()
-        return query
+        return query.order_by(database.Book.CreateTime.desc())
     # single none
     elif genre == "none" and bookname != "none" and userId != "none":
         query = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%"),
             database.Book.UserId == userId
         )
-        return query.all()
+        return query.order_by(database.Book.CreateTime.desc()).all()
     elif bookname == "none" and genre != "none" and userId != "none":
         query = db.query(database.Book).filter(
             database.Book.Genre == genre,
             database.Book.UserId == userId)
-        return query.all()
+        return query.order_by(database.Book.CreateTime.desc()).all()
     elif userId == "none" and bookname != "none" and genre != "none":
         query = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%"),
             database.Book.Genre == genre
         )
-        return query.all()
+        return query.order_by(database.Book.CreateTime.desc()).all()
     # double none
     elif genre == "none" and bookname == "none" and userId != "none":
         query = db.query(database.Book).filter(
             database.Book.UserId == userId)
-        return query.all()
+        return query.order_by(database.Book.CreateTime.desc()).all()
     elif genre == "none" and userId == "none" and bookname != "none":
         query = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%")
         )
-        return query.all()
+        return query.order_by(database.Book.CreateTime.desc()).all()
     elif userId == "none" and bookname == "none" and genre != "none":
         query = db.query(database.Book).filter(
             database.Book.Genre == genre
         )
-        return query.all()
+        return query.order_by(database.Book.CreateTime.desc()).all()
     else:
         query1 = db.query(database.Book).filter(database.Book.BookName.like("%" + bookname + "%")).filter(database.Book.Genre == genre).filter(database.Book.UserId == userId)
-        return query1.all()
+        return query1.order_by(database.Book.CreateTime.desc()).all()
 
 
 def create_question(userid: int, bookid: int, content: str, answer: str):

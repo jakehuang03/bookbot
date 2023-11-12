@@ -1,5 +1,13 @@
 import { setAlert } from "./alert";
-import { GET_QUESTION, GET_QUESTION_BOOK, GET_QUESTION_USER, SELECT_POST, SAVE_COMMENT, GET_COMMENT, GET_QUESTION_COUNT } from "./types";
+import {
+	GET_QUESTION,
+	GET_QUESTION_BOOK,
+	GET_QUESTION_USER,
+	SELECT_POST,
+	SAVE_COMMENT,
+	GET_COMMENT,
+	GET_QUESTION_COUNT,
+} from "./types";
 import * as api from "../utils/api";
 
 /**
@@ -14,6 +22,7 @@ export const getQuestionByUser = (userID) => async (dispatch) => {
 			type: GET_QUESTION_USER,
 			payload: res.data,
 		});
+		console.log(res.data);
 	} catch (err) {
 		console.log(err);
 	}
@@ -35,7 +44,6 @@ export const getQuestionByBook = (bookID) => async (dispatch) => {
 		console.log(err);
 	}
 };
-
 
 /**
  * Retrieves all questions from the server and dispatches the result to the Redux store.
@@ -96,8 +104,8 @@ export const saveComment = (comment) => async (dispatch, getState) => {
 	const { auth, community } = getState();
 	//bookid and userid must already be in the database
 	if (!auth.user) {
-	  dispatch(setAlert("Please Login", "danger"));
-	  return;
+		dispatch(setAlert("Please Login", "danger"));
+		return;
 	}
 	const userid = auth.user.data.UserId;
 	const questionid = community.selectedPost.QuestionId;
@@ -106,15 +114,15 @@ export const saveComment = (comment) => async (dispatch, getState) => {
 	body.append("userid", userid);
 	body.append("content", comment);
 	const config = {
-	  headers: {
-		"Content-Type": "application/x-www-form-urlencoded",
-	  },
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+		},
 	};
 	try {
-	  const res = await api.saveComment(body, config);
-	  dispatch({ type: SAVE_COMMENT });
-	//   dispatch(getQuesCommentByID(questionid));
+		const res = await api.saveComment(body, config);
+		dispatch({ type: SAVE_COMMENT });
+		//   dispatch(getQuesCommentByID(questionid));
 	} catch (error) {
-	  dispatch(setAlert("Save Answer Fail", "danger"));
+		dispatch(setAlert("Save Answer Fail", "danger"));
 	}
 };

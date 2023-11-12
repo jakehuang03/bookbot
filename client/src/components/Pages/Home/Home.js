@@ -23,8 +23,6 @@ const RecommendBooks = [
 		BookId: 10,
 		BookName: "Analysis of Algorithms",
 		Author: "Robert Sedgewick",
-		BookContent:
-			"This is a wider card with supporting text below as a natural lead-in to additional content.",
 		image: "https://source.unsplash.com/random?wallpapers",
 	},
 	{
@@ -74,10 +72,20 @@ export default function Home() {
 					</ColorButton>
 				</Box>
 			</div>
-			<div className='tophalf'>
+			<div>
 				<TopBook book={Top1Book} />
 			</div>
-			<Container className='middlehalf'>
+			<Container className='bottomhalf'>
+				<h1
+					className='text-secondary'
+					style={{
+						textAlign: "center",
+						fontSize: "40px",
+						marginBottom: "20px",
+					}}
+				>
+					RECOMMENDED BOOKS
+				</h1>
 				<Grid container spacing={4}>
 					{RecommendBooks.map((book) => (
 						<Book key={book.id} book={book} /> //Grid item as card

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Book from "./Book";
 import SearchGenre from "./Search_Genre";
@@ -17,7 +16,6 @@ export default function MyBooks() {
 	}, [dispatch]);
 
 	const { books } = useSelector((state) => state.books);
-
 	return (
 		<>
 			<Container>
@@ -32,7 +30,7 @@ export default function MyBooks() {
 					</Grid>
 				</Grid>
 			</div>
-			<Container sx={{ py: 8 }} maxWidth='lg'>
+			<Container sx={{ py: 4 }} maxWidth='lg'>
 				<Grid container spacing={4}>
 					<Grid item>
 						<UploadBookButton />

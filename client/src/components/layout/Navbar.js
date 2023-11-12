@@ -1,23 +1,17 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import decode from "jwt-decode";
 import logo from "../../images/bookbot_logo.png";
-import {
-	Box,
-	MenuItem,
-	Typography,
-	Tooltip,
-	IconButton,
-	Avatar,
-	Menu,
-} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import {Box, MenuItem, Typography, Tooltip, IconButton, Avatar, Menu, Drawer, List, ListItem, ListItemText} from "@mui/material";
 import { loadAvatar } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -42,24 +36,20 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 		setAnchorElUser(null);
 	};
 
-	useEffect(() => {
-		if (user) loadAvatar(user.user);
-		if (user?.exp) {
-			if (user.exp * 1000 < new Date().getTime()) logout();
-		}
-		const token = user?.token;
-		if (token) {
-			const decodedToken = decode(token);
+	const handleMobileMenuOpen = () => {
+		setMobileMenuOpen(true);
+	};
 
-			if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-		}
+	const handleMobileMenuClose = () => {
+		setMobileMenuOpen(false);
+	};
 
-		setUser(JSON.parse(localStorage.getItem("profile")));
-	}, [location]);
-
+	const handleLinkClick = () => {
+		setMobileMenuOpen(false);
+	  };
 	const authLinks = (
 		<div>
-			<ul>
+			<ul className="nav-menu">
 				<li>
 					<Link to='/home'>Home</Link>
 				</li>
@@ -112,9 +102,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 	);
 
 	const guestLinks = (
-		<div>
-			<ul>
-				<li>
+		<div >
+			<ul sx={{alignItems: "center"}}>
+				<li className="nav-menu">
 					<Link to='/home'>Home</Link>
 				</li>
 				<li>
@@ -140,13 +130,47 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 				<Link to='/'>
 					<img src={logo} alt='icon' height={120} />
 				</Link>
-				{
-					<Fragment>
-						{(!loading && isAuthenticated) || user?.email
-							? authLinks
-							: guestLinks}
-					</Fragment>
-				}
+				<Fragment>
+					<IconButton
+					onClick={handleMobileMenuOpen}
+					sx={{ display: { sm: "block", md: "none" }, color: "white" }}
+					>
+						<MenuIcon />
+					</IconButton>
+					<Drawer
+					anchor="top"
+					open={mobileMenuOpen}
+					onClose={handleMobileMenuClose}
+					>
+						<List>
+						{window.innerWidth <= 900 ? (
+							<Fragment>
+							<ListItem onClick={handleLinkClick}>
+								{!loading && isAuthenticated && user?.email && (
+								<div className="nav-menu">{authLinks}</div>
+								)}
+							</ListItem>
+							<ListItem onClick={handleLinkClick}>
+								{!loading && !isAuthenticated && (
+								<div className="nav-menu">{guestLinks}</div>
+								)}
+							</ListItem>
+							</Fragment>
+						) : null}
+						</List>
+					</Drawer>
+
+				{window.innerWidth > 900 && 
+				((!loading && isAuthenticated) || user?.email ? (
+					<div>
+					{authLinks}
+					</div>
+				) : (
+					<div>
+					{guestLinks}
+					</div>
+				))}
+				</Fragment>	
 			</nav>
 		</div>
 	);

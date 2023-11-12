@@ -13,7 +13,7 @@ const Profile = ({ auth, id }) => {
 			<Fragment>
 				{auth.isAuthenticated &&
 					auth.loading === false &&
-					auth.user.data.UserId == id && (
+					auth.user.data.UserId === id && (
 						<Link to='/edit-profile' className='btn btn-secondary'>
 							Edit Profile
 						</Link>
