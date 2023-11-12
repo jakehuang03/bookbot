@@ -17,23 +17,21 @@ function TopBook(props) {
 			<div>
 				<h1
 					className='large text-primary'
-					style={{ textAlign: "center", padding: "30px 0 0 0" }}
+					style={{
+						textAlign: "center",
+						fontSize: "40px",
+						marginTop: "20px",
+					}}
 				>
 					WEEKLY BOOK
 				</h1>
 			</div>
 			<div className='parent'>
-				<div className='child'>
+				<div className='child child1'>
 					<ThemeProvider theme={theme}>
-						<Typography variant='h3' gutterBottom>
-							{book.title}
-						</Typography>
-						<Typography variant='h5' gutterBottom>
-							{book.author}
-						</Typography>
-						<Typography variant='h5' paragraph>
-							{book.description}
-						</Typography>
+						<h2>{book.title}</h2>
+						<h3>{book.author}</h3>
+						<p>{book.description}</p>
 
 						<Button
 							component={Link}
@@ -46,7 +44,7 @@ function TopBook(props) {
 					</ThemeProvider>
 				</div>
 				<div className='child'>
-					<img src={book.image} alt={book.title} />
+					<img src={book.image} alt={book.title} className='coverimg' />
 				</div>
 			</div>
 		</div>

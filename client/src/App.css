@@ -74,6 +74,9 @@ img {
 .text-primary {
 	color: var(--primary-color);
 }
+.text-secondary {
+	color: var(--secondary-color);
+}
 
 .text-dark {
 	color: var(--dark-color);
@@ -512,6 +515,9 @@ button {
 	vertical-align: middle;
 	width: 50%;
 }
+.child1 {
+	padding: 20px;
+}
 .topbook {
 	border-radius: 20px;
 	margin: 20px 0;
@@ -522,6 +528,11 @@ button {
 	border-radius: 20px;
 	margin-top: 50px;
 	padding: 10px;
+	background-color: #1b3764;
+}
+.bottomhalf {
+	border-radius: 20px;
+	padding: 30px;
 	background-color: #1b3764;
 }
 .header {
@@ -535,4 +546,23 @@ button {
 	color: var(--primary-color);
 	text-align: center;
 	font-size: 50px;
+}
+
+h2 {
+	font-size: 30px;
+	margin-bottom: 10px;
+}
+h3 {
+	font-size: 25px;
+	margin-bottom: 10px;
+}
+p {
+	font-size: 20px;
+	margin: 0 20px 50px 20px;
+	text-align: left;
+	text-indent: 20px;
+}
+
+.coverimg {
+	border-radius: 20px;
 }
