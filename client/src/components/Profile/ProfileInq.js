@@ -24,4 +24,8 @@ export default function ProfileInq() {
 			))}
 		</div>
 	);
-}
+};
+
+ProfileInq.propTypes = {};
+
+export default ProfileInq;
