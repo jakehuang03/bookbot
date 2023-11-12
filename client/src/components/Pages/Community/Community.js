@@ -18,9 +18,7 @@ const Community = ({ getQuestion, community: { post_list } }) => {
 	return (
 		<Container>
 			<div className='header'>
-				<Typography className='header-text' variant='h1'>
-					Community
-				</Typography>
+				<h1 className='header-text'>Community</h1>
 			</div>
 			<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
 				{Array.isArray(post_list)
@@ -31,7 +29,6 @@ const Community = ({ getQuestion, community: { post_list } }) => {
 		</Container>
 	);
 };
-
 
 Community.propTypes = {
 	getQuestion: PropTypes.func.isRequired,
