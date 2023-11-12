@@ -73,8 +73,8 @@ def get_my_books(userId: int):
 
 def get_book_by_name(bookname: str, genre: str):
     if bookname == "none" and genre == "none":
-        query = db.query(database.Book).all()
-        return query.order_by(database.Book.CreateTime.desc())
+        query = db.query(database.Book).order_by(database.Book.CreateTime.desc()).all()
+        return query
     elif genre == "none":
         query = db.query(database.Book).filter(
             database.Book.BookName.like("%" + bookname + "%")

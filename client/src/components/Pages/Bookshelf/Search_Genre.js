@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch } from "react-redux";
 import { getBooksBySearch } from "../../../actions/books";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Divider, Paper, TextField } from "@mui/material";
 import './Search_Genre.css';
 
@@ -13,6 +13,23 @@ export default function SearchBar() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const searchBookParam = params.get("searchBook") || "";
+    const genreParam = params.get("genre") || "";
+    if(searchBookParam === "none") {
+      setSearchBook("");
+    }
+    else {
+      setSearchBook(searchBookParam);
+    }
+    setSelectedGenre(genreParam);
+    dispatch(getBooksBySearch({searchBook: searchBookParam, genre: genreParam}));
+  }, [location.search]);
+
+
 
   const searchBooks = (genre) => {
    if(searchBook.trim() || genre || genre === null || genre === "") {
