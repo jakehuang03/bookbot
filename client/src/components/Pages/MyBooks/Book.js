@@ -47,7 +47,7 @@ function Book(props) {
     handleMenuClose();
     if(action === "Publish" || action === "Unpublish") {
       console.log(!book.isPublished);
-      dispatch(updateBook(user.user, !book.isPublished))
+      dispatch(updateBook(user.user, book.BookId, !book.isPublished))
     }
     else if(action === "Delete") {
       console.log(user.user);

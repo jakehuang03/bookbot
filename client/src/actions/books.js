@@ -84,9 +84,9 @@ export const deleteBook = (userId, bookId) => async(dispatch) => {
   }
 }
 
-export const updateBook = (userId, published) => async(dispatch) => {
+export const updateBook = (userId, bookId, published) => async(dispatch) => {
   try {
-    const {data} = await api.updateBook(userId, published);
+    const {data} = await api.updateBook(userId, bookId, published);
   }
   catch (error) {
     console.log(error.message);
