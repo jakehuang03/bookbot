@@ -12,6 +12,7 @@ const initialState = {
   my_comment: [],
 };
 
+
 export default function community(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
