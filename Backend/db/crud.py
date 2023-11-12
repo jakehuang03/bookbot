@@ -140,8 +140,20 @@ def get_question_by_questionid(questionid:int):
     dict = ques.__dict__
     return dict
 
-def get_question_all():
-    ques = db.query(database.Question).order_by(desc(database.Question.CreateTime)).all()
+def get_question_count():
+    count = db.query(database.Question).count()
+    return count
+
+
+def get_question_by_page(page: int, num_per_page: int):
+    start = page
+    end = page+ int(num_per_page)
+    ques = (
+        db.query(database.Question)
+        .order_by(desc(database.Question.CreateTime))
+        .slice(start, end)
+        .all()
+    )
     quelis = []
     for i in ques:
         dict = i.__dict__

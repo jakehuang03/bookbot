@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { Container, Grid, Typography } from "@mui/material";
-
 import { getQuestion } from "../../../actions/community";
-import SourcePagination from "../BookBot/SourcePagination";
+import QuestionPagination from "./QuestionPagination";
 import Post from "./Post";
+import { useEffect } from "react";
 
 const Community = ({ getQuestion, community: { post_list } }) => {
 	const [page, setPage] = useState(0);
@@ -30,6 +31,7 @@ const Community = ({ getQuestion, community: { post_list } }) => {
 		</Container>
 	);
 };
+
 
 Community.propTypes = {
 	getQuestion: PropTypes.func.isRequired,

@@ -22,7 +22,7 @@ const Profile = ({ auth, id }) => {
 					<ProfileTop></ProfileTop>
 					<ProfileAbout></ProfileAbout>
 					<div className='profile-inq bg-white p-2'>
-						<h2 className='text-primary'>History Inquiry</h2>
+						<h2 className='text-primary'>History Posts</h2>
 						<ProfileInq></ProfileInq>
 					</div>
 				</div>
