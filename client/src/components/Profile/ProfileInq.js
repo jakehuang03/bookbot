@@ -7,16 +7,16 @@ import { getQuestionByUser } from "../../actions/community";
 import Post from "./Post";
 
 export default function ProfileInq() {
-	const dispatch = new useDispatch();
+	const dispatch = useDispatch();
 	const { id } = useParams();
 	useEffect(() => {
 		dispatch(getQuestionByUser(id));
-	}, [getQuestionByUser, id]);
+	}, [dispatch, id]);
 
 	const { post_list } = useSelector((state) => state.community);
 	return (
 		<div>
-			{post_list.length == 0 ? (
+			{post_list.length === 0 ? (
 				<h3 className='text-dark'>No History Posts</h3>
 			) : null}
 			{post_list.map((post) => (
