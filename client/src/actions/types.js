@@ -22,6 +22,8 @@ export const CREATE_BOOK = "CREATE_BOOK";
 export const FETCH_BY_SEARCH = "FETCH_BY_SEARCH";
 export const FETCH_BOOK = "FETCH_BOOK";
 export const FETCH_BOOKS = "FETCH_BOOKS";
+export const UPDATE_BOOK = "UPDATE_BOOK";
+export const DELETE_BOOK = "DELETE_BOOK";
 
 export const SELECT_BOOK = "SELECT_BOOK";
 export const ASK_QUESTION = "ASK_QUESTION";
