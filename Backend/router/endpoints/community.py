@@ -33,7 +33,7 @@ def get_avartar(userid):
 def append_user(dict):
     userid = dict['UserId']
     dict['UserName'] = crud.get_user_by_id(userid).UserName
-    dict['Avatar'] = get_avartar(userid)
+    # dict['Avatar'] = get_avartar(userid)
     return dict
 
 def append_book(dict):
@@ -54,10 +54,12 @@ async def get_ques_by_book(bookid):
 
 @router.get("/getquesbyques/{questionid}")
 async def get_ques_by_ques(questionid):
+    print(questionid)
     dict = crud.get_question_by_questionid(questionid=questionid)
+    print(dict)
     dict = append_book(dict)
     dict = append_user(dict)
-    # dict['Avatar'] = get_avartar(dict['UserId'])
+    dict['Avatar'] = get_avartar(dict['UserId'])
     return dict
 
 @router.get("/getquescount")

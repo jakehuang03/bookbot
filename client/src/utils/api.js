@@ -5,17 +5,17 @@ import config from "./config";
 const api = axios.create({ baseURL: config.baseURL });
 
 api.interceptors.request.use((req) => {
-  if (localStorage.getItem("profile")) {
-    if (JSON.parse(localStorage.getItem("profile"))?.token)
-      req.headers.Authorization = `Bearer ${
-        JSON.parse(localStorage.getItem("profile")).token
-      }`;
-    else
-      req.headers.Authorization = `Bearer ${
-        JSON.parse(localStorage.getItem("profile")).sub
-      }`;
-  }
-  return req;
+	if (localStorage.getItem("profile")) {
+		if (JSON.parse(localStorage.getItem("profile"))?.token)
+			req.headers.Authorization = `Bearer ${
+				JSON.parse(localStorage.getItem("profile")).token
+			}`;
+		else
+			req.headers.Authorization = `Bearer ${
+				JSON.parse(localStorage.getItem("profile")).sub
+			}`;
+	}
+	return req;
 });
 
 /*
@@ -41,52 +41,50 @@ export const register = (formData) => api.post("/user/signup", formData);
 export const login = (body, config) => api.post("/user/token", body, config);
 export const auth = () => api.get("/user/me");
 export const createBook = (formData, config) =>
-  api.post("/books", formData, config);
+	api.post("/books", formData, config);
 
 export const getAvatar = (userId) => api.get(`/user/s3get/${userId}`);
 export const saveAvatar = (formData, config) =>
-  api.put("/user/s3upload", formData, config);
+	api.put("/user/s3upload", formData, config);
 export const createProfile = (formData, config) =>
-  api.post("/user/createprofile", formData, config);
+	api.post("/user/createprofile", formData, config);
 export const getProfile = (userId) => api.get(`/user/getprofile/${userId}`);
 
 export const fetchBook = (bookId) => api.get(`/books/${bookId}`);
 export const fetchBooks = () => api.get("/books");
 export const fetchMyBooks = (userId) => api.get(`/mybooks?userId=${userId}`);
 export const fetchBooksBySearch = (searchQuery) =>
-  api.get(
-    `/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
-      searchQuery.genre || "none"
-    }`
-  );
+	api.get(
+		`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
+			searchQuery.genre || "none"
+		}`
+	);
 export const fetchMyBooksBySearch = (searchQuery, userId) =>
-  api.get(
-    `/mybooks/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
-      searchQuery.genre || "none"
-    }&userId=${userId}`
-  );
+	api.get(
+		`/mybooks/search?searchBook=${searchQuery.searchBook || "none"}&genre=${
+			searchQuery.genre || "none"
+		}&userId=${userId}`
+	);
 
 export const askQuestion = (book, question) =>
-  api.get("/bookbot/ask/", { params: { book: book, question: question } });
+	api.get("/bookbot/ask/", { params: { book: book, question: question } });
 export const saveAnswer = (formData, config) =>
-  api.post("/com/saveques", formData, config);
+	api.post("/com/saveques", formData, config);
 
 export const getImageUploadURL = () => api.get("/user/s3url");
 
 export const getQuestionByUser = (userID) =>
-  api.get(`/com/getquesbyuser/${userID}`);
+	api.get(`/com/getquesbyuser/${userID}`);
 export const getQuestionByBook = (bookID) =>
-  api.get(`/com/getquesbybook/${bookID}`);
-export const getQuestionCount = () => api.get(`/com/getquescount/`);
-export const getQuestionByPage = (page) =>
-  api.get(`/com/getquesbypage/${page}`);
+	api.get(`/com/getquesbybook/${bookID}`);
+export const getQuestion = () => api.get(`/com/getques/`);
 
 export const saveComment = (formData, config) =>
-  api.post("/com/savecomment", formData, config);
+	api.post("/com/savecomment", formData, config);
 export const getQuestionByQues = (questionID) =>
-  api.get(`/com/getquesbyques/${questionID}`);
+	api.get(`/com/getquesbyques/${questionID}`);
 export const getCommentByQues = (questionID) =>
-  api.get(`/com/getcommentbyques/${questionID}`);
+	api.get(`/com/getcommentbyques/${questionID}`);
 
 export default api;
 

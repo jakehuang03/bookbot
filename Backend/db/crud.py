@@ -128,7 +128,7 @@ def get_question_by_userid(userid:int):
     return quelis
 
 def get_question_by_bookid(bookid:int):
-    ques = db.query(database.Question).filter(database.Question.BookId == bookid).order_by(desc(database.Question.CreateTime)).all()
+    ques = db.query(database.Question).filter(database.Question.BookId == bookid).all()
     quelis = []
     for i in ques:
         dict = i.__dict__
