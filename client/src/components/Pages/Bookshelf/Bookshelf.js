@@ -30,7 +30,7 @@ export default function BookShelf() {
 					</Grid>
 				</Grid>
 			</div>
-			<Container sx={{ py: 8 }} maxWidth='lg'>
+			<Container sx={{ py: 4 }} maxWidth='lg'>
 				<Grid container spacing={4}>
 					{books.map((book) => (
 						<Book key={book.BookId} book={book} />

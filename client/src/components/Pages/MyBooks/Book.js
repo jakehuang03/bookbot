@@ -12,7 +12,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import defaultCover from '../../../images/Default Book Cover.jpg';
-import { updateBook, deleteBook } from "../../../actions/books";
+import { updateBook, deleteBook, getMyBooks } from "../../../actions/books";
 
 function Book(props) {
   const { book } = props;
@@ -43,15 +43,15 @@ function Book(props) {
     setAnchorEl(null);
   };
 
-  const handleMenuClick = (action) => {
+  const handleMenuClick = async (action) => {
     handleMenuClose();
     if(action === "Publish" || action === "Unpublish") {
-      console.log(!book.isPublished);
-      dispatch(updateBook(user.user, book.BookId, !book.isPublished))
+      await dispatch(updateBook(user.user, book.BookId, !book.Published));
+      dispatch(getMyBooks(user.user));
     }
     else if(action === "Delete") {
-      console.log(user.user);
-      dispatch(deleteBook(user.user, book.BookId))
+      await dispatch(deleteBook(user.user, book.BookId));
+      dispatch(getMyBooks(user.user));
     }
   };
   
@@ -86,7 +86,7 @@ function Book(props) {
                 color="textSecondary"
                 style={{ color: "darkblue", fontWeight: "bold" }}
               >
-                {book.isPublished ? "Published" : "Unpublished"}
+                {book.Published ? "Published" : "Unpublished"}
               </Typography>
             </div>
             <IconButton
@@ -106,7 +106,7 @@ function Book(props) {
               onClose={handleMenuClose}
             >
               <MenuItem onClick={() => handleMenuClick('Publish')}>
-                {book.isPublished ? "Unpublish" : "Publish"}
+                {book.Published ? "Unpublish" : "Publish"}
               </MenuItem>
               <MenuItem onClick={() => handleMenuClick('Delete')}>Delete</MenuItem>
             </Menu>

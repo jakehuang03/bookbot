@@ -20,8 +20,13 @@ export default function SearchBar() {
     const params = new URLSearchParams(location.search);
     const searchBookParam = params.get("searchBook") || "";
     const genreParam = params.get("genre") || "";
-
-    setSearchBook(searchBookParam);
+    if(searchBookParam === "none") {
+      console.log("here");
+      setSearchBook("");
+    }
+    else {
+      setSearchBook(searchBookParam);
+    }
     setSelectedGenre(genreParam);
     dispatch(getMyBooksBySearch({searchBook: searchBookParam, genre: genreParam}, user?.user));
   }, [location.search]);
