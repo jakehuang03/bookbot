@@ -29,6 +29,26 @@ def create_user_profile(userid: int, name: str, bio: str, avatar: str, gender: s
     db.refresh(user)
     return userid
 
+def publishing_status(bookid: int, isPublished: bool):
+    book = db.query(database.Book).filter(database.Book.BookId == bookid).first()
+    
+    if book:
+        book.Published = isPublished
+        db.commit()
+        return True
+    else:
+        return False  # Book not found
+    
+def delete_book(bookid: int):
+    book = db.query(database.Book).filter(database.Book.BookId == bookid).first()
+    
+    if book:
+        db.delete(book)
+        db.commit()
+        return True  # Book successfully deleted
+    else:
+        return False  # Book not found
+
 
 def create_book(name: str, author: str, summary: str, userid: str, genre="none", published=False):
     db_book = database.Book(
