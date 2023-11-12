@@ -144,6 +144,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 				</Link>
 				<Fragment>
 					<IconButton
+						className='small'
 						onClick={handleMobileMenuOpen}
 						sx={{ display: { sm: "block", md: "none" }, color: "white" }}
 					>
