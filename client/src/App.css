@@ -281,15 +281,31 @@ img {
 .navbar .loginBtn a {
 	color: var(--primary-color);
 }
-.navbar .loginBtn a:hover {
+.navbar .loginBtn :hover {
 	color: var(--primary-color);
 	opacity: 0.8;
 }
+.pop {
+	display: none;
+}
 @media screen and (max-width: 900px) {
 	.loginBtn {
-	  	margin-left: 0; 
+		margin-left: 0;
 	}
-  }
+	.pop {
+		margin: auto;
+	}
+	.pop a:hover {
+		color: var(--secondary-color);
+	}
+	.pop .loginBtn:hover {
+		color: var(--primary-color);
+		opacity: 0.8;
+	}
+	.wide {
+		display: none;
+	}
+}
 
 /* Forms */
 .form .form-group {

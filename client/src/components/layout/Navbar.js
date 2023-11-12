@@ -5,7 +5,19 @@ import React, { Fragment, useState } from "react";
 import decode from "jwt-decode";
 import logo from "../../images/bookbot_logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
-import {Box, MenuItem, Typography, Tooltip, IconButton, Avatar, Menu, Drawer, List, ListItem, ListItemText} from "@mui/material";
+import {
+	Box,
+	MenuItem,
+	Typography,
+	Tooltip,
+	IconButton,
+	Avatar,
+	Menu,
+	Drawer,
+	List,
+	ListItem,
+	ListItemText,
+} from "@mui/material";
 import { loadAvatar } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
@@ -46,10 +58,10 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 
 	const handleLinkClick = () => {
 		setMobileMenuOpen(false);
-	  };
+	};
 	const authLinks = (
 		<div>
-			<ul className="nav-menu">
+			<ul className='nav-menu'>
 				<li>
 					<Link to='/home'>Home</Link>
 				</li>
@@ -102,9 +114,9 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 	);
 
 	const guestLinks = (
-		<div >
-			<ul sx={{alignItems: "center"}}>
-				<li className="nav-menu">
+		<div>
+			<ul sx={{ alignItems: "center" }}>
+				<li className='nav-menu'>
 					<Link to='/home'>Home</Link>
 				</li>
 				<li>
@@ -132,45 +144,41 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 				</Link>
 				<Fragment>
 					<IconButton
-					onClick={handleMobileMenuOpen}
-					sx={{ display: { sm: "block", md: "none" }, color: "white" }}
+						onClick={handleMobileMenuOpen}
+						sx={{ display: { sm: "block", md: "none" }, color: "white" }}
 					>
 						<MenuIcon />
 					</IconButton>
 					<Drawer
-					anchor="top"
-					open={mobileMenuOpen}
-					onClose={handleMobileMenuClose}
+						anchor='top'
+						open={mobileMenuOpen}
+						onClose={handleMobileMenuClose}
 					>
 						<List>
-						{window.innerWidth <= 900 ? (
-							<Fragment>
-							<ListItem onClick={handleLinkClick}>
-								{!loading && isAuthenticated && user?.email && (
-								<div className="nav-menu">{authLinks}</div>
-								)}
-							</ListItem>
-							<ListItem onClick={handleLinkClick}>
-								{!loading && !isAuthenticated && (
-								<div className="nav-menu">{guestLinks}</div>
-								)}
-							</ListItem>
-							</Fragment>
-						) : null}
+							{window.innerWidth <= 900 ? (
+								<Fragment>
+									<ListItem onClick={handleLinkClick}>
+										{!loading && isAuthenticated && user?.email && (
+											<div className='pop'>{authLinks}</div>
+										)}
+									</ListItem>
+									<ListItem onClick={handleLinkClick}>
+										{!loading && !isAuthenticated && (
+											<div className='pop'>{guestLinks}</div>
+										)}
+									</ListItem>
+								</Fragment>
+							) : null}
 						</List>
 					</Drawer>
 
-				{window.innerWidth > 900 && 
-				((!loading && isAuthenticated) || user?.email ? (
-					<div>
-					{authLinks}
-					</div>
-				) : (
-					<div>
-					{guestLinks}
-					</div>
-				))}
-				</Fragment>	
+					{window.innerWidth > 900 &&
+						((!loading && isAuthenticated) || user?.email ? (
+							<div className='wide'>{authLinks}</div>
+						) : (
+							<div className='wide'>{guestLinks}</div>
+						))}
+				</Fragment>
 			</nav>
 		</div>
 	);
