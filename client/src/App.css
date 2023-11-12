@@ -1,7 +1,7 @@
 /* Global Styles */
 
 :root {
-	--primary-color: #1b3764;
+	--primary-color: #2e3b55;
 	--secondary-color: #ffca42;
 	--dark-color: #2e3b55;
 	--light-color: #f4f4f4;
@@ -425,7 +425,7 @@ button {
 	grid-template-areas:
 		"top top"
 		"about about"
-		"inq inq";
+		"inq book";
 	grid-gap: 1rem;
 }
 
@@ -524,16 +524,15 @@ button {
 	padding: 10px;
 	background-color: #1b3764;
 }
-.header{
+.header {
 	border-radius: 20px;
 	margin-top: 50px;
 	margin-bottom: 50px;
 	padding: 10px;
-	background-color: #1b3764;
+	background-color: var(--secondary-color);
 }
-.header-text{
-	color: white;
+.header-text {
+	color: var(--primary-color);
 	text-align: center;
 	font-size: 50px;
-	margin: 50px;
 }
