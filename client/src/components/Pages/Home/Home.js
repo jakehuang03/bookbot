@@ -32,8 +32,8 @@ export default function Home() {
 	const dispatch = new useDispatch();
 	useEffect(() => {
 		dispatch(getRecomBook(10));
-		dispatch(getRecomBook(30));
-		dispatch(getRecomBook(29));
+		dispatch(getRecomBook(32));
+		dispatch(getRecomBook(31));
 		dispatch(getRecomBook(28));
 	}, []);
 	const { recommended } = useSelector((state) => state.books);

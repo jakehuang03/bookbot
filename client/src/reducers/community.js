@@ -18,10 +18,8 @@ export default function community(state = initialState, action) {
 	const { type, payload } = action;
 	switch (type) {
 		case GET_QUESTION:
-			sessionStorage.setItem("post_list", JSON.stringify(payload));
 			return { ...state, post_list: payload };
 		case SELECT_POST:
-			sessionStorage.setItem("selectedPost", JSON.stringify(payload));
 			return { ...state, selectedPost: payload };
 		case SAVE_COMMENT:
 			return state;
