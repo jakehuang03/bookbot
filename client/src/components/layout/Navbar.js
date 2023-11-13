@@ -156,7 +156,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 						onClose={handleMobileMenuClose}
 					>
 						<List>
-							{!loading && isAuthenticated && user?.email ? (
+							{(!loading && isAuthenticated) || user?.email ? (
 								<ListItem onClick={handleLinkClick}>
 									<div className='pop'>{authLinks}</div>
 								</ListItem>
