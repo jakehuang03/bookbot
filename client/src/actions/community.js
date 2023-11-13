@@ -26,7 +26,6 @@ export const getQuestionByUser = (userID) => async (dispatch) => {
 			type: GET_QUESTION_USER,
 			payload: res.data,
 		});
-		console.log(res.data);
 	} catch (err) {
 		console.log(err);
 	}

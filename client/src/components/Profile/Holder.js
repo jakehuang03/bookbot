@@ -9,7 +9,6 @@ import { getAvatar } from "../../actions/profile";
 import { useParams } from "react-router-dom";
 
 const Holder = ({
-	loadUser,
 	getProfileByID,
 	getAvatar,
 	auth: { user },
@@ -25,17 +24,17 @@ const Holder = ({
 	) : (
 		<div className='container'>
 			<Fragment>
-				{!loading && id == user.data.UserId && (
+				{!loading && id == user.UserId && (
 					<h1 className='text-primary large '>
 						<i className='fas fa-user'></i>
-						Welcome {user && user.data.UserName}
+						Welcome {user && user.UserName}
 					</h1>
 				)}
 				{profile !== null && profile.bio !== null ? (
 					<Fragment>
 						<Profile id={id} />
 					</Fragment>
-				) : id === user.data.UserId ? (
+				) : id === user.UserId ? (
 					<Fragment>
 						<p>You have not yet set up a profile, please add some info</p>
 						<Link to='/create-profile' className='btn btn-primary my-1'>

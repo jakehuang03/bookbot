@@ -459,7 +459,7 @@ button {
 	grid-template-areas:
 		"top top"
 		"about about"
-		"inq book";
+		"inq inq";
 	grid-gap: 1rem;
 }
 
@@ -495,10 +495,6 @@ button {
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-}
-
-.profile-book {
-	grid-area: book;
 }
 
 .profile-inq {

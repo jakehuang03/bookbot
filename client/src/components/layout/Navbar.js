@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import decode from "jwt-decode";
 import logo from "../../images/bookbot_logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -20,14 +20,13 @@ import {
 } from "@mui/material";
 import { loadAvatar } from "../../actions/auth";
 
-const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
+const Navbar = ({ auth, loadAvatar }) => {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const location = useLocation();
-
 	const logout = () => {
 		handleCloseUserMenu();
 		dispatch({ type: "LOGOUT" });
@@ -38,7 +37,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 
 	const toProfile = () => {
 		handleCloseUserMenu();
-		navigate(`/profile/${user.user}`);
+		navigate(`/profile/${auth.user.UserId}`);
 	};
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
@@ -80,7 +79,10 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 				<Box sx={{ flexGrow: 0 }}>
 					<Tooltip title='Open settings'>
 						<IconButton onClick={handleOpenUserMenu} sx={{ p: 3 }}>
-							<Avatar src={`data:image/jpeg;base64,${avatar}`} alt={user?.name}>
+							<Avatar
+								src={`data:image/jpeg;base64,${auth.avatar}`}
+								alt={user?.name}
+							>
 								{user?.name.charAt(0)}
 							</Avatar>
 						</IconButton>
@@ -156,7 +158,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 						onClose={handleMobileMenuClose}
 					>
 						<List>
-							{!loading && isAuthenticated && user?.email ? (
+							{!auth.loading && auth.isAuthenticated && user?.email ? (
 								<ListItem onClick={handleLinkClick}>
 									<div className='pop'>{authLinks}</div>
 								</ListItem>
@@ -167,7 +169,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 							)}
 						</List>
 					</Drawer>
-					{(!loading && isAuthenticated) || user?.email ? (
+					{(!auth.loading && auth.isAuthenticated) || user?.email ? (
 						<div className='wide'>{authLinks}</div>
 					) : (
 						<div className='wide'>{guestLinks}</div>

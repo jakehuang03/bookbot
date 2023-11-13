@@ -26,9 +26,10 @@ export const loadUser = () => async (dispatch) => {
 					type: AUTH_ERROR,
 				});
 			} else {
+				dispatch(loadAvatar(result.data.UserId));
 				dispatch({
 					type: USER_LOADED,
-					payload: result,
+					payload: result.data,
 				});
 			}
 		} catch (err) {
@@ -105,7 +106,6 @@ export const login = (username, password, navigate) => async (dispatch) => {
 export const loadAvatar = (userID) => async (dispatch) => {
 	try {
 		const res = await api.getAvatar(userID);
-
 		dispatch({
 			type: LOAD_AVATAR,
 			payload: res.data,
