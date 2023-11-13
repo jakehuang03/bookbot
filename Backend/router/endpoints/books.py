@@ -1,5 +1,7 @@
 import db.crud
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
+import shutil
+from pathlib import Path
 
 router = APIRouter()
 
@@ -13,6 +15,12 @@ async def upload_file(
     file: UploadFile = File(...),
 ):
     try:
+        upload_folder = Path("./uploaded_files")
+        upload_folder.mkdir(exist_ok=True)
+
+        with (upload_folder / file.filename).open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+    
         id = db.crud.create_book(
             name=title, author=author, summary=summary, userid=userid, genre=genre
         )
