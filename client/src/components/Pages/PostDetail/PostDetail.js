@@ -10,29 +10,29 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const PostDetail = ({
-  getQuesCommentByID,
-  community : { selectedPost, comment_list },
+	getQuesCommentByID,
+	community: { selectedPost, comment_list },
 }) => {
-  //get post detail from database based on book id
-  const { postid } = useParams();
-  useEffect(() => {
+	//get post detail from database based on book id
+	const { postid } = useParams();
+	useEffect(() => {
 		getQuesCommentByID(postid);
 	}, [getQuesCommentByID, postid]);
 
-  return (
-    <Container>
-      <Post post={selectedPost} />
-      <CommentBox />
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {Array.isArray(comment_list)
-          ? comment_list.map((comment) => (
-              <Comment key={comment.CommentId} comment={comment} />
-            ))
-          : []}
-      </Grid>
-    </Container>
-  );
-}
+	return (
+		<Container className='contentBox'>
+			<Post post={selectedPost} />
+			<CommentBox />
+			<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+				{Array.isArray(comment_list)
+					? comment_list.map((comment) => (
+							<Comment key={comment.CommentId} comment={comment} />
+					  ))
+					: []}
+			</Grid>
+		</Container>
+	);
+};
 
 PostDetail.propTypes = {
 	getQuesCommentByID: PropTypes.func.isRequired,
@@ -44,5 +44,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getQuesCommentByID
+	getQuesCommentByID,
 })(PostDetail);
