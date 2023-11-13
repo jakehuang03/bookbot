@@ -33,12 +33,12 @@ function Book(props) {
             <Typography variant="h5" component="div">
               {book.BookName}
             </Typography>
-            <Typography variant="h6" color="text.secondary">
+            {/* <Typography variant="h6" color="text.secondary">
               {book.Author}
             </Typography>
             <Typography variant="h6" noWrap>
               {book.BookContent}
-            </Typography>
+            </Typography> */}
           </CardContent>
         </Card>
       </CardActionArea>
