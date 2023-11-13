@@ -26,7 +26,6 @@ export default function community(state = initialState, action) {
 		case SAVE_COMMENT:
 			return state;
 		case GET_COMMENT:
-			sessionStorage.setItem("comment_list", JSON.stringify(payload));
 			return { ...state, comment_list: payload };
 		case GET_QUESTION_COUNT:
 			return { ...state, count: payload };
