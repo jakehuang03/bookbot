@@ -156,29 +156,22 @@ const Navbar = ({ auth: { isAuthenticated, loading, avatar }, loadAvatar }) => {
 						onClose={handleMobileMenuClose}
 					>
 						<List>
-							{window.innerWidth <= 900 ? (
-								<Fragment>
-									<ListItem onClick={handleLinkClick}>
-										{!loading && isAuthenticated && user?.email && (
-											<div className='pop'>{authLinks}</div>
-										)}
-									</ListItem>
-									<ListItem onClick={handleLinkClick}>
-										{!loading && !isAuthenticated && (
-											<div className='pop'>{guestLinks}</div>
-										)}
-									</ListItem>
-								</Fragment>
-							) : null}
+							{!loading && isAuthenticated && user?.email ? (
+								<ListItem onClick={handleLinkClick}>
+									<div className='pop'>{authLinks}</div>
+								</ListItem>
+							) : (
+								<ListItem onClick={handleLinkClick}>
+									<div className='pop'>{guestLinks}</div>
+								</ListItem>
+							)}
 						</List>
 					</Drawer>
-
-					{window.innerWidth > 900 &&
-						((!loading && isAuthenticated) || user?.email ? (
-							<div className='wide'>{authLinks}</div>
-						) : (
-							<div className='wide'>{guestLinks}</div>
-						))}
+					{(!loading && isAuthenticated) || user?.email ? (
+						<div className='wide'>{authLinks}</div>
+					) : (
+						<div className='wide'>{guestLinks}</div>
+					)}
 				</Fragment>
 			</nav>
 		</div>
