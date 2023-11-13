@@ -15,7 +15,7 @@ export default function BookShelf() {
   }, [dispatch]);
 
   const { books } = useSelector((state) => state.books);
-
+  console.log(books)
 	return (
 		<>
 			<Container>
