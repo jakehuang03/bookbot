@@ -25,10 +25,6 @@ const Profile = ({ auth, id }) => {
 						<h2 className='text-primary'>History Posts</h2>
 						<ProfileInq></ProfileInq>
 					</div>
-					<div className='profile-book bg-white p-2'>
-						<h2 className='text-primary'>History Text</h2>
-						<ProfileBook></ProfileBook>
-					</div>
 				</div>
 			</Fragment>
 		</div>

@@ -1,12 +1,13 @@
 import { setAlert } from "./alert";
 import {
-  GET_QUESTION,
-  GET_QUESTION_BOOK,
-  GET_QUESTION_USER,
-  SELECT_POST,
-  SAVE_COMMENT,
-  GET_COMMENT,
-  GET_QUESTION_COUNT,
+	GET_QUESTION,
+	GET_QUESTION_BOOK,
+	GET_QUESTION_USER,
+	SELECT_POST,
+	SAVE_COMMENT,
+	GET_COMMENT,
+	GET_QUESTION_COUNT,
+	CLEAR_QUESTION_USER,
 } from "./types";
 import * as api from "../utils/api";
 
@@ -16,16 +17,19 @@ import * as api from "../utils/api";
  * @returns {Function} An async function that dispatches the retrieved questions to the Redux store.
  */
 export const getQuestionByUser = (userID) => async (dispatch) => {
-  try {
-    const res = await api.getQuestionByUser(userID);
-    dispatch({
-      type: GET_QUESTION_USER,
-      payload: res.data,
-    });
-    console.log(res.data);
-  } catch (err) {
-    console.log(err);
-  }
+	try {
+		const res = await api.getQuestionByUser(userID);
+		dispatch({
+			type: CLEAR_QUESTION_USER,
+		});
+		dispatch({
+			type: GET_QUESTION_USER,
+			payload: res.data,
+		});
+		console.log(res.data);
+	} catch (err) {
+		console.log(err);
+	}
 };
 
 /**

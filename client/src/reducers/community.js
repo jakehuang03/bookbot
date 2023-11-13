@@ -1,35 +1,36 @@
 import {
-  GET_QUESTION,
-  SELECT_POST,
-  SAVE_COMMENT,
-  GET_COMMENT,
-  GET_QUESTION_COUNT
+	GET_QUESTION,
+	SELECT_POST,
+	SAVE_COMMENT,
+	GET_COMMENT,
+	GET_QUESTION_COUNT,
+	CLEAR_QUESTION_USER,
 } from "../actions/types";
 
 const initialState = {
-  count: 0,
-  post_list: [],
-  selectedPost: {},
-  comment_list: [],
+	count: 0,
+	post_list: [],
+	selectedPost: {},
+	comment_list: [],
 };
 
 export default function community(state = initialState, action) {
-  const { type, payload } = action;
-  switch (type) {
-    case GET_QUESTION:
-      // sessionStorage.setItem("post_list", JSON.stringify(payload));
-      return { ...state, post_list: payload };
-    case SELECT_POST:
-      sessionStorage.setItem("selectedPost", JSON.stringify(payload));
-      return { ...state, selectedPost: payload };
-    case SAVE_COMMENT:
-      return state;
-    case GET_COMMENT:
-      sessionStorage.setItem("comment_list", JSON.stringify(payload));
-      return { ...state, comment_list: payload };
-    case GET_QUESTION_COUNT:
-      return { ...state, count: payload };
-    default:
-      return state;
-  }
+	const { type, payload } = action;
+	switch (type) {
+		case GET_QUESTION:
+			sessionStorage.setItem("post_list", JSON.stringify(payload));
+			return { ...state, post_list: payload };
+		case SELECT_POST:
+			sessionStorage.setItem("selectedPost", JSON.stringify(payload));
+			return { ...state, selectedPost: payload };
+		case SAVE_COMMENT:
+			return state;
+		case GET_COMMENT:
+			sessionStorage.setItem("comment_list", JSON.stringify(payload));
+			return { ...state, comment_list: payload };
+		case GET_QUESTION_COUNT:
+			return { ...state, count: payload };
+		default:
+			return state;
+	}
 }

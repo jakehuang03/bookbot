@@ -13,13 +13,13 @@ export default function ProfileInq() {
 		dispatch(getQuestionByUser(id));
 	}, [dispatch, id]);
 
-	const { post_list } = useSelector((state) => state.community);
+	const { history } = useSelector((state) => state.profile);
 	return (
 		<div>
-			{post_list.length === 0 ? (
+			{history.length === 0 ? (
 				<h3 className='text-dark'>No History Posts</h3>
 			) : null}
-			{post_list.map((post) => (
+			{history.map((post) => (
 				<Post key={post.QuestionId} post={post} />
 			))}
 		</div>
