@@ -1,12 +1,12 @@
 import { setAlert } from "./alert";
 import {
-	GET_QUESTION,
-	GET_QUESTION_BOOK,
-	GET_QUESTION_USER,
-	SELECT_POST,
-	SAVE_COMMENT,
-	GET_COMMENT,
-	GET_QUESTION_COUNT,
+  GET_QUESTION,
+  GET_QUESTION_BOOK,
+  GET_QUESTION_USER,
+  SELECT_POST,
+  SAVE_COMMENT,
+  GET_COMMENT,
+  GET_QUESTION_COUNT,
 } from "./types";
 import * as api from "../utils/api";
 
@@ -16,16 +16,16 @@ import * as api from "../utils/api";
  * @returns {Function} An async function that dispatches the retrieved questions to the Redux store.
  */
 export const getQuestionByUser = (userID) => async (dispatch) => {
-	try {
-		const res = await api.getQuestionByUser(userID);
-		dispatch({
-			type: GET_QUESTION_USER,
-			payload: res.data,
-		});
-		console.log(res.data);
-	} catch (err) {
-		console.log(err);
-	}
+  try {
+    const res = await api.getQuestionByUser(userID);
+    dispatch({
+      type: GET_QUESTION_USER,
+      payload: res.data,
+    });
+    console.log(res.data);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /**
@@ -34,15 +34,15 @@ export const getQuestionByUser = (userID) => async (dispatch) => {
  * @returns {Function} An async function that dispatches the retrieved questions to the Redux store.
  */
 export const getQuestionByBook = (bookID) => async (dispatch) => {
-	try {
-		const res = await api.getQuestionByBook(bookID);
-		dispatch({
-			type: GET_QUESTION_BOOK,
-			payload: res.data,
-		});
-	} catch (err) {
-		console.log(err);
-	}
+  try {
+    const res = await api.getQuestionByBook(bookID);
+    dispatch({
+      type: GET_QUESTION_BOOK,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /**
@@ -50,27 +50,27 @@ export const getQuestionByBook = (bookID) => async (dispatch) => {
  * @returns {Function} An async function that dispatches the retrieved questions to the Redux store.
  */
 export const getQuestion = (page) => async (dispatch) => {
-	try {
-		const res = await api.getQuestionByPage(page);
-		dispatch({
-			type: GET_QUESTION,
-			payload: res.data,
-		});
-	} catch (err) {
-		console.log(err);
-	}
+  try {
+    const res = await api.getQuestionByPage(page);
+    dispatch({
+      type: GET_QUESTION,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const getQuestionCount = () => async (dispatch) => {
-	try {
-		const res = await api.getQuestionCount();
-		dispatch({
-			type: GET_QUESTION_COUNT,
-			payload: res.data,
-		});
-	} catch (err) {
-		console.log(err);
-	}
+  try {
+    const res = await api.getQuestionCount();
+    dispatch({
+      type: GET_QUESTION_COUNT,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /**
@@ -79,20 +79,20 @@ export const getQuestionCount = () => async (dispatch) => {
  * @returns {Function} An async function that dispatches the retrieved comments and question to the Redux store.
  */
 export const getQuesCommentByID = (id) => async (dispatch) => {
-	try {
-		const comment = await api.getCommentByQues(id);
-		const post = await api.getQuestionByQues(id);
-		dispatch({
-			type: GET_COMMENT,
-			payload: comment.data,
-		});
-		dispatch({
-			type: SELECT_POST,
-			payload: post.data,
-		});
-	} catch (err) {
-		console.log(err);
-	}
+  try {
+    const comment = await api.getCommentByQues(id);
+    const post = await api.getQuestionByQues(id);
+    dispatch({
+      type: GET_COMMENT,
+      payload: comment.data,
+    });
+    dispatch({
+      type: SELECT_POST,
+      payload: post.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /**
@@ -101,28 +101,28 @@ export const getQuesCommentByID = (id) => async (dispatch) => {
  * @returns {Function} An async function that saves the comment to the server and dispatches the result to the Redux store.
  */
 export const saveComment = (comment) => async (dispatch, getState) => {
-	const { auth, community } = getState();
-	//bookid and userid must already be in the database
-	if (!auth.user) {
-		dispatch(setAlert("Please Login", "danger"));
-		return;
-	}
-	const userid = auth.user.data.UserId;
-	const questionid = community.selectedPost.QuestionId;
-	var body = new URLSearchParams();
-	body.append("questionid", questionid);
-	body.append("userid", userid);
-	body.append("content", comment);
-	const config = {
-		headers: {
-			"Content-Type": "application/x-www-form-urlencoded",
-		},
-	};
-	try {
-		const res = await api.saveComment(body, config);
-		dispatch({ type: SAVE_COMMENT });
-		//   dispatch(getQuesCommentByID(questionid));
-	} catch (error) {
-		dispatch(setAlert("Save Answer Fail", "danger"));
-	}
+  const { auth, community } = getState();
+  //bookid and userid must already be in the database
+  if (!auth.user) {
+    dispatch(setAlert("Please Login", "danger"));
+    return;
+  }
+  const userid = auth.user.data.UserId;
+  const questionid = community.selectedPost.QuestionId;
+  var body = new URLSearchParams();
+  body.append("questionid", questionid);
+  body.append("userid", userid);
+  body.append("content", comment);
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+  try {
+    const res = await api.saveComment(body, config);
+    dispatch({ type: SAVE_COMMENT});
+    dispatch(getQuesCommentByID(questionid));
+  } catch (error) {
+    dispatch(setAlert("Save Answer Fail", "danger"));
+  }
 };

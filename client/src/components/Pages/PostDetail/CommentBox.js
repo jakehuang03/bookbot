@@ -9,35 +9,20 @@ import Avatar from "@mui/material/Avatar";
 
 import { saveComment } from "../../../actions/community";
 
-/**
- * renders a comment box for users to add comments.
- * @returns {JSX.Element} The CommentBox component.
- */
 const CommentBox = () => {
 	const { avatar } = useSelector((state) => state.auth);
 	const user = JSON.parse(localStorage.getItem("profile"));
 
 	const [commentValue, setCommentValue] = useState("");
-
 	const [rows, setRows] = useState("1");
 	const dispatch = useDispatch();
-
 	const onChange = (e) => {
 		setCommentValue(e.target.value);
 	};
-
-	/**
-	 * Resets the comment input field and rows state.
-	 */
 	const onClose = () => {
 		setCommentValue("");
 		setRows("1");
 	};
-
-	/**
-	 * Dispatches the comment to be saved and resets the comment input field and rows state.
-	 * @param {Object} e - The event object.
-	 */
 	const onSubmit = (e) => {
 		dispatch(saveComment(commentValue));
 		onClose();

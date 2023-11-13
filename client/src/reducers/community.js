@@ -11,21 +11,19 @@ const initialState = {
   post_list: [],
   selectedPost: {},
   comment_list: [],
-  my_comment: [],
 };
 
 export default function community(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_QUESTION:
-      sessionStorage.setItem("post_list", JSON.stringify(payload));
+      // sessionStorage.setItem("post_list", JSON.stringify(payload));
       return { ...state, post_list: payload };
     case SELECT_POST:
       sessionStorage.setItem("selectedPost", JSON.stringify(payload));
       return { ...state, selectedPost: payload };
     case SAVE_COMMENT:
-      sessionStorage.setItem("my_comment", JSON.stringify(payload));
-      return { ...state, my_comment: payload };
+      return state;
     case GET_COMMENT:
       sessionStorage.setItem("comment_list", JSON.stringify(payload));
       return { ...state, comment_list: payload };
