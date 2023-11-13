@@ -7,6 +7,7 @@ import {
 	SAVE_COMMENT,
 	GET_COMMENT,
 	GET_QUESTION_COUNT,
+	CLEAR_QUESTION_USER,
 } from "./types";
 import * as api from "../utils/api";
 
@@ -18,6 +19,9 @@ import * as api from "../utils/api";
 export const getQuestionByUser = (userID) => async (dispatch) => {
 	try {
 		const res = await api.getQuestionByUser(userID);
+		dispatch({
+			type: CLEAR_QUESTION_USER,
+		});
 		dispatch({
 			type: GET_QUESTION_USER,
 			payload: res.data,

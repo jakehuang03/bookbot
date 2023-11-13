@@ -4,6 +4,8 @@ import {
 	CLEAR_PROFILE,
 	UPDATE_PROFILE,
 	GET_AVATAR,
+	GET_QUESTION_USER,
+	CLEAR_QUESTION_USER,
 } from "../actions/types";
 
 const initialState = {
@@ -11,6 +13,7 @@ const initialState = {
 	avatar: null,
 	loading: true,
 	error: {},
+	history: [],
 };
 
 export default function a(state = initialState, action) {
@@ -41,6 +44,16 @@ export default function a(state = initialState, action) {
 				profile: null,
 				loading: false,
 				avatar: null,
+			};
+		case GET_QUESTION_USER:
+			return {
+				...state,
+				history: payload,
+			};
+		case CLEAR_QUESTION_USER:
+			return {
+				...state,
+				history: [],
 			};
 		default:
 			return state;

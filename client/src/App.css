@@ -285,7 +285,9 @@ img {
 	color: var(--primary-color);
 	opacity: 0.8;
 }
-
+.pop {
+	display: none;
+}
 @media screen and (max-width: 900px) {
 	.loginBtn {
 		margin-left: 0;
@@ -304,14 +306,7 @@ img {
 		display: none;
 	}
 }
-@media screen and (min-width: 900px) {
-	.pop {
-		display: none;
-	}
-	.wide {
-		display: block;
-	}
-}
+
 /* Forms */
 .form .form-group {
 	margin: 1.2rem 0;
@@ -459,7 +454,7 @@ button {
 	grid-template-areas:
 		"top top"
 		"about about"
-		"inq book";
+		"inq inq";
 	grid-gap: 1rem;
 }
 
