@@ -17,7 +17,7 @@ const Community = ({ getQuestion, community: { post_list } }) => {
 
 	return (
 		<Container>
-			<div className='header'>
+			<div className='header' style={{ marginBottom: '50px' }}>
 				<h1 className='header-text'>Community</h1>
 			</div>
 			<Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
