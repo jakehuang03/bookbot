@@ -54,9 +54,9 @@ async def get_ques_by_book(bookid):
 
 @router.get("/getquesbyques/{questionid}")
 async def get_ques_by_ques(questionid):
-    print(questionid)
+    # print(questionid)
     dict = crud.get_question_by_questionid(questionid=questionid)
-    print(dict)
+    # print(dict)
     dict = append_book(dict)
     dict = append_user(dict)
     # dict['Avatar'] = get_avartar(dict['UserId'])
