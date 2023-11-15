@@ -42,7 +42,7 @@ def ask_questions(book, question):
         print(book)
 
         current_directory = os.path.dirname(__file__)
-        folder_name = "upload_files"  # Replace with the name of your folder
+        folder_name = "uploaded_files"  # Replace with the name of your folder
         folder_path = os.path.join(current_directory, folder_name).replace('\\', '\\\\')
 
         path = os.path.join(folder_path, s)
