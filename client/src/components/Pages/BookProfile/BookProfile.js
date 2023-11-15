@@ -45,7 +45,7 @@ const BookProfile = ({
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           { Array.isArray(pastQuestion) 
           ? pastQuestion.map((question) => (
-            <PastQuestion key={question.QuestionID} pastQuestion={question} />
+            <PastQuestion key={question.QuestionID} post={question} />
           ))
           : []}
         </Grid>

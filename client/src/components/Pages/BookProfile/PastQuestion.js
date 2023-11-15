@@ -25,13 +25,13 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
  */
 function PastQuestion(props) {
   const navigate = useNavigate();
-  const { pastQuestion } = props;
+  const { post } = props;
 
   /**
    * A function that navigates to the user's profile page when the user avatar is clicked.
    */
   const User = () => {
-    navigate(`/profile/${pastQuestion.UserId}`);
+    navigate(`/profile/${post.UserId}`);
   };
 
   return (
@@ -41,22 +41,26 @@ function PastQuestion(props) {
           align="left"
           avatar={
             <IconButton onClick={User}>
-              <Avatar sx={{ bgcolor: red[500] }}>R</Avatar>
-            </IconButton>
+              <Avatar
+                src={`data:image/jpeg;base64,${post.Avatar}`}
+                alt={post.UserName}
+              >
+                {post.UserName ? post.UserName.charAt(0) : []}
+              </Avatar>            </IconButton>
           }
-          title={pastQuestion.UserId}
-          subheader={pastQuestion.CreateTime}
+          title={post.UserId}
+          subheader={post.CreateTime}
         />
         <CardActionArea
           component={RouterLink}
-          to={`/posts/${pastQuestion.QuestionId}`}
+          to={`/posts/${post.QuestionId}`}
         >
           <CardContent>
             <Typography variant="h5" align="left" sx={{ fontWeight: "bold" }}>
-              {pastQuestion.QuestionContent}
+              {post.QuestionContent}
             </Typography>
             <Typography variant="subtitle1" align="left" paragraph>
-              {pastQuestion.QuestionAnswer}
+              {post.QuestionAnswer}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -66,9 +70,11 @@ function PastQuestion(props) {
 }
 
 PastQuestion.propTypes = {
-  pastQuestion: PropTypes.shape({
+  post: PropTypes.shape({
     QuestionId: PropTypes.number.isRequired,
     UserId: PropTypes.number.isRequired,
+    UserName: PropTypes.string.isRequired,
+    Avatar: PropTypes.string.isRequired,
     CreateTime: PropTypes.string.isRequired,
     QuestionContent: PropTypes.string.isRequired,
     QuestionAnswer: PropTypes.string.isRequired,
