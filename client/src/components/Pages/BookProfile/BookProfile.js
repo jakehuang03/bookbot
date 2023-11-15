@@ -53,7 +53,7 @@ const BookProfile = ({
             ))}
           </Grid>
         ) : (
-          <p>Ask the first question about the book!</p>
+          <p>Pose the first question about the book!</p>
         )}
       </Box>
     </Container>
