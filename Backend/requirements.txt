@@ -141,7 +141,7 @@ threadpoolctl==3.2.0
 tiktoken==0.5.1
 tokenizer==3.4.3
 tokenizers==0.14.1
-torch==
+torch
 tqdm==4.66.1
 transformers==4.34.0
 tree-sitter==0.20.2
