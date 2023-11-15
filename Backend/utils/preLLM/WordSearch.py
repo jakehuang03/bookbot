@@ -32,13 +32,13 @@ class WordSearch:
         
         filepath =backend_directory / "uploaded_files" / endfile
         
-        print(filepath)
+        #print(filepath)
         
         filepath = str(filepath).replace("upload_files", "uploaded_files")
         
         filepath = filepath.replace("\\utils", "")
 
-        #print(filepath)
+        print(filepath)
         with open(filepath, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
             pages_text = [reader.pages[page_num].extract_text() for page_num in range(len(reader.pages))]
