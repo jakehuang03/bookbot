@@ -20,16 +20,16 @@ import PropTypes from "prop-types";
 const BookProfile = ({
   getBook,
   getQuestionByBook,
-  bookbot : { selectedBook, pastQuestion },
+  bookbot: { selectedBook, pastQuestion },
 }) => {
   //get book from database based on book id
   const { bookid } = useParams();
 
   useEffect(() => {
-		getBook(bookid);
-		getQuestionByBook(bookid);
-	}, [getBook, getQuestionByBook, bookid]);
-  
+    getBook(bookid);
+    getQuestionByBook(bookid);
+  }, [getBook, getQuestionByBook, bookid]);
+
   return (
     <Container>
       <CurrentBook book={selectedBook} />
@@ -42,30 +42,35 @@ const BookProfile = ({
         >
           Past Questions
         </Typography>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          { Array.isArray(pastQuestion) 
-          ? pastQuestion.map((question) => (
-            <PastQuestion key={question.QuestionID} post={question} />
-          ))
-          : []}
-        </Grid>
+        {Array.isArray(pastQuestion) && pastQuestion.length > 0 ? (
+          <Grid
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            {pastQuestion.map((question) => (
+              <PastQuestion key={question.QuestionID} post={question} />
+            ))}
+          </Grid>
+        ) : (
+          <p>Ask the first question about the book!</p>
+        )}
       </Box>
     </Container>
   );
-}
+};
 
 BookProfile.propTypes = {
-	getBook: PropTypes.func.isRequired,
-	getQuestionByBook: PropTypes.func.isRequired,
-	bookbot: PropTypes.object.isRequired,
+  getBook: PropTypes.func.isRequired,
+  getQuestionByBook: PropTypes.func.isRequired,
+  bookbot: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	bookbot: state.bookbot,
+  bookbot: state.bookbot,
 });
 
 export default connect(mapStateToProps, {
-	getBook,
-	getQuestionByBook,
+  getBook,
+  getQuestionByBook,
 })(BookProfile);
-
