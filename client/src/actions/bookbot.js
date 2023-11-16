@@ -30,14 +30,14 @@ export const askQuestion = (book, question, navigate) => async (dispatch) => {
 /**
  * Saves the answer to a question in the database.
  */
-export const saveAnswer = () => async (dispatch, getState) => {
+export const saveAnswer = (userId) => async (dispatch, getState) => {
   const { auth, bookbot } = getState();
   //bookid and userid must already be in the database
   if (!auth.user) {
     dispatch(setAlert("Please Login", "danger"));
     return;
   }
-  const userid = auth.user.data.user;
+  const userid = userId;
   const bookid = bookbot.selectedBook.BookId;
   const question = bookbot.question;
   const answer = bookbot.answer[0].answer;

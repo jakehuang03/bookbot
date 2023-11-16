@@ -26,12 +26,13 @@ function Answer(props) {
   const { Answer } = props;
   const [save, setSave] = useState(false);
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   /**
    * Saves the question and answer to server
    */
   const Save = () => {
-    dispatch(saveAnswer());
+    dispatch(saveAnswer(user.user));
     setSave(true);
   };
 
