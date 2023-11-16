@@ -23,21 +23,18 @@ class WordSearch:
         #folder_path = "./uploaded_files"
         #filepath = f"{folder_path}/{self.bookname}"
 
-        endfile = self.bookname
+        # endfile = self.bookname
         
-        # Get the current directory of the script
-        current_directory = Path(__file__).parent
+        # # Get the current directory of the script
+        # current_directory = Path(__file__).parent
 
-        # Move up to the 'backend' directory
-        backend_directory = current_directory.parent.parent
+        # # Move up to the 'backend' directory
+        # backend_directory = current_directory.parent.parent
         
-        filepath =backend_directory / "uploaded_files" / endfile
+        # filepath =backend_directory / "uploaded_files" / endfile
         
-        #print(filepath)
         
-        filepath = str(filepath).replace("upload_files", "uploaded_files")
-        
-        filepath = filepath.replace("\\utils", "")
+        filepath = '/app/uploaded_files/' + self.bookname
 
         print(filepath)
         
