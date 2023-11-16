@@ -23,7 +23,7 @@ class WordSearch:
         #folder_path = "./uploaded_files"
         #filepath = f"{folder_path}/{self.bookname}"
 
-        endfile = self.bookname + ".pdf"
+        endfile = self.bookname
         
         # Get the current directory of the script
         current_directory = Path(__file__).parent
