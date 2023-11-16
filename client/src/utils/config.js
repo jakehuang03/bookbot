@@ -4,7 +4,7 @@ const config = {
 	},
 	development: {
 		baseURL: "http://35.153.50.103/api",
-		//baseURL: "localhost:8000/api",
+		// baseURL: "http://localhost:8000/api",
 		//baseURL: "http://3.19.244.129",
 	},
 };
