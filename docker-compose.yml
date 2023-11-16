@@ -6,8 +6,9 @@ services:
       - "8000:8000"
     volumes:
       - type: bind
-        source: /app/utils/uploaded_files
-        target: /home/ec2-user/temp370Project/Backend/uploaded_files
+        source: C:/Users/cy295/OneDrive/Desktop/cs370 project/temp370Project/Backend/uploaded_files
+        target: /app/uploaded_files
+        #/home/ec2-user/temp370Project/Backend/uploaded_files
   frontend:
     image: client
     ports:
