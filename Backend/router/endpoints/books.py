@@ -19,10 +19,10 @@ async def upload_file(
         upload_folder.mkdir(exist_ok=True)
 
 
-        with (upload_folder / file.filename).open("wb") as buffer:
+        with (upload_folder / title).open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
         
-        if os.path.exists(upload_folder / file.filename):
+        if os.path.exists(upload_folder / title):
             print("file path exist")
             id = db.crud.create_book(
                 name=title, author=author, summary=summary, userid=userid, genre=genre
