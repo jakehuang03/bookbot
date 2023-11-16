@@ -2,7 +2,7 @@ import db.crud
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 import shutil
 from pathlib import Path
-
+import os
 router = APIRouter()
 
 @router.post("")
@@ -18,13 +18,17 @@ async def upload_file(
         upload_folder = Path("./uploaded_files")
         upload_folder.mkdir(exist_ok=True)
 
+
         with (upload_folder / file.filename).open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
-    
-        id = db.crud.create_book(
-            name=title, author=author, summary=summary, userid=userid, genre=genre
-        )
-        return {"msg": "book uploaded", "bookid": id}
+        
+        if os.path.exists(upload_folder / file.filename):
+            print("file path exist")
+            id = db.crud.create_book(
+                name=title, author=author, summary=summary, userid=userid, genre=genre
+            )
+            return {"msg": "book uploaded", "bookid": id}
+        
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
     
