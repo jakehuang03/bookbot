@@ -5,7 +5,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /home/ec2-user/temp370Project/Backend/uploaded_files: /app/utils/uploaded_files
+      - type: bind
+      - source: /home/ec2-user/temp370Project/Backend/uploaded_files
+      - target: /app/utils/uploaded_files
   frontend:
     image: client
     ports:
