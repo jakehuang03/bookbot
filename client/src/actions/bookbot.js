@@ -37,7 +37,7 @@ export const saveAnswer = () => async (dispatch, getState) => {
     dispatch(setAlert("Please Login", "danger"));
     return;
   }
-  const userid = auth.user.data.UserId;
+  const userid = auth.user.data.user;
   const bookid = bookbot.selectedBook.BookId;
   const question = bookbot.question;
   const answer = bookbot.answer[0].answer;
