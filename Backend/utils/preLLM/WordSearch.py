@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 import re
 import string
 import tensorflow as tf
@@ -39,6 +40,12 @@ class WordSearch:
         filepath = filepath.replace("\\utils", "")
 
         print(filepath)
+        
+        if os.path.exists(filepath):
+            print("file path exist")
+        else:
+            print("file path exist")
+            
         with open(filepath, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
             pages_text = [reader.pages[page_num].extract_text() for page_num in range(len(reader.pages))]
