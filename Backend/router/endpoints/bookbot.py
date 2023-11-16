@@ -1,6 +1,6 @@
 import shutil
 from pathlib import Path
-from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
+from fastapi import APIRouter, HTTPException, Request, UploadFile, File
 
 # from utils.preLLM import store_tensor_in_db, SessionLocal
 from utils.testFunction import ask_questions
@@ -25,25 +25,15 @@ async def ask_question(request: Request):
 
 
 @router.post("/books")
-async def upload_file(
-    title: str = Form(...),
-    author: str = Form(None),
-    summary: str = Form(None),
-    userid: int = Form(...),
-    genre: str = Form(None),
-    file: UploadFile = File(...),
-):
+async def upload_file(file: UploadFile = File(...)):
     try:
         upload_folder = Path("./uploaded_files")
         upload_folder.mkdir(exist_ok=True)
 
         with (upload_folder / file.filename).open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
-    
-        id = db.crud.create_book(
-            name=title, author=author, summary=summary, userid=userid, genre=genre
-        )
-        return {"msg": "book uploaded", "bookid": id}
+
+        return {"filename": file.filename, "content_type": file.content_type}
     except Exception as e:
         raise HTTPException(detail=f"An error occurred: {e}", status_code=400)
 
