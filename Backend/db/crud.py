@@ -63,7 +63,7 @@ def get_book_by_name(bkname: str):
     return db.query(database.Book).filter(database.Book.BookName == bkname).order_by(database.Book.CreateTime.desc()).first()
 
 def get_books():
-    return db.query(database.Book).order_by(database.Book.CreateTime.desc()).all()
+    return db.query(database.Book).filter(database.Book.Published == True).order_by(database.Book.CreateTime.desc()).all()
 
 def get_book_by_id(bookid: int):
     return db.query(database.Book).filter(database.Book.BookId == bookid).order_by(database.Book.CreateTime.desc()).first()
