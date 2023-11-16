@@ -37,27 +37,15 @@ def callwithquestions(file, question):
 
 def ask_questions(book, question):
 
-        # Access the "book" and "questions" fields from the request_data dictionary
-        s = book
-        print(book)
+        # Access the "book" and "questions" fields from the request_data dictionar
 
-        current_directory = os.path.dirname(__file__)
-        folder_name = "uploaded_files"  # Replace with the name of your folder
-        folder_path = os.path.join(current_directory, folder_name).replace('\\', '\\\\')
-
-        path = os.path.join(folder_path, s)
-        print(path)
-
-        result = callwithquestions(path, question)
-        print(result)
-        print(type(result))
+        result = callwithquestions(book, question)
         res = {}
         temp = [{'id': 1, 'answer': result['response']}]
         res['answer'] = temp
         res['extractedpar'] = result['extractedpar']
         res['book'] = book[:-4]
         res['question'] = question
-        print(res)
         return res
     
 if __name__ == "__main__":
