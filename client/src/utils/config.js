@@ -1,14 +1,25 @@
+const getBaseURL = () => {
+    const ec2IP = process.env.REACT_APP_EC2_PUBLIC_IP;
+
+    if (ec2IP) {
+        return `http://${ec2IP}/api`;
+    } else {
+        console.warn("EC2 public IP not set. Falling back to default URL.");
+        return "http://default-url/api"; // Replace with URL on the bottom left corner
+
+    }
+};
+
 const config = {
-	production: {
-		baseURL: process.env.REACT_APP_API_URL,
-	},
-	development: {
-		baseURL: "http://35.153.50.103/api",
+    production: {
+        baseURL: process.env.REACT_APP_API_URL,
+    },
+    development: {
+        baseURL: getBaseURL(),
 		// baseURL: "http://localhost:8000/api",
-		//baseURL: "http://3.19.244.129",
-	},
+    },
 };
 
 export default process.env.NODE_ENV === "production"
-	? config.production
-	: config.development;
+    ? config.production
+    : config.development;
