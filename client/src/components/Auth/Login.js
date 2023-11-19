@@ -27,8 +27,6 @@ const Login = ({ login }) => {
 		console.log(response)
 		try {
 			dispatch(googleLogin(response.credential, navigate));
-			// dispatch({ type: "AUTH", data: userObject });
-			navigate("/");
 		} catch (error) {
 			console.log(error);
 		}

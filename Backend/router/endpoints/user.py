@@ -61,8 +61,12 @@ async def googleLogin(token: str = Form(...)):
     try:
         id_info = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
         user = db.crud.get_user_by_email(id_info["email"])
+        
+        user = user.__dict__
         if not user:
             user = db.crud.create_user(name=id_info["name"], passw="google", email=id_info["email"], isGoogle=True)
+        elif user["Google"] == False:
+            raise HTTPException(status_code=400, detail="Please use BookBot Signin instead")
 
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
@@ -71,7 +75,7 @@ async def googleLogin(token: str = Form(...)):
         return {
             "userID": user["UserId"],
             "access_token": access_token,
-            "name": id_info["email"],
+            "name": id_info["name"],
             "token_type": "bearer",
         }
     except (ValueError, IndexError):
@@ -86,15 +90,6 @@ async def signup(nickname: str = Form(), email: str = Form(), password: str = Fo
     hashed_password = hash_password(password)
     db.crud.create_user(nickname, hashed_password, email)
     return {"msg": "signup successed"}
-
-
-# @router.post("/googlesignin")
-# async def googlesignin(nickname: str = Form(), email: str = Form()):
-#     user = db.crud.get_user_by_email(email)
-#     if not user:
-#         db.crud.create_user(nickname, "Google", email)
-#         return {"msg": "google user created"}
-#     return {"msg": "user existed"}
 
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
