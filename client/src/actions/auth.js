@@ -102,6 +102,35 @@ export const login = (username, password, navigate) => async (dispatch) => {
 	}
 };
 
+export const googleLogin = (token, navigate) => async (dispatch) => {
+	const body = new FormData();
+	body.append("token", token);
+	const config = {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	};
+	try {
+		const res = await api.googleLogin(body, config);
+
+		dispatch({
+			type: LOGIN_SUCCESS,
+			payload: res.data,
+		});
+		dispatch(loadUser());
+		navigate("/");
+	} catch (err) {
+		const errors = err.response.data.detail;
+		if (errors) {
+			dispatch(setAlert(errors, "danger"));
+		}
+
+		dispatch({
+			type: LOGIN_FAIL,
+		});
+	}
+};
+
 //load avatar
 export const loadAvatar = (userID) => async (dispatch) => {
 	try {

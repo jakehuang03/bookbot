@@ -5,7 +5,7 @@ const getBaseURL = () => {
         return `http://${ec2IP}/api`;
     } else {
         console.warn("EC2 public IP not set. Falling back to default URL.");
-        return "http://default-url/api"; // Replace with URL on the bottom left corner
+        return "http://localhost:8000/api"; // Replace with URL on the bottom left corner
 
     }
 };

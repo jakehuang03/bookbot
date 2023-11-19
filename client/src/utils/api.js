@@ -39,6 +39,8 @@ api.interceptors.request.use((req) => {
 export const loadUser = (formData) => api.post("/api/user/loadUser", formData);
 export const register = (formData) => api.post("/user/signup", formData);
 export const login = (body, config) => api.post("/user/token", body, config);
+export const googleLogin = (body, config) => api.post("/user/googleSignIn", body, config);
+
 export const auth = () => api.get("/user/me");
 
 export const getAvatar = (userId) => api.get(`/user/s3get/${userId}`);

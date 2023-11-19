@@ -3,11 +3,12 @@ import db.crud
 from datetime import datetime, timedelta
 from utils.user import hash_password, verify_password
 from typing import Annotated, Union
-from fastapi import APIRouter, Depends, HTTPException, File, Form, status, UploadFile
+from fastapi import APIRouter, Depends, HTTPException, File, Form, status, UploadFile, Header
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from utils import s3
-
+from google.auth.transport import requests
+from google.oauth2 import id_token
 
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 ALGORITHM = "HS256"
@@ -16,6 +17,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 router = APIRouter()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/token")
+
+GOOGLE_CLIENT_ID = "401905550825-3evij7gugc3cne4hg23p8s4lub8h6d3c.apps.googleusercontent.com"
 
 
 def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
@@ -50,7 +53,24 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
         "token_type": "bearer",
     }
 
-
+@router.post("/googleSignIn") 
+async def googleLogin(token: str = Form(...)):
+    try:
+        id_info = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
+        user = db.crud.get_user_by_email(id_info["email"])
+        if not user:
+            # create user in db
+            pass
+        access_token = ""
+        return {
+            "userID": user["UserId"],
+            "access_token": access_token,
+            "name": id_info["email"],
+            "token_type": "bearer",
+        }
+    except (ValueError, IndexError):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+    
 @router.post("/signup")
 async def signup(nickname: str = Form(), email: str = Form(), password: str = Form()):
     user = db.crud.get_user_by_email(email)
@@ -62,13 +82,13 @@ async def signup(nickname: str = Form(), email: str = Form(), password: str = Fo
     return {"msg": "signup successed"}
 
 
-@router.post("/googlesignin")
-async def googlesignin(nickname: str = Form(), email: str = Form()):
-    user = db.crud.get_user_by_email(email)
-    if not user:
-        db.crud.create_user(nickname, "Google", email)
-        return {"msg": "google user created"}
-    return {"msg": "user existed"}
+# @router.post("/googlesignin")
+# async def googlesignin(nickname: str = Form(), email: str = Form()):
+#     user = db.crud.get_user_by_email(email)
+#     if not user:
+#         db.crud.create_user(nickname, "Google", email)
+#         return {"msg": "google user created"}
+#     return {"msg": "user existed"}
 
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):

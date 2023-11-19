@@ -2,9 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { login } from "../../actions/auth";
+import { login, googleLogin } from "../../actions/auth";
 import { GoogleLogin } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
 
 const Login = ({ login }) => {
 	const [formData, setFormData] = useState({
@@ -25,10 +24,10 @@ const Login = ({ login }) => {
 	};
 
 	const handleCallBack = (response) => {
-		var userObject = jwt_decode(response.credential);
-		console.log(userObject);
+		console.log(response)
 		try {
-			dispatch({ type: "AUTH", data: userObject });
+			dispatch(googleLogin(response.credential, navigate));
+			// dispatch({ type: "AUTH", data: userObject });
 			navigate("/");
 		} catch (error) {
 			console.log(error);
