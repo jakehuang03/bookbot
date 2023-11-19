@@ -62,7 +62,7 @@ async def googleLogin(token: str = Form(...)):
         id_info = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
         user = db.crud.get_user_by_email(id_info["email"])
         if not user:
-            db.crud.create_user(name=id_info["name"], passw="google", email=id_info["email"], isGoogle=True)
+            user = db.crud.create_user(name=id_info["name"], passw="google", email=id_info["email"], isGoogle=True)
 
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
