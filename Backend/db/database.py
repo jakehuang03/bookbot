@@ -19,6 +19,7 @@ class User(Base):
     UserBio = Column(String)
     Avatar = Column(String)
     Gender = Column(String)
+    Google = Column(Boolean)
     
 
     book = relationship("Book", backref="user")

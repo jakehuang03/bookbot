@@ -39,6 +39,9 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     user = user.__dict__
 
+    if user["Google"] == True:
+        raise HTTPException(status_code=400, detail="Please use Google Signin")
+
     if not verify_password(form_data.password, user["UserPassword"]):
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
@@ -59,9 +62,12 @@ async def googleLogin(token: str = Form(...)):
         id_info = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
         user = db.crud.get_user_by_email(id_info["email"])
         if not user:
-            # create user in db
-            pass
-        access_token = ""
+            db.crud.create_user(name=id_info["name"], passw="google", email=id_info["email"], isGoogle=True)
+
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = create_access_token(
+            data={"sub": id_info["email"]}, expires_delta=access_token_expires
+        )
         return {
             "userID": user["UserId"],
             "access_token": access_token,
