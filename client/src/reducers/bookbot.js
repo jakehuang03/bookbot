@@ -5,6 +5,7 @@ import {
   SOURCE_SUCCESS,
   SAVE_ANSWER,
   GET_QUESTION_BOOK,
+  RESET_QUESTION,
 } from "../actions/types";
 
 const initialState = {
@@ -45,6 +46,18 @@ export default function bookbot(state = initialState, action) {
     case SAVE_ANSWER:
       sessionStorage.setItem("saved", true);
       return { ...state, saved: true };
+    case RESET_QUESTION:
+      sessionStorage.removeItem("question");
+      sessionStorage.removeItem("answer");
+      sessionStorage.removeItem("extractedpar");
+      sessionStorage.removeItem("saved");
+      return {
+        ...state,
+        question: "",
+        answer: [],
+        extractedpar: [],
+        saved: false,
+      };
     default:
       return state;
   }

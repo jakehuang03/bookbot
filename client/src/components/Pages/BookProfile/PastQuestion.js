@@ -74,7 +74,7 @@ PastQuestion.propTypes = {
     QuestionId: PropTypes.number.isRequired,
     UserId: PropTypes.number.isRequired,
     UserName: PropTypes.string.isRequired,
-    Avatar: PropTypes.string.isRequired,
+    Avatar: PropTypes.string,
     CreateTime: PropTypes.string.isRequired,
     QuestionContent: PropTypes.string.isRequired,
     QuestionAnswer: PropTypes.string.isRequired,
