@@ -1,5 +1,6 @@
 import { Box, Pagination } from "@mui/material";
 import { useState, useEffect } from "react";
+import { useStore } from "react-redux";
 
 /**
  * Renders a pagination component for a list of sources.
@@ -9,6 +10,7 @@ import { useState, useEffect } from "react";
  * @returns {JSX.Element} - The pagination component.
  */
 export default function SourcePagination({setSources, fullSources, pageSize=3}) {
+
     const count = fullSources?.length;
     const [page, setPage] = useState({
         from: 0,

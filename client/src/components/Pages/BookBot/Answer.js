@@ -14,6 +14,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
+import { connect } from "react-redux";
 
 /**
  * Renders a single answer card for the BookBot page.
@@ -22,9 +23,10 @@ import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
  * @param {string} props.Answer.answer - The text content of the answer.
  * @returns {JSX.Element} - The JSX code for the answer card.
  */
-function Answer(props) {
-  const { Answer } = props;
-  const [save, setSave] = useState(false);
+const Answer = ({
+  AnswerContent,
+  bookbot: { saved },
+}) => {  
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -33,7 +35,6 @@ function Answer(props) {
    */
   const Save = () => {
     dispatch(saveAnswer(user.user));
-    setSave(true);
   };
 
   /**
@@ -57,13 +58,13 @@ function Answer(props) {
         <CardActionArea onClick={More}>
           <CardContent sx={{ flex: 1 }}>
             <Typography variant="h5" align="left" paragraph>
-              {Answer.answer}
+              {AnswerContent.answer}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
           {/* if save BookmarkIcon else BookmarkBorderIcon */}
-          {save ? (
+          {saved ? (
             <BookmarkIcon />
           ) : (
             <IconButton aria-label="Bookmark" onClick={Save}>
@@ -77,10 +78,14 @@ function Answer(props) {
 }
 
 Answer.propTypes = {
-  Answer: PropTypes.shape({
+  AnswerContent: PropTypes.shape({
     id: PropTypes.number.isRequired,
     answer: PropTypes.string.isRequired,
   }).isRequired,
+	bookbot: PropTypes.object.isRequired,
 };
-
-export default Answer;
+const mapStateToProps = (state) => ({
+	bookbot: state.bookbot,
+});
+export default connect(mapStateToProps, {
+})(Answer);

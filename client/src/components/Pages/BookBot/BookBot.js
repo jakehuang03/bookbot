@@ -18,10 +18,16 @@ import PropTypes from "prop-types";
 
 const BookBot = ({
   auth: { user, avatar },
-  bookbot: { selectedBook, question, answer, extractedpar, saved },
+  bookbot: { selectedBook, question, answer, extractedpar },
 }) => {
-
   const [sources, setSources] = useState([]);
+  // if (Object.keys(selectedBook).length === 0 || question === "") {
+  // const selectedBook = JSON.parse(sessionStorage.getItem("selectedBook"));
+  // const question = JSON.parse(sessionStorage.getItem("question"));
+  // const answers = JSON.parse(sessionStorage.getItem("answer"));
+  // const extractedpars = JSON.parse(sessionStorage.getItem("extractedpar"));
+  // const user = JSON.parse(localStorage.getItem("profile"));
+  // }
   if (Object.keys(selectedBook).length === 0) {
     return <Spinner />;
   } else {
@@ -43,13 +49,12 @@ const BookBot = ({
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             {answer.map((ans) => (
-                  <Answer key={ans.id} Answer={ans} />
+                  <Answer key={ans.id} AnswerContent={ans} />
                 ))}
           </Grid>
         ) : (
           <div>
           <p>Waiting for the BookBot to respond... </p>
-
           </div>
         )}
           <Grid
