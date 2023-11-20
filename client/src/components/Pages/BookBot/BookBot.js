@@ -20,11 +20,6 @@ const BookBot = ({
   auth: { user, avatar },
   bookbot: { selectedBook, question, answer, extractedpar, saved },
 }) => {
-  // const book = JSON.parse(sessionStorage.getItem("selectedBook"));
-  // const question = JSON.parse(sessionStorage.getItem("question"));
-  // const answers = JSON.parse(sessionStorage.getItem("answer"));
-  // const extractedpars = JSON.parse(sessionStorage.getItem("extractedpar"));
-  // const user = JSON.parse(localStorage.getItem("profile"));
 
   const [sources, setSources] = useState([]);
 
@@ -41,7 +36,7 @@ const BookBot = ({
           }}
           className="profile-about bg-light"
         >
-          <Question question={question} user={user} />
+          <Question question={question} user={user} avatar={avatar}/>
           <Grid
             container
             rowSpacing={1}

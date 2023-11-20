@@ -12,18 +12,23 @@ import CardHeader from "@mui/material/CardHeader";
  * @returns {JSX.Element} - The JSX element representing the question card.
  */
 
-function Question ({user, question}) {
+function Question({ user, avatar, question }) {
   return (
-    <Card sx={{display:'flex', m: 1}}>
+    <Card sx={{ display: "flex", m: 1 }}>
       <CardHeader
-        avatar={<Avatar src={user?.picture} />}
-      />
-        <CardContent>
-          <Typography variant="h5" align="left">
-            {question}
-          </Typography>
-        </CardContent>
+        align="left"
+        avatar={
+          <Avatar src={`data:image/jpeg;base64,${avatar}`} alt={user?.UserName}>
+            {user?.UserName.charAt(0)}
+          </Avatar>
+        }
+      ></CardHeader>
+      <CardContent>
+        <Typography variant="h5" align="left">
+          {question}
+        </Typography>
+      </CardContent>
     </Card>
   );
-};
+}
 export default Question;
