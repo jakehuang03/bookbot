@@ -4,6 +4,7 @@ import {
   SOURCE_SUCCESS,
   SAVE_ANSWER,
   ASK_QUESTION_FAIL,
+  RESET_QUESTION,
 } from "./types";
 import * as api from "../utils/api";
 import { setAlert } from "./alert";
@@ -15,6 +16,7 @@ import { setAlert } from "./alert";
  * @param {function} navigate - The function to navigate to a new page.
  */
 export const askQuestion = (book, question, navigate) => async (dispatch) => {
+  dispatch({type: RESET_QUESTION});
   dispatch({ type: ASK_QUESTION, payload: question });
   try {
     navigate("/bookbot");
