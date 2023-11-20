@@ -17,10 +17,10 @@ import { setAlert } from "./alert";
 export const askQuestion = (book, question, navigate) => async (dispatch) => {
   dispatch({ type: ASK_QUESTION, payload: question });
   try {
+    navigate("/bookbot");
     const answer = await api.askQuestion(book, question);
     dispatch({ type: ANSWER_SUCCESS, payload: answer.data.answer });
     dispatch({ type: SOURCE_SUCCESS, payload: answer.data.extractedpar });
-    navigate("/bookbot");
   } catch (error) {
     dispatch({ type: ASK_QUESTION_FAIL });
     dispatch(setAlert("Ask Question Fail", "danger"));

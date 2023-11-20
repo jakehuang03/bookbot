@@ -7,7 +7,7 @@ import Answer from "./Answer";
 import Source from "./Source";
 import Question from "./Question";
 import SourcePagination from "./SourcePagination";
-
+import Spinner from "../../layout/Spinner";
 /**
  * Renders the BookBot component, which displays the current book, a question, a list of answers, a list of sources, and a pagination component.
  * @returns {JSX.Element} The BookBot component UI.
@@ -23,7 +23,7 @@ function BookBot() {
   const [sources, setSources] = useState([]);
 
   if (!book || !question || !answers) {
-    return null;
+    return <Spinner />;
   } else {
     return (
       <Container>
