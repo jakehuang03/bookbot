@@ -21,7 +21,6 @@ export default function SearchBar() {
     const searchBookParam = params.get("searchBook") || "";
     const genreParam = params.get("genre") || "";
     if(searchBookParam === "none") {
-      console.log("here");
       setSearchBook("");
     }
     else {

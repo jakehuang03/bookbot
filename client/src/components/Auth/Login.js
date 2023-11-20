@@ -24,7 +24,6 @@ const Login = ({ login }) => {
 	};
 
 	const handleCallBack = (response) => {
-		console.log(response)
 		try {
 			dispatch(googleLogin(response.credential, navigate));
 		} catch (error) {
