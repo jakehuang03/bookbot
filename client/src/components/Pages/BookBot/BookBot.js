@@ -22,8 +22,7 @@ const BookBot = ({
 }) => {
 
   const [sources, setSources] = useState([]);
-
-  if (selectedBook == {} || question == []|| answer == []) {
+  if (Object.keys(selectedBook).length === 0) {
     return <Spinner />;
   } else {
     return (
@@ -37,17 +36,22 @@ const BookBot = ({
           className="profile-about bg-light"
         >
           <Question question={question} user={user} avatar={avatar}/>
+          {Array.isArray(answer) && answer.length > 0 ? (
           <Grid
             container
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
-            {Array.isArray(answer)
-              ? answer.map((ans) => (
+            {answer.map((ans) => (
                   <Answer key={ans.id} Answer={ans} />
-                ))
-              : []}
+                ))}
           </Grid>
+        ) : (
+          <div>
+          <p>Waiting for the BookBot to respond... </p>
+
+          </div>
+        )}
           <Grid
           sx = {{mt: 2}}
             container

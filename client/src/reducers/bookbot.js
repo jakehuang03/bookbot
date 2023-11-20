@@ -10,7 +10,7 @@ import {
 const initialState = {
   selectedBook: {},
   pastQuestion: [],
-  question: [],
+  question: "",
   answer: [],
   extractedpar: [],
   saved: false,
