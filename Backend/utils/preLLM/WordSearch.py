@@ -34,7 +34,7 @@ class WordSearch:
         # filepath =backend_directory / "uploaded_files" / endfile
         
         
-        filepath = '/app/uploaded_files/' + self.bookname
+        filepath = './uploaded_files/' + self.bookname
 
         print(filepath)
         
