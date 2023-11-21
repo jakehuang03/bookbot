@@ -4,7 +4,6 @@ import {
 	SAVE_COMMENT,
 	GET_COMMENT,
 	GET_QUESTION_COUNT,
-	CLEAR_QUESTION_USER,
 } from "../actions/types";
 
 const initialState = {
