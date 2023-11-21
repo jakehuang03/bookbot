@@ -57,21 +57,21 @@
 
 3. Redux
     1. State
-        - bookbot: 
+        - [bookbot](../client/src/reducers/bookbot.js): 
             - selectedBook: book object 
             - pastQuestion: a list of question objects
             - question: question string
             - answer: a list of answer objects
             - extractedpar: a list of extracted paragraph objects
             - saved: boolean whether the question and answer is saved
-        - community:
+        - [community](../client/src/reducers/community.js):
             - count: total number of questions
             - post_list: a list of question objects with pagination
             - selectedPost: question object
             - comment_list: a list of comment objects for selectedPost
     2. Actions
-        - bookbot: ask question and save answer
-        - community: 
+        - [bookbot](../client/src/actions/bookbot.js): ask question and save answer
+        - [community](../client/src/actions/community.js): 
             - get lists of questions by user, book or pages in community
             - get selected question and comment by question id
             - save comment
