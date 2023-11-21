@@ -1,13 +1,15 @@
 import { useParams } from "react-router-dom";
-import { Container } from "@mui/material";
-import Post from "../Community/Post";
-import CommentBox from "./CommentBox";
-import Comment from "./Comment";
-import Grid from "@mui/material/Grid";
-import { getQuesCommentByID } from "../../../actions/community";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
+import Grid from "@mui/material/Grid";
+import { Container } from "@mui/material";
+
+import Post from "../Community/Post";
+import CommentBox from "./CommentBox";
+import Comment from "./Comment";
+import { getQuesCommentByID } from "../../../actions/community";
 
 const PostDetail = ({
 	getQuesCommentByID,

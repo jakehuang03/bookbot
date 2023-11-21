@@ -1,13 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Container, Grid } from "@mui/material";
+
 import { getQuestion } from "../../../actions/community";
+import Post from "./Post";
 import QuestionPagination from "./QuestionPagination";
 import Spinner from "../../layout/Spinner";
-import Post from "./Post";
-import { useEffect } from "react";
 
 const Community = ({ getQuestion, community: { post_list } }) => {
   const [page, setPage] = useState(0);

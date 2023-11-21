@@ -1,19 +1,16 @@
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+
 import { Container, Grid, Box, Typography } from "@mui/material";
+
 import CurrentBook from "./CurrentBook";
 import PastQuestion from "./PastQuestion";
 import AskQuestion from "./AskQuestion";
 import { getQuestionByBook } from "../../../actions/community";
 import { getBook } from "../../../actions/books";
-import { useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
 
-/**
- * Renders the BookProfile component which displays the current book, allows users to ask questions about the book,
- * and displays past questions related to the book.
- * @returns {JSX.Element} BookProfile component
- */
 
 const BookProfile = ({
   getBook,

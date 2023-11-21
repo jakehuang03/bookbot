@@ -1,20 +1,22 @@
+/**
+ * BookBot component displays the book information, user question, answers, sources, and pagination.
+ *
+ * @param {Object} auth - The authentication object containing user and avatar information.
+ * @param {Object} bookbot - The bookbot object containing selectedBook, question, answer, and extractedpar information.
+ * @returns {JSX.Element} The BookBot component.
+ */
+
 import { useState } from "react";
-
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { Container, Grid, Box} from "@mui/material";
-
 import CurrentBook from "../BookProfile/CurrentBook";
 import Answer from "./Answer";
 import Source from "./Source";
 import Question from "./Question";
 import SourcePagination from "./SourcePagination";
 import Spinner from "../../layout/Spinner";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-/**
- * Renders the BookBot component, which displays the current book, a question, a list of answers, a list of sources, and a pagination component.
- * @returns {JSX.Element} The BookBot component UI.
- */
 
 const BookBot = ({
   auth: { user, avatar },
