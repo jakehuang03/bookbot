@@ -106,14 +106,14 @@
         - get lists of questions by user, book or pages in community
         - get selected question and comment by question id
         - save comment
-
-   not complete
-
-   - [auth](../client/src/actions/auth.js):
-     - get lists of questions by user, book or pages in community
-     - get selected question and comment by question id
-     - save comment
-   - [profile](../client/src/actions/profile.js):
-     - get lists of questions by user, book or pages in community
-     - get selected question and comment by question id
-     - save comment
+      - [auth](../client/src/actions/auth.js):
+        - load current logged in user using the token saved in local storage
+        - register user with input of nickname, email, password
+        - log in user with input of username and password
+        - google log in
+        - load avatar with the input of the user id
+      - [profile](../client/src/actions/profile.js):
+        - get profile information by the input user id
+        - create and update profile information with the input name, bio, avatar, and gender
+        - save avatar with the input of the image file
+        - get avatar with the input of user id

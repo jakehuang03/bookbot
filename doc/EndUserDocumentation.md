@@ -17,7 +17,7 @@
 
 ## 2. Features
 
-1. Sign Up, Login and Create a Profile
+1. Sign Up, Login and Create a Profile, also can use google login
 <!-- screenshots of the website -->
 2. Explore Books by Name and Genre, and Upload Your Own Books
 
@@ -26,3 +26,5 @@
 4. See and Interact with Other People’s Questions
 
 5. Edit personal profile of username, bio, avatar
+
+6. See other user's and one's own profile with username, bio, avatar and history inquiry
