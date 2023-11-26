@@ -156,3 +156,46 @@
         - deleteBook: delete the book based on bookId provided
         - updateBook: update the book's published attribute based on bookId provided
           
+# Backend
+
+1. Structure:
+
+```bash
+/temp370Project
+├── /Backend
+    ├── /db
+    ├── /router
+      ├── /endpoints
+    ├── /uploaded_files
+    ├── /utils
+       ├── /preLLM
+       ├── /ToLLM
+```
+
+2. Key Components
+
+- [KeyWordHuggingFace.py](../Backend/utils/preLLM/KeyWordHuggingFace.py)
+  1. **Purpose**:
+  - find a list of keywords given a question
+  2. **Props**:
+  - input: string
+  - output: alist of string
+  3. **Alts**:
+  - developer can choose to use KeyWord.py in the same directory for a faster output
+- [WordSearch.py](../Backend/utils/preLLM/WordSearch.py)
+  1. **Purpose**:
+  - a class for turning a pdf of a book into a tensor
+  2. **Props**:
+  - input the pdf and the keyword found above
+  - outputs relavtive passeages and location in the pdf
+- [localLLMCall.py](../Backend/utils/ToLLM/localLLMCall.py)
+  1. **Purpose**:
+  - ask either locall large language model or gpt 3.5 turbo with the information found and a question
+  2. **Props**:
+  - input: a list of string (texts) and a string (question)
+  - output: a response as string from the large language model
+  3. **Alts**: a sample of gptcall is presented, developers can modify their own version based on their needs.
+- [crud.py](../Backend/db/crud.py)
+  1. **Purpose**:
+  - functions that would be used to communicate with database
+

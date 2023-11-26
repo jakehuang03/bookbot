@@ -15,25 +15,4 @@ app.add_middleware(
 
 app.include_router(api_router)
 
-
-# @app.get("/ask")
-# async def answer(book: str, question: str):
-#     # use bookid and userid 
-#     # find bookname with bookid in db
-#     # if no such book then return error
-#     # else proceed
-#     print(book, question)
-#     answer = [{'id': 1,
-#               'answer': book + question + "answer"}, 
-#                 {'id': 2,
-#                 'answer': book + question + "answer"}]
-#     extractedpar = "extracted book"
-#     # wording finding
-#     result = {}
-#     result['answer'] = answer
-#     result['extractedpar'] = extractedpar
-#     result['book'] = book
-#     result['question'] = question
-#     return result
-
     
