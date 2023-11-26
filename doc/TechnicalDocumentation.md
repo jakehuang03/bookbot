@@ -124,6 +124,10 @@
         - history: current user's history inquiry
       - [alert](../client/src/reducers/alert.js):
         - list of alerts
+      - [books](../client/src/reducers/books.js):
+        - books: current list of books depending on context (ex: bookshelf or mybooks)
+        - recommended: list of recommended books
+   
    2. Actions
       - [bookbot](../client/src/actions/bookbot.js): ask question and save answer
       - [community](../client/src/actions/community.js):
@@ -141,3 +145,14 @@
         - create and update profile information with the input name, bio, avatar, and gender
         - save avatar with the input of the image file
         - get avatar with the input of user id
+      - [books](../client/src/actions/books.js):
+        - createBook: create book from the uploadbook form and redirect to that book
+        - getBook: get the book based on bookid provided
+        - getRecomBook: get recommended book based on bookid provided
+        - getBooks: get all the published books in the database
+        - getMyBooks: get all books based on userId provided
+        - getBooksBySearch: get published books that match the title and genre
+        - getMyBooksBySearch: get books that match the userId, title, nad genre
+        - deleteBook: delete the book based on bookId provided
+        - updateBook: update the book's published attribute based on bookId provided
+          
