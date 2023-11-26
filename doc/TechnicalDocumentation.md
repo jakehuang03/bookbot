@@ -756,7 +756,7 @@ The Bookbot operates on a structured multi-step algorithm:
 
 #### Question Analysis:
 - **Input**: A question in string format.
-- **Process**: Apply `KeyWordHuggingFace.py` to extract the key keyword, typically a single word.
+- **Process**: Apply `KeyWordHuggingFace.py` to extract the key keyword, a list containing one word.
 - **Output**: Keyword as a list.
 
 ### Step 2: Word Search and Context Extraction
@@ -767,7 +767,7 @@ The Bookbot operates on a structured multi-step algorithm:
 
 #### Contextual Sentences Extraction:
 - **Input**: Word positions.
-- **Process**: `WordSearch.py/sentences_around_index(word_positions, 2)` to find the 5 sentences before and after the sentence containing the word.
+- **Process**: `WordSearch.py/sentences_around_index(word_positions, 2)` to find the 2 sentences before and after the sentence containing the word.
 - **Output**: A map of sentences around the keyword.
 
 ### Step 3: Context and Question Analysis
@@ -782,7 +782,7 @@ The Bookbot operates on a structured multi-step algorithm:
   - **Purpose**: Define the pipeline using Hugging Face's model.
   - **Process**: Extract the keyword using the first strategy (greedy) from the model.
 - `def extract(text)`:
-  - **Purpose**: Static function for model invocation.
+  - **Purpose**: Static function with designated model.
 
 ### `WordSearch.py`
 - **Purpose**: A class for converting a PDF of a book into a tensor.
@@ -803,7 +803,7 @@ The Bookbot operates on a structured multi-step algorithm:
 - `def localcall(paragraphs, question)`:
   - **Purpose**: Integrate document preparation, system templating, and messaging payload creation for the Chat GPT Turbo API using the DaVinci model.
 - `def localcall2(paragraphs, question)`:
-  - **Purpose**: Define a local language model and prepare documents for the Chat GPT Turbo API with gpt4all.
+  - **Purpose**: Define a local language model and prepare documents for the local model's API with gpt4all.
 
 
 
