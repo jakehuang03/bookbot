@@ -759,36 +759,43 @@ A designated place for storing pdfs uploaded by the users.
 
   - core functions:
     - [KeyWordHuggingFace.py](../Backend/utils/preLLM/KeyWordHuggingFace.py)
-    1. class KeyphraseExtractionPipeline(TokenClassificationPipeline):
+    1. `class KeyphraseExtractionPipeline(TokenClassificationPipeline)`:
       - define the pipeline using hugging face's model
       - process(all outputs):
         extract teh keyword based on the first strategy from the model (greedy)
-    2. def extract(text):
+    2. `def extract(text)`:
       - static function for calling with designated model
 
     - [WordSearch.py](../Backend/utils/preLLM/WordSearch.py)
       1. **Purpose**:
         - a class for turning a pdf of a book into a tensor
-      2. pdf_to_string(self): Extract text from a PDF file and return it as a string.
+
+      2. `pdf_to_string(self)`: Extract text from a PDF file and return it as a string.
         - output: string of text
-      3. def max_vocab(self): Find the max number of vocabulary (tokens needed) in a book.
+
+      3. `def max_vocab(self)`: Find the max number of vocabulary (tokens needed) in a book.
         - output: integer
-      4. def book_to_tensor(self, max_sequence_length=None): Convert a book (string) into a tensor.
+
+      4. `def book_to_tensor(self, max_sequence_length=None)`: Convert a book (string) into a tensor.
         - output: tensor, tokenizer, positions in tensor as a list
-      5. def find_word(self, word): Find a word in a tensor.
+
+      5. `def find_word(self, word)`: Find a word in a tensor.
         - output: position in text as a list
-      6. def sentences_around_index(self, indices, x): Get x sentences before and after (including) the sentence containing a word.
+
+      6. `def sentences_around_index(self, indices, x)`: Get x sentences before and after (including) the sentence containing a word.
         - output: a map of related passages in order of found 
-      7. def position_to_page_number(self, position): Convert a position in the continuous text to a page number.
+
+      7. `def position_to_page_number(self, position)`: Convert a position in the continuous text to a page number.
         - output: integer
 
     - [localLLMCall.py](../Backend/utils/ToLLM/localLLMCall.py)
-      1. def localcall(paragraphs, question):
+      1. `def localcall(paragraphs, question)`:
         - Prepare documents
         - Convert the list of strings into a system template
         - Prepare the message payload for the chat completions API
         - Use the chat completions API with the DaVinci model from OpenAI
-      2. def localcall2(paragraphs, question):
+
+      2. `def localcall2(paragraphs, question)`:
         - define a local language model
         - Prepare documents
         - Convert the list of strings into a system template
