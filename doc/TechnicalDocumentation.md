@@ -158,7 +158,7 @@
           
 # Backend
 
-1. Structure:
+## 1. Structure:
 
 ```bash
 /temp370Project
@@ -171,8 +171,46 @@
        ├── /preLLM
        ├── /ToLLM
 ```
+### Root Level
 
-2. Key Components
+- `main.py`: The entry point for the backend application.
+- `Dockerfile`: Configuration file for creating a Docker container for the application.
+- `requirements.txt`: Lists all the dependencies required for the application.
+
+### Subdirectories
+
+#### `/db`
+Handles all database interactions.
+
+- `crud.py`: Contains CRUD operations for database interaction.
+- `database.py`: Sets up the database connection and session management.
+
+#### `/router`
+Manages routing and endpoint definitions.
+- `api.py`: Serves as the general router that manages all the paths of APIs.
+- `/endpoints`
+Stores individual files for each set of related endpoints.
+
+  - `bookbot.py`: Endpoints for book-related operations.
+  - `books.py`: Endpoints for managing book entities.
+  -  `community.py`: Endpoints for community features.
+  - `keys.py`: Endpoints for API key management.
+  -  `mybooks.py`: Endpoints for user's book collections.
+  -  `user.py`: Endpoints for user account management.
+
+#### `/utils`
+Contains utility scripts and helper functions.
+
+- `s3.py`: Functions for interacting with Amazon S3.
+- `testFunction.py`: Script for testing purposes.
+- `user.py`: Utility functions for user operations.
+- `prellm`
+- `tollm`
+
+#### `/uploaded_files`
+A designated place for storing pdfs uploaded by the users.
+
+## 2. Key Components
 
 - [KeyWordHuggingFace.py](../Backend/utils/preLLM/KeyWordHuggingFace.py)
   1. **Purpose**:
