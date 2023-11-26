@@ -203,8 +203,8 @@ Contains utility scripts and helper functions.
 - `s3.py`: Functions for interacting with Amazon S3.
 - `testFunction.py`: Script for testing purposes.
 - `user.py`: Utility functions for user operations.
-- `prellm`
-- `tollm`
+- `prellm`: Process both the pdf file and question
+- `tollm`: Feed the related text from the keyword of the question and the question to large language model
 
 #### `/uploaded_files`
 A designated place for storing pdfs uploaded by the users.
@@ -371,6 +371,54 @@ A designated place for storing pdfs uploaded by the users.
 
 ## 3. Bookbot Principles
 
+  - the main algorithm of the bookbot is the following:
+
+  - Step 1:
+    - text as pdf -> WordSearch.py/book_to_tensor -> all text to tensor (tensor)
+    - question as string -KeyWordHuggingFace.py-> keyword as a list but only one word in the list (list)
+  - Step 2:
+    - tensor, keyword -> WordSearch.py/find_word(keyword) -> position of the word in the context (list)
+                      -> WordSearch.py/sentences_around_index(word_positions, 2) -> find the 5 sentences before and after the sentence from the position found above (map)
+
+  - Step 3:
+    - context, question -> localLLMCall.py/localcall(context, question) -> feed both context and question to Chat GPT Turbo and get response as string
+
+  - core functions:
+    - [KeyWordHuggingFace.py](../Backend/utils/preLLM/KeyWordHuggingFace.py)
+    1. class KeyphraseExtractionPipeline(TokenClassificationPipeline):
+      - define the pipeline using hugging face's model
+      - process(all outputs):
+        extract teh keyword based on the first strategy from the model (greedy)
+    2. def extract(text):
+      - static function for calling with designated model
+
+    - [WordSearch.py](../Backend/utils/preLLM/WordSearch.py)
+      1. **Purpose**:
+        - a class for turning a pdf of a book into a tensor
+      2. pdf_to_string(self): Extract text from a PDF file and return it as a string.
+        - output: string of text
+      3. def max_vocab(self): Find the max number of vocabulary (tokens needed) in a book.
+        - output: integer
+      4. def book_to_tensor(self, max_sequence_length=None): Convert a book (string) into a tensor.
+        - output: tensor, tokenizer, positions in tensor as a list
+      5. def find_word(self, word): Find a word in a tensor.
+        - output: position in text as a list
+      6. def sentences_around_index(self, indices, x): Get x sentences before and after (including) the sentence containing a word.
+        - output: a map of related passages in order of found 
+      7. def position_to_page_number(self, position): Convert a position in the continuous text to a page number.
+        - output: integer
+
+    - [localLLMCall.py](../Backend/utils/ToLLM/localLLMCall.py)
+      1. def localcall(paragraphs, question):
+        - Prepare documents
+        - Convert the list of strings into a system template
+        - Prepare the message payload for the chat completions API
+        - Use the chat completions API with the DaVinci model from OpenAI
+      2. def localcall2(paragraphs, question):
+        - define a local language model
+        - Prepare documents
+        - Convert the list of strings into a system template
+        - Use the chat completions API with gpt4all
 
 
 
@@ -389,33 +437,4 @@ A designated place for storing pdfs uploaded by the users.
 
 
 
-
-
-
-
-
-- [KeyWordHuggingFace.py](../Backend/utils/preLLM/KeyWordHuggingFace.py)
-  1. **Purpose**:
-  - find a list of keywords given a question
-  2. **Props**:
-  - input: string
-  - output: alist of string
-  3. **Alts**:
-  - developer can choose to use KeyWord.py in the same directory for a faster output
-- [WordSearch.py](../Backend/utils/preLLM/WordSearch.py)
-  1. **Purpose**:
-  - a class for turning a pdf of a book into a tensor
-  2. **Props**:
-  - input the pdf and the keyword found above
-  - outputs relavtive passeages and location in the pdf
-- [localLLMCall.py](../Backend/utils/ToLLM/localLLMCall.py)
-  1. **Purpose**:
-  - ask either locall large language model or gpt 3.5 turbo with the information found and a question
-  2. **Props**:
-  - input: a list of string (texts) and a string (question)
-  - output: a response as string from the large language model
-  3. **Alts**: a sample of gptcall is presented, developers can modify their own version based on their needs.
-- [crud.py](../Backend/db/crud.py)
-  1. **Purpose**:
-  - functions that would be used to communicate with database
 
