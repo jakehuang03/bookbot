@@ -364,9 +364,383 @@ A designated place for storing pdfs uploaded by the users.
           "detail": "An error occurred: [error_detail]"
         }
         ```
+#### MyBooks Endpoints (`mybooks.py`)
+
+- This section details the API endpoints from the `mybooks.py` module, which facilitate actions on the books uploaded by users.
+- Path: `/api/mybooks`
+
+- GET `/`
+
+  - Retrieves a list of books uploaded by a specific user.
+
+  - Input: 
+    - None. User identification is typically determined by the user's session or token.
+
+  - Output:
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**: A JSON array of book details.
+
+    - **Error Response**:
+      - **Code**: 400 Bad Request
+      - **Content**: 
+        ```json
+        {
+          "detail": "An error occurred: [error_detail]"
+        }
+        ```
+
+- PATCH `/`
+
+  - Updates the published status of a user's book.
+
+  - Input:
+    - `userId` (int, required): The identifier of the user.
+    - `bookId` (int, required): The identifier of the book.
+    - `published` (bool, required): The target published status for the book.
+
+  - Output:
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**: An empty list, indicating the published status has been updated.
+
+    - **Error Response**:
+      - **Code**: 400 Bad Request
+      - **Content**: 
+        ```json
+        {
+          "detail": "An error occurred: [error_detail]"
+        }
+        ```
+
+- DELETE `/`
+
+  - Deletes a specific book uploaded by the user.
+
+  - Input:
+    - `userId` (int, required): The identifier of the user.
+    - `bookId` (int, required): The identifier of the book to be deleted.
+
+  - Output:
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**: An empty list, signifying successful deletion.
+
+    - **Error Response**:
+      - **Code**: 400 Bad Request
+      - **Content**: 
+        ```json
+        {
+          "detail": "An error occurred: [error_detail]"
+        }
+        ```
+
+- GET `/search`
+
+  - Searches for books uploaded by a specific user based on title and genre.
+
+  - Input:
+    - `searchBook` (string, required): The title of the book to search for.
+    - `genre` (string, required): The genre to filter the search.
+    - `userId` (int, required): The identifier of the user.
+
+  - Output:
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**: The details of the book, if found.
+
+    - **Error Response**:
+      - **Code**: 500 Internal Server Error
+      - **Content**: 
+        ```json
+        {
+          "detail": "An unexpected error occurred: [error_detail]"
+        }
+        ```
+#### Community Endpoints (`community.py`)
+
+- This section documents the API endpoints provided by the `community.py` module, which handles community interactions including questions and comments about books.
+- Path: `/api/community`
+
+- POST `/saveques`
+
+  Allows users to post and save questions about a book.
+
+  - **Input:**
+    - `userid` (int, required): The identifier of the user posting the question.
+    - `bookid` (int, required): The identifier of the book the question is about.
+    - `content` (str, required): The content of the question.
+    - `answer` (str, required): The answer to the question.
+
+  - **Output:**
+
+    - **Success Response:**
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          "msg": "question saved",
+          "questionid": id
+        }
+        ```
+
+    - **Error Response:**
+      - **Code**: 400 Bad Request
+      - **Content**:
+        ```json
+        {
+          "detail": "An error occurred: [error_detail]"
+        }
+        ```
+- **POST `/saveques`**
+
+  Allows users to post and save questions about a book.
+
+  - **Input:**
+    - `userid` (int, required): The identifier of the user posting the question.
+    - `bookid` (int, required): The identifier of the book the question is about.
+    - `content` (str, required): The content of the question.
+    - `answer` (str, required): The answer to the question.
+
+  - **Output:**
+
+    - **Success Response:**
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          "msg": "question saved",
+          "questionid": id
+        }
+        ```
+
+    - **Error Response:**
+      - **Code**: 400 Bad Request
+      - **Content**:
+        ```json
+        {
+          "detail": "An error occurred: [error_detail]"
+        }
+        ```
+
+- **GET `/getquesbyuser/{userid}`**
+
+  Retrieves questions posted by a specific user.
+
+  - **Input:**
+    - `userid` (int, required): The identifier of the user whose questions are to be retrieved.
+
+  - **Output:**
+    - List of questions posted by the specified user.
+
+- **GET `/getquesbybook/{bookid}`**
+
+  Retrieves questions related to a specific book.
+
+  - **Input:**
+    - `bookid` (int, required): The identifier of the book for which questions are to be retrieved.
+
+  - **Output:**
+    - List of questions related to the specified book, including user and book information.
+
+- **GET `/getquesbyques/{questionid}`**
+
+  Retrieves a specific question by its identifier.
+
+  - **Input:**
+    - `questionid` (int, required): The identifier of the question to be retrieved.
+
+  - **Output:**
+    - Details of the specified question, including user and book information.
+
+- **GET `/getquescount`**
+
+  Retrieves the total count of questions in the database.
+
+  - **Output:**
+    - Total count of questions.
+
+- **GET `/getquesbypage/{page}`**
+
+  Retrieves a paginated list of questions.
+
+  - **Input:**
+    - `page` (int, required): The page number for pagination.
+
+  - **Output:**
+    - List of questions for the specified page, including user and book information.
+
+- **POST `/savecomment`**
+
+  Allows users to post comments on a question.
+
+  - **Input:**
+    - `questionid` (int, form, required): The identifier of the question for which the comment is posted.
+    - `userid` (int, form, required): The identifier of the user posting the comment.
+    - `content` (str, form, required): The content of the comment.
+
+  - **Output:**
+
+    - **Success Response:**
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          "msg": "comment saved",
+          "commentid": id
+        }
+        ```
+
+    - **Error Response:**
+      - **Code**: 400 Bad Request
+      - **Content**:
+        ```json
+        {
+          "detail": "An error occurred: [error_detail]"
+        }
+        ```
+
+- **GET `/getcommentbyques/{questionid}`**
+
+  Retrieves comments for a specific question.
+
+  - **Input:**
+    - `questionid` (int, required): The identifier of the question for which comments are to be retrieved.
+
+  - **Output:**
+    - List of comments related to the specified question, including user information.
+
+#### User Endpoints (`user.py`)
+
+- This section covers the API endpoints provided by the `books.py` module, which handles operations related to books in the system.
+- Path: `/api/books`
 
 
+- **POST `/token`**
 
+  Allows users to log in and obtain an access token.
+
+  - **Input:**
+    - `form_data` (OAuth2PasswordRequestForm, required): User login credentials.
+      - `username` (str, required): User's email.
+      - `password` (str, required): User's password.
+
+  - **Output:**
+    - **Success Response:**
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          "userID": id,
+          "access_token": access_token,
+          "name": name,
+          "token_type": "bearer"
+        }
+        ```
+    - **Error Response:**
+      - **Code**: 400 Bad Request
+      - **Content**: "Incorrect username or password"
+
+- **POST `/googleSignIn`**
+
+  Allows users to log in using Google authentication and obtain an access token.
+
+  - **Input:**
+    - `token` (str, form, required): Google authentication token.
+
+  - **Output:**
+    - **Success Response:**
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          "userID": id,
+          "access_token": access_token,
+          "name": name,
+          "token_type": "bearer"
+        }
+        ```
+    - **Error Response:**
+      - **Code**: 400 Bad Request
+      - **Content**: "Invalid token" or "Please use BookBot Signin instead"
+
+- **POST `/signup`**
+
+  Allows users to sign up for the service.
+
+  - **Input:**
+    - `nickname` (str, form): User's nickname.
+    - `email` (str, form, required): User's email.
+    - `password` (str, form, required): User's password.
+
+  - **Output:**
+    - **Success Response:**
+      - **Content**: "signup successed"
+    
+- **GET `/me`**
+
+  Retrieves the current user's information using the provided access token.
+
+  - **Output:**
+    - User information for the authenticated user.
+
+- **POST `/createprofile`**
+
+  Allows users to create or update their user profile.
+
+  - **Input:**
+    - `name` (str, form): User's name.
+    - `bio` (str, form): User's bio.
+    - `avatar` (str, form): User's avatar URL.
+    - `gender` (str, form): User's gender.
+
+  - **Output:**
+    - **Success Response:**
+      - **Content**: "profile created"
+
+- **GET `/getprofile/{userid}`**
+
+  Retrieves a user's profile by their user ID.
+
+  - **Input:**
+    - `userid` (int, required): The identifier of the user.
+
+  - **Output:**
+    - User profile information.
+
+- **GET `/getprofile`**
+
+  Retrieves the profile of the currently authenticated user.
+
+  - **Output:**
+    - User profile information.
+
+- **PUT `/s3upload`**
+
+  Allows users to upload an image to an S3 bucket.
+
+  - **Input:**
+    - `avatar` (UploadFile, form, required): The image file to upload.
+
+  - **Output:**
+    - **Success Response:**
+      - **Content**: "file uploaded"
+    - **Error Response:**
+      - If there's an error in uploading.
+
+- **GET `/s3get/{userid}`**
+
+  Retrieves an image from an S3 bucket by user ID.
+
+  - **Input:**
+    - `userid` (int, required): The identifier of the user.
+
+  - **Output:**
+    - Base64-encoded image data.
 
 
 ## 3. Bookbot Principles
