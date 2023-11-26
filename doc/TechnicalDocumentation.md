@@ -743,63 +743,68 @@ A designated place for storing pdfs uploaded by the users.
     - Base64-encoded image data.
 
 
-## 3. Bookbot Principles
+# Bookbot Principles
 
-  - the main algorithm of the bookbot is the following:
+## Main Algorithm
+The Bookbot operates on a structured multi-step algorithm:
 
-  - Step 1:
-    - text as pdf -> WordSearch.py/book_to_tensor -> all text to tensor (tensor)
-    - question as string -KeyWordHuggingFace.py-> keyword as a list but only one word in the list (list)
-  - Step 2:
-    - tensor, keyword -> WordSearch.py/find_word(keyword) -> position of the word in the context (list)
-                      -> WordSearch.py/sentences_around_index(word_positions, 2) -> find the 5 sentences before and after the sentence from the position found above (map)
+### Step 1: Text and Question Processing
+#### Text Conversion:
+- **Input**: Text in PDF format.
+- **Process**: Use `WordSearch.py/book_to_tensor` to convert all text into a tensor format.
+- **Output**: Text as a tensor.
 
-  - Step 3:
-    - context, question -> localLLMCall.py/localcall(context, question) -> feed both context and question to Chat GPT Turbo and get response as string
+#### Question Analysis:
+- **Input**: A question in string format.
+- **Process**: Apply `KeyWordHuggingFace.py` to extract the key keyword, typically a single word.
+- **Output**: Keyword as a list.
 
-  - core functions:
-    - [KeyWordHuggingFace.py](../Backend/utils/preLLM/KeyWordHuggingFace.py)
-    1. `class KeyphraseExtractionPipeline(TokenClassificationPipeline)`:
-      - define the pipeline using hugging face's model
-      - process(all outputs):
-        extract teh keyword based on the first strategy from the model (greedy)
-    2. `def extract(text)`:
-      - static function for calling with designated model
+### Step 2: Word Search and Context Extraction
+#### Word Position Identification:
+- **Inputs**: Tensor from Step 1, Keyword.
+- **Process**: `WordSearch.py/find_word(keyword)` to locate the position of the word.
+- **Output**: Position of the word in the context as a list.
 
-    - [WordSearch.py](../Backend/utils/preLLM/WordSearch.py)
-      1. **Purpose**:
-        - a class for turning a pdf of a book into a tensor
+#### Contextual Sentences Extraction:
+- **Input**: Word positions.
+- **Process**: `WordSearch.py/sentences_around_index(word_positions, 2)` to find the 5 sentences before and after the sentence containing the word.
+- **Output**: A map of sentences around the keyword.
 
-      2. `pdf_to_string(self)`: Extract text from a PDF file and return it as a string.
-        - output: string of text
+### Step 3: Context and Question Analysis
+#### Local Language Model Processing:
+- **Inputs**: Context and Question.
+- **Process**: `localLLMCall.py/localcall(context, question)` feeds both context and question to Chat GPT Turbo.
+- **Output**: Response as a string.
 
-      3. `def max_vocab(self)`: Find the max number of vocabulary (tokens needed) in a book.
-        - output: integer
+## Core Functions
+### `KeyWordHuggingFace.py`
+- `class KeyphraseExtractionPipeline(TokenClassificationPipeline)`:
+  - **Purpose**: Define the pipeline using Hugging Face's model.
+  - **Process**: Extract the keyword using the first strategy (greedy) from the model.
+- `def extract(text)`:
+  - **Purpose**: Static function for model invocation.
 
-      4. `def book_to_tensor(self, max_sequence_length=None)`: Convert a book (string) into a tensor.
-        - output: tensor, tokenizer, positions in tensor as a list
+### `WordSearch.py`
+- **Purpose**: A class for converting a PDF of a book into a tensor.
+- `pdf_to_string(self)`: Extract text from a PDF file.
+  - **Output**: Text as a string.
+- `def max_vocab(self)`: Determine the maximum vocabulary in a book.
+  - **Output**: Integer indicating the maximum vocabulary size.
+- `def book_to_tensor(self, max_sequence_length=None)`: Convert a book into a tensor.
+  - **Output**: Tensor, tokenizer, positions in tensor.
+- `def find_word(self, word)`: Locate a word in the tensor.
+  - **Output**: Position of the word.
+- `def sentences_around_index(self, indices, x)`: Extract sentences around a specific word.
+  - **Output**: Map of related passages.
+- `def position_to_page_number(self, position)`: Map a text position to a page number.
+  - **Output**: Page number as an integer.
 
-      5. `def find_word(self, word)`: Find a word in a tensor.
-        - output: position in text as a list
+### `localLLMCall.py`
+- `def localcall(paragraphs, question)`:
+  - **Purpose**: Integrate document preparation, system templating, and messaging payload creation for the Chat GPT Turbo API using the DaVinci model.
+- `def localcall2(paragraphs, question)`:
+  - **Purpose**: Define a local language model and prepare documents for the Chat GPT Turbo API with gpt4all.
 
-      6. `def sentences_around_index(self, indices, x)`: Get x sentences before and after (including) the sentence containing a word.
-        - output: a map of related passages in order of found 
-
-      7. `def position_to_page_number(self, position)`: Convert a position in the continuous text to a page number.
-        - output: integer
-
-    - [localLLMCall.py](../Backend/utils/ToLLM/localLLMCall.py)
-      1. `def localcall(paragraphs, question)`:
-        - Prepare documents
-        - Convert the list of strings into a system template
-        - Prepare the message payload for the chat completions API
-        - Use the chat completions API with the DaVinci model from OpenAI
-
-      2. `def localcall2(paragraphs, question)`:
-        - define a local language model
-        - Prepare documents
-        - Convert the list of strings into a system template
-        - Use the chat completions API with gpt4all
 
 
 
