@@ -71,7 +71,31 @@
   - (redux action) getAvatar, saveAvatar, createProfile, getProfileByID
   - (redux state) profile: { profile, avata, history }
   3. **Child components**: CreateProfile.js, Holder.js, Profile.js, ProfileAbout.js, ProfileInq.js, ProfileTop.js
-
+- [Bookshelf](../client/src/components/Pages/Bookshelf)
+  1. **Purpose**:
+  - display the published books users uploaded
+  - include the search feature to find books by title and genre
+  2. **Props**:
+  - (redux action) getBooks
+  - (redux state) books
+  3. **Child components**: Book
+- [MyBooks](../client/src/components/Pages/MyBooks)
+  1. **Purpose**:
+  - display the books the current user uploaded
+  - include the search feature to find books by title and genre
+  - provide the ability for the user to publish/unpublish and delete a book
+  - provide a button for uploading a book
+  2. **Props**:
+  - (redux action) getMyBooks
+  - (redux state) books
+  3. **Child components**: Book
+- [FileUpload](../client/src/components/Pages/FileUpload)
+  1. **Purpose**:
+  - form for users to upload a PDF where the file and title are required
+  - file drop and upload button for more ways to upload a file
+  2. **Props**:
+  - (redux action) createBook
+  
 3. Redux
 
    1. State
