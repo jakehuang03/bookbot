@@ -24,11 +24,13 @@ function FileUpload() {
 		genre: "",
 	});
 	const [dragActive, setDragActive] = useState(false);
+	const [isTitleValid, setIsTitleValid] = useState(true);
+	const [isFileValid, setIsFileValid] = useState(true);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const inputRef = createRef();
-
+	const MAX_FILE_SIZE_MB = 50;
 	const user = JSON.parse(localStorage.getItem("profile"));
 
 	const handleDrag = function (e) {
@@ -46,19 +48,20 @@ function FileUpload() {
 		e.stopPropagation();
 		setDragActive(false);
 		if (e.dataTransfer.items) {
-			// Check if any of the dropped items are PDF files
 			const hasPDF = Array.from(e.dataTransfer.items).some(
 				(item) => item.type === "application/pdf"
 			);
 
 			if (hasPDF) {
-				// Find and set the first PDF file in the dropped items
 				const pdfFile = Array.from(e.dataTransfer.items).find(
 					(item) => item.type === "application/pdf"
 				);
 
-				// Read the PDF file or handle it as needed
 				const file = pdfFile.getAsFile();
+				if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+					alert(`File size exceeds the limit of ${MAX_FILE_SIZE_MB} MB.`);
+					return;
+				}
 				setBookData({ ...bookData, selectedFile: file });
 			} else {
 				alert("Please drop a PDF file.");
@@ -76,17 +79,39 @@ function FileUpload() {
 		if (e.target.files && e.target.files[0]) {
 			const selectedFile = e.target.files[0];
 			if (selectedFile.type === "application/pdf") {
+				if (selectedFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+					alert(`File size exceeds the limit of ${MAX_FILE_SIZE_MB} MB.`);
+					e.target.value = null;
+					return;
+        		}
 				setBookData({ ...bookData, selectedFile: e.target.files[0] });
 			} else {
 				alert("Please select a PDF file.");
-				// Clear the file input
 				e.target.value = null;
+				return;
 			}
 		}
 	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
+
+		if(!bookData.title.trim() && !bookData.selectedFile) {
+			setIsTitleValid(false);
+			setIsFileValid(false);
+			return;
+		} 
+		else if(!bookData.title.trim()) {
+			setIsTitleValid(false);
+			return;
+		}
+		else if(!bookData.selectedFile) {
+			setIsFileValid(false);
+			return;
+		} 
+		
+		setIsTitleValid(true);
+		setIsFileValid(true);
 		dispatch(createBook({ ...bookData }, user?.user, navigate));
 	};
 
@@ -105,7 +130,7 @@ function FileUpload() {
 		} else {
 			return (
 				<div>
-					<p style={{ fontSize: "20px" }}>Drag and Drop File Here or</p>
+					<p style={{ fontSize: "20px" }}>Drag and Drop File Here (Max Size: {MAX_FILE_SIZE_MB} MB)</p>
 					<Button variant='contained' onClick={onButtonClick}>
 						Upload a File
 					</Button>
@@ -114,6 +139,7 @@ function FileUpload() {
 							style={{ fontSize: "16px", textAlign: "center", bottom: "10px" }}
 						>
 							Accepted File Types: .pdf only
+
 						</p>
 					</div>
 				</div>
@@ -152,23 +178,32 @@ function FileUpload() {
 							onDrop={handleDrop}
 						></div>
 					)}
+					{!isFileValid && (
+					<Typography variant="body2" color="error" gutterBottom style={{ marginTop: "3px" }}>
+						File is required.
+					</Typography>
+       				)}
 				</form>
 			</div>
-			<div className='form-content'>
+			<div className='form-content' style={{ marginTop: (!isFileValid) ? '10px' : '0' }}>
 				<TextField
 					name='title'
 					variant='outlined'
 					label='Title'
 					fullWidth
 					value={bookData.title}
-					onChange={(event) =>
+					onChange={(event) => {
+						setIsTitleValid(true);
 						setBookData({ ...bookData, title: event.target.value })
-					}
+					}}
+					error={!isTitleValid}
+					helperText={!isTitleValid ? "Title is required." : ""}
+					required
 				/>
 				<TextField
 					name='author'
 					variant='outlined'
-					label='Author (Optional) '
+					label='Author'
 					fullWidth
 					value={bookData.author}
 					onChange={(event) =>
@@ -178,7 +213,7 @@ function FileUpload() {
 				<TextField
 					name='summary'
 					variant='outlined'
-					label='Summary (Optional)'
+					label='Summary'
 					fullWidth
 					multiline
 					minRows={3}
