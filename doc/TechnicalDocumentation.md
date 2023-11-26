@@ -194,7 +194,6 @@ Stores individual files for each set of related endpoints.
   - `bookbot.py`: Endpoints for book-related operations.
   - `books.py`: Endpoints for managing book entities.
   -  `community.py`: Endpoints for community features.
-  - `keys.py`: Endpoints for API key management.
   -  `mybooks.py`: Endpoints for user's book collections.
   -  `user.py`: Endpoints for user account management.
 
@@ -210,7 +209,190 @@ Contains utility scripts and helper functions.
 #### `/uploaded_files`
 A designated place for storing pdfs uploaded by the users.
 
-## 2. Key Components
+## 2. API Documentation
+
+### General Information
+
+- **Base URL**: `http://<your-application-domain>/api`
+### Endpoints
+
+
+#### Bookbot Endpoints (`bookbot.py`)
+
+- This section covers the API endpoints provided by the `bookbot.py` module, which handles the interactions with the bookbot system.
+- path: `/api/bookbot`
+
+- GET `/ask`
+
+  - Allows users to ask questions about a specific book and receive answers based on the book's content.
+
+  - Input:
+      - `book` (string, required): The identifier or name of the book.
+      - `question` (string, required): The question the user wants to ask.
+
+  - Output
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          "answer": "string"
+        }
+        ```
+
+    - **Error Response**:
+      - **Code**: 400 Bad Request
+      - **Content**:
+        ```json
+        {
+          "detail": "Missing field: [field_name]"
+        }
+        ```
+#### Books Endpoints (`books.py`)
+
+- This section covers the API endpoints provided by the `books.py` module, which handles operations related to books in the system.
+- Path: `/api/books`
+
+- POST `/upload`
+
+  - Allows users to upload a book along with its details.
+
+  - Input:
+      - `title` (string, required): The title of the book.
+      - `author` (string, optional): The author of the book.
+      - `summary` (string, optional): A brief summary of the book.
+      - `userid` (int, required): The identifier for the user.
+      - `genre` (string, optional): The genre of the book.
+      - `file` (UploadFile, required): The file object of the book in PDF format.
+
+  - Output:
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          "msg": "book uploaded",
+          "bookid": "id"
+        }
+        ```
+
+    - **Error Response**:
+      - **Code**: 400 Bad Request
+      - **Content**:
+        ```json
+        {
+          "detail": "An error occurred: [error_detail]"
+        }
+        ```
+- GET `/search`
+
+  - Performs a search for books based on title and genre.
+
+  - Input:
+      - `searchBook` (string, required): The title of the book to search for.
+      - `genre` (string, required): The genre to filter the search results.
+
+  - Output:
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          // Book details
+        }
+        ```
+
+    - **Error Response**:
+      - **Code**: 404 Not Found
+      - **Content**:
+        ```json
+        {
+          "detail": "Book not found"
+        }
+        ```
+
+- GET `/{bookId}`
+
+  - Retrieves details for a specific book by its unique identifier.
+
+  - Input:
+      - `bookId` (int, required): The unique identifier of the book.
+
+  - Output:
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        {
+          // Book details
+        }
+        ```
+
+    - **Error Response**:
+      - **Code**: 404 Not Found
+      - **Content**:
+        ```json
+        {
+          "detail": "Book not found"
+        }
+        ```
+
+- GET `/`
+
+  - Retrieves a list of all books available in the system.
+
+  - Output:
+
+    - **Success Response**:
+      - **Code**: 200 OK
+      - **Content**:
+        ```json
+        [
+          // Array of book details
+        ]
+        ```
+
+    - **Error Response**:
+      - **Code**: 400 Bad Request
+      - **Content**:
+        ```json
+        {
+          "detail": "An error occurred: [error_detail]"
+        }
+        ```
+
+
+
+
+
+## 3. Bookbot Principles
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - [KeyWordHuggingFace.py](../Backend/utils/preLLM/KeyWordHuggingFace.py)
   1. **Purpose**:
