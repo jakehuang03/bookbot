@@ -60,7 +60,7 @@ def create_book(name: str, author: str, summary: str, userid: str, genre="none",
     return db_book.BookId
 
 def get_book_by_name(bkname: str):
-    return db.query(database.Book).filter(database.Book.BookName == bkname).order_by(database.Book.CreateTime.desc()).first()
+    return db.query(database.Book).filter(database.Book.BookName == bkname and database.Book.Published == True).order_by(database.Book.CreateTime.desc()).first()
 
 def get_books():
     return db.query(database.Book).filter(database.Book.Published == True).order_by(database.Book.CreateTime.desc()).all()

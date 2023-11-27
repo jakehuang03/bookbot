@@ -1,13 +1,13 @@
 import os
+from utils.preLLM.keywordRefine import gptextract
 from utils.ToLLM.localLLMCall import localcall
-from utils.preLLM.KeyWordHuggingFace import extract
 from utils.preLLM.WordSearch import WordSearch
 
 def callwithquestions(file, question):
 
     # initialize tensor and word finding
     bookname = file
-    word2 = extract(question)
+    word2 = gptextract(question)
     print(word2)
     word = word2[0]
     print(word)
