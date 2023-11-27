@@ -70,11 +70,6 @@
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
-
-            # Optionally, remove the /api prefix if not needed by the backend
-            proxy_set_header X-Strip-Path /api;
-
-            # time out setting
             proxy_connect_timeout 3000s;
             proxy_read_timeout 3000s;
         }
