@@ -45,42 +45,42 @@
     9. install nginx: `sudo yum install nginx`
     10. edit nginx config: `sudo nano /etc/nginx/nginx.conf` and replace the server with the following: 
     `server {
-        listen       80;
-        listen       [::]:80;
-        server_name  _;
-        root         /usr/share/nginx/html;
+    `    listen       80;
+    `    listen       [::]:80;
+    `    server_name  _;
+    `    root         /usr/share/nginx/html;
 
-        client_max_body_size 50M;
-        location / {
-            proxy_pass http://localhost:3000;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-        }
-        location /api {
-            proxy_pass http://localhost:8000;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_connect_timeout 3000s;
-            proxy_read_timeout 3000s;
-        }
-        error_page 404 /404.html;
-        location = /404.html {
-        }
+    `    client_max_body_size 50M;
+    `    location / {
+    `        proxy_pass http://localhost:3000;
+    `        proxy_http_version 1.1;
+    `        proxy_set_header Upgrade $http_upgrade;
+    `        proxy_set_header Connection 'upgrade';
+    `        proxy_set_header Host $host;
+    `        proxy_set_header X-Real-IP $remote_addr;
+    `        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    `        proxy_set_header X-Forwarded-Proto $scheme;
+    `    }
+    `    location /api {
+    `        proxy_pass http://localhost:8000;
+    `        proxy_http_version 1.1;
+    `        proxy_set_header Upgrade $http_upgrade;
+    `        proxy_set_header Connection 'upgrade';
+    `        proxy_set_header Host $host;
+    `        proxy_set_header X-Real-IP $remote_addr;
+    `        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    `        proxy_set_header X-Forwarded-Proto $scheme;
+    `        proxy_connect_timeout 3000s;
+    `        proxy_read_timeout 3000s;
+    `    }
+    `    error_page 404 /404.html;
+    `    location = /404.html {
+    `   }
 
-        error_page 500 502 503 504 /50x.html;
-        location = /50x.html {
-        }
-    }`
+    `    error_page 500 502 503 504 /50x.html;
+    `    location = /50x.html {
+    `    }
+    `}`
     11. reconfig and restart nginx: `sudo nginx -t` `sudo systemctl restart nginx`
     12. go to the root directory: `docker-compose up`
 
