@@ -128,9 +128,6 @@ const Navbar = ({ auth, loadAvatar }) => {
 					<Link to='/books'>Books</Link>
 				</li>
 				<li>
-					<Link to='/community'>Community</Link>
-				</li>
-				<li>
 					<div className='loginBtn'>
 						<Link to='/login'>Login</Link>
 					</div>
@@ -158,7 +155,7 @@ const Navbar = ({ auth, loadAvatar }) => {
 						onClose={handleMobileMenuClose}
 					>
 						<List>
-							{!auth.loading && auth.isAuthenticated && user?.email ? (
+							{(!auth.loading && auth.isAuthenticated) || user?.email ? (
 								<ListItem onClick={handleLinkClick}>
 									<div className='pop'>{authLinks}</div>
 								</ListItem>
