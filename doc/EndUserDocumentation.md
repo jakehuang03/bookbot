@@ -51,8 +51,6 @@
         root         /usr/share/nginx/html;
 
         client_max_body_size 50M;
-
-        # Frontend - Node.js server
         location / {
             proxy_pass http://localhost:3000;
             proxy_http_version 1.1;
@@ -63,8 +61,6 @@
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
         }
-
-        # Backend - Python server
         location /api {
             proxy_pass http://localhost:8000;
             proxy_http_version 1.1;
@@ -82,8 +78,6 @@
             proxy_connect_timeout 3000s;
             proxy_read_timeout 3000s;
         }
-
-        # Error pages
         error_page 404 /404.html;
         location = /404.html {
         }
