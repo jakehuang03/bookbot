@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import ProfileAbout from "./ProfileAbout";
 import ProfileInq from "./ProfileInq";
 import ProfileTop from "./ProfileTop";
-import ProfileBook from "./ProfileBook";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
