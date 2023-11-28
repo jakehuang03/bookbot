@@ -272,6 +272,7 @@ img {
 }
 
 .loginBtn {
+	font-size: large;
 	margin-left: 1rem;
 	text-align: center;
 	/* width: 100%; */
@@ -288,7 +289,7 @@ img {
 
 @media screen and (max-width: 900px) {
 	.loginBtn {
-		margin-left: 0;
+		margin-left: 10px;
 	}
 	.pop {
 		margin: auto;
