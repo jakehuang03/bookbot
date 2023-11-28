@@ -1,4 +1,5 @@
 import os
+import string
 import openai
 
 def find_important_keyword(sentence, api_key):
@@ -16,6 +17,8 @@ def find_important_keyword(sentence, api_key):
 def gptextract(question):
     api_key = os.environ.get('OPENAI_API_KEY')
     t = str(find_important_keyword(question, api_key))
+    translator = str.maketrans('', '', string.punctuation)
+    t = t.translate(translator)
     t = t.lower()
     res = []
     res.append(t)
