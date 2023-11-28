@@ -37,6 +37,8 @@ export default function Home() {
 		dispatch(getRecomBook(28));
 	}, []);
 	const { recommended } = useSelector((state) => state.books);
+	const user = JSON.parse(localStorage.getItem("profile"));
+ 
 	return (
 		<Container maxWidth='lg'>
 			<div className='uploadblock'>
@@ -51,9 +53,11 @@ export default function Home() {
 					Ready to Start?
 				</h1>
 				<Box textAlign='center'>
-					<ColorButton variant='contained' href='/upload' size='large'>
+					{user?.user ? (<ColorButton variant='contained' href='/upload' size='large'>
 						Upload Text
-					</ColorButton>
+					</ColorButton>) : <ColorButton variant='contained' href='/login' size='large'>
+						Login
+					</ColorButton>}
 				</Box>
 			</div>
 			<div>

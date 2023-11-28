@@ -60,7 +60,7 @@ function CurrentBook(props) {
         mt: { xs: 2, md: 4 },
       }}
     >
-    {(user.user === book.UserId) ? (
+    {(user?.user === book.UserId) ? (
      <div>
         <IconButton
             aria-label="more"
@@ -78,7 +78,7 @@ function CurrentBook(props) {
         </Typography>
       </div>
 
-      {(user.user === book.UserId) ? (<Menu
+      {(user?.user === book.UserId) ? (<Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
