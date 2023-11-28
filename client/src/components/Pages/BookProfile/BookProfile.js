@@ -20,14 +20,14 @@ const BookProfile = ({
   //get book from database based on book id
   const { bookid } = useParams();
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     getBook(bookid);
     getQuestionByBook(bookid);
   }, [getBook, getQuestionByBook, bookid]);
 
   const fetchUpdatedBook = async () => {
-    await getBook(bookid); // Refetch the book data
+    await getBook(bookid); 
   };
 
   return (

@@ -50,6 +50,7 @@ function CurrentBook(props) {
       navigate("/mybooks");
     }
   };
+
   return (
     <Box
       className="profile-top bg-primary"
@@ -59,21 +60,25 @@ function CurrentBook(props) {
         mt: { xs: 2, md: 4 },
       }}
     >
+    {(user.user === book.UserId) ? (
      <div>
-          <IconButton
-              aria-label="more"
-              aria-controls="book-menu"
-              aria-haspopup="true"
-              onClick={handleIconClick}
-              style={{ position: "absolute", bottom: 40, right: 0, color: "white" } }
-            >
-              <MoreVertIcon  sx={{ fontSize: 40 }}/>
-            </IconButton>
+        <IconButton
+            aria-label="more"
+            aria-controls="book-menu"
+            aria-haspopup="true"
+            onClick={handleIconClick}
+            style={{ position: "absolute", bottom: 40, right: 0, color: "white" } }
+          >
+            <MoreVertIcon  sx={{ fontSize: 40 }}/>
+          </IconButton>
+      </div>) : null }
+      <div>
         <Typography variant="h3" gutterBottom style={{ color: "white" }}>
           {book.BookName}
         </Typography>
       </div>
-      <Menu
+
+      {(user.user === book.UserId) ? (<Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
@@ -82,7 +87,9 @@ function CurrentBook(props) {
         {book.Published ? "Unpublish" : "Publish"}
           </MenuItem>
         <MenuItem onClick={() => handleMenuClick('Delete')}>Delete</MenuItem>
-      </Menu>
+      </Menu>) : (<div></div>)}
+        
+        
       <Typography variant="h5" gutterBottom>
         {book.Author}
       </Typography>
