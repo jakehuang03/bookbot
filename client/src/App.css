@@ -590,3 +590,17 @@ h3 {
 .coverimg {
 	border-radius: 20px;
 }
+
+.center-text {
+	text-align: center;
+}
+
+.center-box {
+	margin: 0 auto;
+}
+
+.center-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

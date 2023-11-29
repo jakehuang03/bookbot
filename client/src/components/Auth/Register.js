@@ -29,8 +29,8 @@ const Register = ({ setAlert, register }) => {
 	return (
 		<Fragment>
 			<div className='contentBox'>
-				<h1 className='large text-primary'>Sign Up</h1>
-				<p className='lead'> Create Your Account</p>
+				<h1 className='large text-primary center-text'>Sign Up</h1>
+				<p className='lead center-text'> Create Your Account</p>
 				<form className='form' onSubmit={(e) => onSubmit(e)}>
 					<div className='form-group'>
 						<input
@@ -40,6 +40,7 @@ const Register = ({ setAlert, register }) => {
 							value={nickname}
 							onChange={(e) => onChange(e)}
 							required
+							className='center-box'
 						/>
 					</div>
 					<div className='form-group'>
@@ -50,11 +51,8 @@ const Register = ({ setAlert, register }) => {
 							value={email}
 							onChange={(e) => onChange(e)}
 							required
+							className='center-box'
 						/>
-						<small className='form-text'>
-							This site uses Gravatar so if you want a profile image, use a
-							Gravatar email
-						</small>
 					</div>
 					<div className='form-group'>
 						<input
@@ -64,6 +62,7 @@ const Register = ({ setAlert, register }) => {
 							value={password}
 							onChange={(e) => onChange(e)}
 							minLength='6'
+							className='center-box'
 						/>
 					</div>
 					<div className='form-group'>
@@ -74,12 +73,15 @@ const Register = ({ setAlert, register }) => {
 							value={password2}
 							onChange={(e) => onChange(e)}
 							minLength='6'
+							className='center-box'
 						/>
 					</div>
-					<input type='submit' className='btn btn-primary' value='Register' />
+					<div class='center-container'>
+						<input type='submit' class='btn btn-primary' value='Register' />
+					</div>
 				</form>
 
-				<p className='my-1'>
+				<p className='my-1 center-text'>
 					Already have an account? <Link to='/login'>Sign In</Link>
 				</p>
 			</div>

@@ -38,10 +38,10 @@ const Login = ({ login }) => {
 	return (
 		<Fragment>
 			<div className='contentBox'>
-				<h1 className='large text-primary'>Sign In</h1>
-				<p className='lead'>Sign Into Your Account</p>
+				<h1 className='large text-primary center-text'>Sign In</h1>
+				<p className='lead center-text'>Sign Into Your Account</p>
 				<form className='form' onSubmit={onSubmit}>
-					<div className='form-group'>
+					<div className='form-group center-box'>
 						<input
 							type='email'
 							placeholder='Email'
@@ -49,6 +49,7 @@ const Login = ({ login }) => {
 							value={username}
 							onChange={onChange}
 							required
+							className='center-box'
 						/>
 					</div>
 					<div className='form-group'>
@@ -60,14 +61,18 @@ const Login = ({ login }) => {
 							onChange={onChange}
 							minLength='6'
 							required
+							className='center-box'
 						/>
 					</div>
-					<input type='submit' className='btn btn-primary' value='Login' />
+
+					<div class='center-container'>
+						<input type='submit' class='btn btn-primary' value='Login' />
+					</div>
 				</form>
-				<div className='googleLog'>
+				{/* <div className='googleLog'>
 					<GoogleLogin onSuccess={handleCallBack} onError={errorMessage} />
-				</div>
-				<p className='my-1'>
+				</div> */}
+				<p className='my-1 center-text'>
 					Don't have an account? <Link to='/register'>Sign Up</Link>
 				</p>
 			</div>
