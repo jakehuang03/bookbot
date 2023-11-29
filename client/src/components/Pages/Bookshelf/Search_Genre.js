@@ -80,16 +80,10 @@ export default function SearchBar() {
 
       <div>
       <button
-        className={selectedGenre === "Fantasy" ? "selected" : ""}
-        onClick={() => handleGenreClick("Fantasy")}
+        className={selectedGenre === "Textbook" ? "selected" : ""}
+        onClick={() => handleGenreClick("Textbook")}
       >
-        Fantasy
-      </button>
-      <button
-        className={selectedGenre === "Science Fiction" ? "selected" : ""}
-        onClick={() => handleGenreClick("Science Fiction")}
-      >
-        Science Fiction
+        Textbook
       </button>
       <button
         className={selectedGenre === "Fiction" ? "selected" : ""}
@@ -98,10 +92,28 @@ export default function SearchBar() {
         Fiction
       </button>
       <button
-        className={selectedGenre === "Genre 4" ? "selected" : ""}
-        onClick={() => handleGenreClick("Genre 4")}
+        className={selectedGenre === "Science Fiction" ? "selected" : ""}
+        onClick={() => handleGenreClick("Science Fiction")}
       >
-        Genre 4
+        Science Fiction
+      </button>
+      <button
+        className={selectedGenre === "Fantasy" ? "selected" : ""}
+        onClick={() => handleGenreClick("Fantasy")}
+      >
+        Fantasy
+      </button>
+      <button
+        className={selectedGenre === "Mystery" ? "selected" : ""}
+        onClick={() => handleGenreClick("Mystery")}
+      >
+        Mystery
+      </button>
+      <button
+        className={selectedGenre === "Non-Fiction" ? "selected" : ""}
+        onClick={() => handleGenreClick("Non-Fiction")}
+      >
+        Non-Fiction
       </button>
     </div>
       

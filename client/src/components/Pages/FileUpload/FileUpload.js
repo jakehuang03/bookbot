@@ -233,9 +233,13 @@ function FileUpload() {
 							setBookData({ ...bookData, genre: event.target.value })
 						}
 					>
-						<MenuItem value={"Fantasy"}>Fantasy</MenuItem>
+						<MenuItem value={"Textbook"}>Textbook</MenuItem>
+						<MenuItem value={"Fiction"}>Fiction</MenuItem>
 						<MenuItem value={"Science Fiction"}>Science Fiction</MenuItem>
+						<MenuItem value={"Fantasy"}>Fantasy</MenuItem>
 						<MenuItem value={"Mystery"}>Mystery</MenuItem>
+						<MenuItem value={"Non-Fiction"}>Non-Fiction</MenuItem>
+
 					</Select>
 				</FormControl>
 				<Button
