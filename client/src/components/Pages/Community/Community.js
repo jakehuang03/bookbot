@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Box, CircularProgress } from "@mui/material";
 
 import { getQuestion } from "../../../actions/community";
 import Post from "./Post";
@@ -27,7 +27,9 @@ const Community = ({ getQuestion, community: { post_list } }) => {
           ))}
         </Grid>
       ) : (
-        <Spinner />
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '50px'}}>
+          <CircularProgress />
+      </Box>
       )}
       <QuestionPagination setPage={setPage} />
     </Container>
