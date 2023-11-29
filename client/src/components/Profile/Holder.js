@@ -19,7 +19,13 @@ const Holder = ({
 		getProfileByID(id);
 		getAvatar(id);
 	}, [getProfileByID, getAvatar, id]);
-	return (loading && profile === null) || user == null ? (
+	return user == null ? (
+		<div className='container'>
+			<h1 className='text-primary large '>
+				<i className='fas fa-user'></i>Please Log In First
+			</h1>
+		</div>
+	) : loading && profile === null ? (
 		<Spinner />
 	) : (
 		<div className='container'>
