@@ -32,12 +32,23 @@
     5. go to directory for client (frontend): `cd Backend`
     6. build the docker image for frontend: `docker build -t backend .`
     7. go to the root directory: `docker-compose up`-->
-8.  For running on aws ec2 1. install docker: `sudo yum install docker` 2. go to config.js `cd client/src/utils` 3. edit config.js so that line 18 becomes `baseURL: "http://your public ip address/api",` 4. go to directory for client (frontend): `cd client` 5. build the docker image for frontend: `docker build -t client .` 6. go to directory for client (frontend): `cd Backend` 7. build the docker image for frontend: `docker build -t backend .` 8. install docker-compose: `sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose`
-    `sudo chmod +x /usr/local/bin/docker-compose` 9. install nginx: `sudo yum install nginx` 10. edit nginx config: `sudo nano /etc/nginx/nginx.conf` and replace the server with the following:
+8.  For running on aws ec2
+   1. install docker: `sudo yum install docker`
+   2. go to config.js `cd client/src/utils`
+   3. edit config.js so that line 18 becomes `baseURL: "http://your public ip address/api",`
+   4. go to directory for client (frontend): `cd client`
+   5. build the docker image for frontend: `docker build -t client .`
+   6. go to directory for client (frontend): `cd Backend`
+   7. build the docker image for frontend: `docker build -t backend .`
+   8. install docker-compose: `sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose`
+    `sudo chmod +x /usr/local/bin/docker-compose`
+   9. install nginx: `sudo yum install nginx`
+  10. edit nginx config: `sudo nano /etc/nginx/nginx.conf` and replace the server with the following:
+      
     server {
     listen 80;
     listen [::]:80;
-    server*name *;
+    server_name _;
     root /usr/share/nginx/html;
 
         client_max_body_size 50M;
