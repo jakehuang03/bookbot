@@ -1,20 +1,28 @@
 import db.crud
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form, Depends
 import shutil
 from pathlib import Path
 import os
+from router.endpoints.user import get_current_user
+from typing import Annotated, Union
+
+
 router = APIRouter()
 
 @router.post("")
 async def upload_file(
+    current_user: Annotated[dict, Depends(get_current_user)],
     title: str = Form(...),
     author: str = Form(None),
     summary: str = Form(None),
     userid: int = Form(...),
     genre: str = Form(None),
-    file: UploadFile = File(...),
+    file: UploadFile = File(...)
 ):
     try:
+        userid = current_user["UserId"]
+        if not userid:
+            raise HTTPException(status_code=400, detail="User auth faied")
         upload_folder = Path("./uploaded_files")
         upload_folder.mkdir(exist_ok=True)
 
@@ -46,8 +54,12 @@ async def searchBar(searchBook: str, genre: str):
     
 
 @router.get("/{bookId}")
-async def getBook(bookId: int):
+async def getBook(bookId: int,current_user: Annotated[dict, Depends(get_current_user)]):
     try:
+        userid = current_user["UserId"]
+        if not userid:
+            raise HTTPException(status_code=400, detail="User auth faied")
+        print(userid)
         book = db.crud.get_book_by_id(bookId)
         print(book)
         if not book:
