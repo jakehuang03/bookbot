@@ -98,7 +98,11 @@
 6. Ask Questions and Get Answers on the book profile page,
    Click Save Answer button next to the answers, and then the answer will save to history inquiry of your profile and the community
 
-7. Click community in the navbar, then you can see all the saved answers of all the users.
-   Click into each answer, you interact with other users by commenting
+7. Click Community in the navbar, then you can see all the saved answers of all the users.
+   Click into each answer, you can interact with other users by commenting
 
 8. Click on the avatar of the other user's avatar, you will see other user's profile
+
+9. Click Bookshelf in the navbar, then you can see all the texts that users uploaded and published
+
+10. Click Mybooks in the navbar, then you can see all the texts that you uploaded, there are published and unpublished books, you can choose to publish some of them, so that they will be displayed in the Bookshelf section.
