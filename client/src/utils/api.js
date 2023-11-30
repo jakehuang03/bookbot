@@ -51,7 +51,7 @@ export const createProfile = (formData, config) =>
 export const getProfile = (userId) => api.get(`/user/getprofile/${userId}`);
 
 export const createBook = (formData, config) => api.post("/books", formData, config);
-export const fetchBook = (bookId) => api.get(`/books/${bookId}`);
+export const fetchBook = (bookId, userId) => api.get(`/books/${bookId}${userId !== undefined ? `?userId=${userId}` : ''}`);
 export const fetchBooks = () => api.get("/books");
 export const fetchMyBooks = (userId) => api.get(`/mybooks?userId=${userId}`);
 export const fetchBooksBySearch = (searchQuery) => api.get(`/books/search?searchBook=${searchQuery.searchBook || "none"}&genre=${searchQuery.genre || "none"}`)

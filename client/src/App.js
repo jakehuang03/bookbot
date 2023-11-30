@@ -7,6 +7,7 @@ import {
 	Routes,
 	Route,
 	Navigate,
+	useNavigate,
 } from "react-router-dom";
 import Home from "./components/Pages/Home/Home";
 import Book from "./components/Pages/Bookshelf/Bookshelf";
@@ -24,17 +25,21 @@ import store from "./store";
 import { CLEAR_PROFILE, LOGOUT } from "./actions/types";
 import Holder from "./components/Profile/Holder";
 import PostDetail from "./components/Pages/PostDetail/PostDetail";
+import { useDispatch } from "react-redux";
+
 const App = () => {
+	const dispatch = useDispatch();
+	
 	useEffect(() => {
-		store.dispatch(loadUser());
+		dispatch(loadUser());
 		// log user out from all tabs if they log out in one tab
 		window.addEventListener("storage", () => {
 			if (!localStorage.profile) {
-				store.dispatch({ type: LOGOUT });
-				store.dispatch({ type: CLEAR_PROFILE });
+				dispatch({ type: LOGOUT });
+				dispatch({ type: CLEAR_PROFILE });
 			}
 		});
-	}, []);
+	}, [dispatch, ]);
 	return (
 		<Router>
 			<Fragment>

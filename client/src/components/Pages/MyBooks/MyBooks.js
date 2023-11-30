@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Book from "./Book";
@@ -9,10 +10,16 @@ import UploadBookButton from "./UploadBookButton";
 
 export default function MyBooks() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("profile"));
-
+  
   useEffect(() => {
-    dispatch(getMyBooks(user.user));
+    if(user === null) {
+      navigate("/home");
+    }
+    else {
+      dispatch(getMyBooks(user?.user));
+    }
   }, [dispatch]);
 
   const { books } = useSelector((state) => state.books);

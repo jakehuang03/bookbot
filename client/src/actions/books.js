@@ -33,9 +33,9 @@ export const createBook = (book, userId, navigate) => async (dispatch) => {
 	}
 };
 
-export const getBook = (bookid) => async (dispatch) => {
+export const getBook = (bookid, userid) => async (dispatch) => {
 	try {
-		const { data } = await api.fetchBook(bookid);
+		const { data } = await api.fetchBook(bookid, userid);
 		dispatch({ type: FETCH_BOOK, payload: { post: data } });
 		dispatch({ type: SELECT_BOOK, payload: data });
 	} catch (error) {
@@ -43,10 +43,17 @@ export const getBook = (bookid) => async (dispatch) => {
 	}
 };
 
-export const getRecomBook = (bookid) => async (dispatch) => {
+export const getRecomBook = (bookid, userid) => async (dispatch) => {
+	let data;
 	try {
 		dispatch({ type: CLEAR_RECOMMEND });
-		const { data } = await api.fetchBook(bookid);
+		if(userid !== undefined) {
+			({ data } = await api.fetchBook(bookid, userid));
+		}
+		else {
+			({ data } = await api.fetchBook(bookid));
+		}
+
 		dispatch({ type: GET_RECOMMEND, payload: data });
 	} catch (error) {
 		console.log(error.message);

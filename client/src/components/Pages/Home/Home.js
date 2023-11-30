@@ -30,14 +30,15 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 export default function Home() {
 	const dispatch = new useDispatch();
+	const user = JSON.parse(localStorage.getItem("profile"));
+
 	useEffect(() => {
-		dispatch(getRecomBook(64));
-		dispatch(getRecomBook(59));
-		dispatch(getRecomBook(65));
-		dispatch(getRecomBook(60));
+		dispatch(getRecomBook(64, user?.user));
+		dispatch(getRecomBook(59, user?.user));
+		dispatch(getRecomBook(65, user?.user));
+		dispatch(getRecomBook(60, user?.user));
 	}, []);
 	const { recommended } = useSelector((state) => state.books);
-	const user = JSON.parse(localStorage.getItem("profile"));
  
 	return (
 		<Container maxWidth='lg'>

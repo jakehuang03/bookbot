@@ -54,6 +54,13 @@ export default function au(state = initialState, action) {
 			};
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
+			localStorage.clear();
+			return {
+				...state,
+				user: null,
+				isAuthenticated: false,
+				loading: false,
+			};
 		case LOGIN_FAIL:
 		case LOGOUT:
 			localStorage.clear();

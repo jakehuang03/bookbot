@@ -20,9 +20,10 @@ const BookProfile = ({
   //get book from database based on book id
   const { bookid } = useParams();
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('profile'));
   
   useEffect(() => {
-    getBook(bookid);
+    getBook(bookid, user?.user);
     getQuestionByBook(bookid);
   }, [getBook, getQuestionByBook, bookid]);
 

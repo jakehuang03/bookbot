@@ -21,7 +21,7 @@ export const loadUser = () => async (dispatch) => {
 		try {
 			const result = await api.auth();
 			const profile = JSON.parse(localStorage.profile);
-			if (result.data.UserId != profile.user || result.detail) {
+			if (result.data.UserId !== profile.user || result.detail) {
 				dispatch({
 					type: AUTH_ERROR,
 				});
@@ -33,6 +33,9 @@ export const loadUser = () => async (dispatch) => {
 				});
 			}
 		} catch (err) {
+			dispatch({
+				type: AUTH_ERROR,
+			});
 			console.log("error", err.msg);
 		}
 	}

@@ -17,17 +17,22 @@ export default function SearchBar() {
   const user = JSON.parse(localStorage.getItem('profile'));
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const searchBookParam = params.get("searchBook") || "";
-    const genreParam = params.get("genre") || "";
-    if(searchBookParam === "none") {
-      setSearchBook("");
+    if(user === null) {
+      navigate("/home");
     }
     else {
-      setSearchBook(searchBookParam);
+      const params = new URLSearchParams(location.search);
+      const searchBookParam = params.get("searchBook") || "";
+      const genreParam = params.get("genre") || "";
+      if(searchBookParam === "none") {
+        setSearchBook("");
+      }
+      else {
+        setSearchBook(searchBookParam);
+      }
+      setSelectedGenre(genreParam);
+      dispatch(getMyBooksBySearch({searchBook: searchBookParam, genre: genreParam}, user?.user));
     }
-    setSelectedGenre(genreParam);
-    dispatch(getMyBooksBySearch({searchBook: searchBookParam, genre: genreParam}, user?.user));
   }, [location.search]);
 
   const searchBooks = (genre) => {
