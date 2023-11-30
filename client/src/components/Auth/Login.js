@@ -65,8 +65,8 @@ const Login = ({ login }) => {
 						/>
 					</div>
 
-					<div class='center-container'>
-						<input type='submit' class='btn btn-primary' value='Login' />
+					<div className='center-container'>
+						<input type='submit' className='btn btn-primary' value='Login' />
 					</div>
 				</form>
 				{/* <div className='googleLog'>

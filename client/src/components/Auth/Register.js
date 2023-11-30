@@ -76,8 +76,8 @@ const Register = ({ setAlert, register }) => {
 							className='center-box'
 						/>
 					</div>
-					<div class='center-container'>
-						<input type='submit' class='btn btn-primary' value='Register' />
+					<div className='center-container'>
+						<input type='submit' className='btn btn-primary' value='Register' />
 					</div>
 				</form>
 
