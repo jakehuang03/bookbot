@@ -30,7 +30,7 @@ async def upload_file(
         upload_folder = Path("./uploaded_files")
         upload_folder.mkdir(exist_ok=True)
 
-        upload_title = str(id) + ".pdf"
+        upload_title = str(title) + ".pdf"
         print(upload_title)
         with (upload_folder / upload_title).open("wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
