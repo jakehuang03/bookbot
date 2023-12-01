@@ -13,7 +13,7 @@ import { useEffect } from "react";
 
 // TODO: 1) get the top 1 and recommended books, 2) calculate the top 1 and recommended books
 const Top1Book = {
-	id: 9,
+	id: 82,
 	title: "The Element of Scrum",
 	author: "Chris Sims",
 	description:
