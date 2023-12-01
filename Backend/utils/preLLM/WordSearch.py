@@ -33,8 +33,13 @@ class WordSearch:
         
         # filepath =backend_directory / "uploaded_files" / endfile
         
+        if isinstance(self.bookname, int):
         
-        filepath = './uploaded_files/' + self.bookname + '.pdf'
+            filepath = './uploaded_files/' + self.bookname + '.pdf'
+        
+        else:
+            
+            filepath = './uploaded_files/' + self.bookname
 
         print(filepath)
         
