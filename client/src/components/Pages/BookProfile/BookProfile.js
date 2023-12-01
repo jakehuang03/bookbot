@@ -28,7 +28,7 @@ const BookProfile = ({
   }, [getBook, getQuestionByBook, bookid]);
 
   const fetchUpdatedBook = async () => {
-    await getBook(bookid); 
+    await getBook(bookid, user?.user); 
   };
 
   return (
