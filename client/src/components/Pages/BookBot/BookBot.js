@@ -16,6 +16,7 @@ import Source from "./Source";
 import Question from "./Question";
 import SourcePagination from "./SourcePagination";
 import Spinner from "../../layout/Spinner";
+import { getBook } from "../../../actions/books";
 
 
 const BookBot = ({
@@ -23,6 +24,10 @@ const BookBot = ({
   bookbot: { selectedBook, question, answer, extractedpar },
 }) => {
   const [sources, setSources] = useState([]);
+  const fetchUpdatedBook = async () => {
+    await getBook(selectedBook.bookId, user?.user); 
+  };
+
   // if (Object.keys(selectedBook).length === 0 || question === "") {
   // const selectedBook = JSON.parse(sessionStorage.getItem("selectedBook"));
   // const question = JSON.parse(sessionStorage.getItem("question"));
@@ -35,7 +40,7 @@ const BookBot = ({
   } else {
     return (
       <Container>
-        <CurrentBook book={selectedBook} />
+        <CurrentBook book={selectedBook} fetchUpdatedBook ={fetchUpdatedBook} />
         <Box
           sx={{
             mt: 2,
