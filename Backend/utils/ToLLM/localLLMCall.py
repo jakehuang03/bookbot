@@ -50,7 +50,7 @@ def localcall(paragraphs, question):
     # Convert the list of strings into a system template
     prompt = "Based on the following documents:\n"
     for i, doc in enumerate(documents, 1):
-        system_template += f"Document {i}: {doc}\n"
+        prompt += f"Document {i}: {doc}\n"
     
     prompt = "answer the following question: " + question
 
