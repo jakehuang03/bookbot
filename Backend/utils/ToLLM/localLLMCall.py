@@ -38,7 +38,7 @@ def localcall2(paragraphs, question):
     
 def localcall(paragraphs, question):
 
-    openai.api_key = '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'
+    openai.api_key = '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'
     
     # Prepare documents
     if len(paragraphs) > 50:
