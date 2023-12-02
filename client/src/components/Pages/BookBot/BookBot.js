@@ -9,7 +9,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Container, Grid, Box} from "@mui/material";
+import { Container, Grid, Box } from "@mui/material";
 import CurrentBook from "../BookProfile/CurrentBook";
 import Answer from "./Answer";
 import Source from "./Source";
@@ -18,14 +18,13 @@ import SourcePagination from "./SourcePagination";
 import Spinner from "../../layout/Spinner";
 import { getBook } from "../../../actions/books";
 
-
 const BookBot = ({
   auth: { user, avatar },
   bookbot: { selectedBook, question, answer, extractedpar },
 }) => {
   const [sources, setSources] = useState([]);
   const fetchUpdatedBook = async () => {
-    await getBook(selectedBook.bookId, user?.user); 
+    await getBook(selectedBook.bookId, user?.user);
   };
 
   // if (Object.keys(selectedBook).length === 0 || question === "") {
@@ -40,7 +39,7 @@ const BookBot = ({
   } else {
     return (
       <Container>
-        <CurrentBook book={selectedBook} fetchUpdatedBook ={fetchUpdatedBook} />
+        <CurrentBook book={selectedBook} fetchUpdatedBook={fetchUpdatedBook} />
         <Box
           sx={{
             mt: 2,
@@ -48,50 +47,54 @@ const BookBot = ({
           }}
           className="profile-about bg-light"
         >
-          <Question question={question} user={user} avatar={avatar}/>
+          <Question question={question} user={user} avatar={avatar} />
           {Array.isArray(answer) && answer.length > 0 ? (
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            {answer.map((ans) => (
+            <div>
+              <Grid
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              >
+                {answer.map((ans) => (
                   <Answer key={ans.id} AnswerContent={ans} />
                 ))}
-          </Grid>
-        ) : (
-          <div>
-          <p>Waiting for the BookBot to respond... </p>
-          </div>
-        )}
-          <Grid
-          sx = {{mt: 2}}
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1}}
-          >
-            {Array.isArray(sources)
-              ? sources.map((source) => (
-                  <Source key={source.id} Source={source} />
-                ))
-              : []}
-          </Grid>
-          <SourcePagination setSources={setSources} fullSources={extractedpar}/>
+              </Grid>
+              <Grid
+                sx={{ mt: 2 }}
+                container
+                rowSpacing={1}
+                columnSpacing={{ xs: 1 }}
+              >
+                {Array.isArray(sources)
+                  ? sources.map((source) => (
+                      <Source key={source.id} Source={source} />
+                    ))
+                  : []}
+              </Grid>
+              <SourcePagination
+                setSources={setSources}
+                fullSources={extractedpar}
+              />
+            </div>
+          ) : (
+            <div>
+              <p>Waiting for the BookBot to respond... </p>
+            </div>
+          )}
         </Box>
       </Container>
     );
   }
-}
+};
 
 BookBot.propTypes = {
-	auth: PropTypes.object.isRequired,
-	bookbot: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  bookbot: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	auth: state.auth,
-	bookbot: state.bookbot,
+  auth: state.auth,
+  bookbot: state.bookbot,
 });
 
 export default connect(mapStateToProps, {})(BookBot);
-
