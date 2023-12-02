@@ -48,7 +48,7 @@ function PastQuestion(props) {
                 {post.UserName ? post.UserName.charAt(0) : []}
               </Avatar>            </IconButton>
           }
-          title={post.UserId}
+          title={post.UserName}
           subheader={post.CreateTime}
         />
         <CardActionArea
