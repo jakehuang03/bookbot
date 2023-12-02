@@ -86,7 +86,7 @@ function CurrentBook(props) {
         <MenuItem onClick={() => handleMenuClick('Publish')}>
         {book.Published ? "Unpublish" : "Publish"}
           </MenuItem>
-        {/* <MenuItem onClick={() => handleMenuClick('Delete')}>Delete</MenuItem> */}
+        <MenuItem onClick={() => handleMenuClick('Delete')}>Delete</MenuItem>
       </Menu>) : (<div></div>)}
         
         

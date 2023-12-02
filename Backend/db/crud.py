@@ -41,13 +41,20 @@ def publishing_status(bookid: int, isPublished: bool):
     
 def delete_book(bookid: int):
     book = db.query(database.Book).filter(database.Book.BookId == bookid).first()
-    
+
     if book:
-        db.delete(book)
+        questions = db.query(database.Question).filter(database.Question.BookId == bookid).all()
+        for question in questions:
+            comments = db.query(database.Comment).filter(database.Comment.QuestionId == question.QuestionId).all()
+            for comment in comments:  # Delete each comment related to the question
+                db.delete(comment)
+            db.delete(question)  # Delete the question after its comments
+        db.delete(book)  # Delete the book after all its questions and comments
         db.commit()
-        return True  # Book successfully deleted
+        return True  # Book, questions, and comments successfully deleted
     else:
         return False  # Book not found
+
 
 
 def create_book(name: str, author: str, summary: str, userid: str, genre="none", published=False):

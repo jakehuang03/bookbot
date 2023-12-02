@@ -108,7 +108,7 @@ function Book(props) {
               <MenuItem onClick={() => handleMenuClick('Publish')}>
                 {book.Published ? "Unpublish" : "Publish"}
               </MenuItem>
-              {/* <MenuItem onClick={() => handleMenuClick('Delete')}>Delete</MenuItem> */}
+              <MenuItem onClick={() => handleMenuClick('Delete')}>Delete</MenuItem>
             </Menu>
           </CardContent>
         </Card>
