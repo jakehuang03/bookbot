@@ -38,7 +38,7 @@ def localcall2(paragraphs, question):
     
 def localcall(paragraphs, question):
 
-    openai.api_key = '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'
+    openai.api_key = os.environ.get('OPENAI_API_KEY')
     
     # Prepare documents
     if len(paragraphs) > 50:
@@ -48,23 +48,33 @@ def localcall(paragraphs, question):
         documents = paragraphs
 
     # Convert the list of strings into a system template
-    system_template = "A chat based on the following documents:\n"
+    prompt = "Based on the following documents:\n"
     for i, doc in enumerate(documents, 1):
-        system_template += f"Document {i}: {doc}\n"
+        prompt += f"Document {i}: {doc}\n"
     
-    # Prepare the message payload for the chat completions API
-    messages = [
-        {"role": "system", "content": system_template},
-        {"role": "user", "content": question}
-    ]
+    prompt = "answer the following question: " + question
 
-    # Use the chat completions API with the DaVinci model from OpenAI
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        max_tokens=300  
-    )
+    try:
+        completion = openai.Completion.create(
+            model="gpt-3.5-turbo-instruct",
+            prompt=prompt,
+            max_tokens=1024,
+            n=1,
+            stop=None,
+            temperature=0.5
+        )
 
-    response_content = response.choices[0].message['content'].strip()
-    print(response_content)
-    return response_content
+        return completion.choices[0].text
+    except openai.error.RateLimitError:
+        return "You exceeded your current quota, please check your plan and billing details."
+
+    # # Use the chat completions API with the DaVinci model from OpenAI
+    # response = openai.ChatCompletion.create(
+    #     model="gpt-3.5-turbo",
+    #     messages=messages,
+    #     max_tokens=300  
+    # )
+
+    # response_content = response.choices[0].message['content'].strip()
+    # print(response_content)
+    # return response_content

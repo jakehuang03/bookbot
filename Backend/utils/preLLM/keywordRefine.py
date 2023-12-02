@@ -15,7 +15,7 @@ def find_important_keyword(sentence, api_key):
 
 # Example usage
 def gptextract(question):
-    api_key = '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'
+    api_key = os.environ.get('OPENAI_API_KEY')
     t = str(find_important_keyword(question, api_key))
     translator = str.maketrans('', '', string.punctuation)
     t = t.translate(translator)
