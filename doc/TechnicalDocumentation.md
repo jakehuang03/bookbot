@@ -1,3 +1,5 @@
+you can install the application by following the instruction [here](Install.md)
+
 # Frontend
 
 1. Structure
