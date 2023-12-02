@@ -1,4 +1,4 @@
-import os
+import db.crud
 from utils.preLLM.keywordRefine import gptextract
 from utils.ToLLM.localLLMCall import localcall
 from utils.preLLM.WordSearch import WordSearch
@@ -44,7 +44,7 @@ def ask_questions(book, question):
         temp = [{'id': 1, 'answer': result['response']}]
         res['answer'] = temp
         res['extractedpar'] = result['extractedpar']
-        res['book'] = book[:-4]
+        res['book'] = db.crud.get_bookname_by_id(book)
         res['question'] = question
         return res
     

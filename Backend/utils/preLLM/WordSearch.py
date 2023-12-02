@@ -33,13 +33,22 @@ class WordSearch:
         
         # filepath =backend_directory / "uploaded_files" / endfile
         
-        if self.bookname[-4:].lower() != '.pdf':
+        isDigit = is_number(self.bookname)
         
-            filepath = './uploaded_files/' + self.bookname + '.pdf'
-        
+        if isDigit:
+            
+            filepath = './uploaded_files/' + str(self.bookname) + '.pdf'
+            
+    
         else:
             
-            filepath = './uploaded_files/' + self.bookname
+            if self.bookname[-4:].lower() != '.pdf':
+        
+                filepath = './uploaded_files/' + self.bookname + '.pdf'
+        
+            else:
+            
+                filepath = './uploaded_files/' + self.bookname
 
         print(filepath)
         
@@ -125,6 +134,17 @@ class WordSearch:
                 return page_num
         return -1
 
+def is_number(s):
+    try:
+        float(s)  # for float and int types
+        return True
+    except ValueError:
+        return False
+
+
+# print(is_number("123"))
+# print(is_number("123.456"))
+# print(is_number("abc"))
 
 
 """    for pos in word_positions:
