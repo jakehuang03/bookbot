@@ -54,27 +54,33 @@ def localcall(paragraphs, question):
     
     prompt = "answer the following question: " + question
 
-    try:
-        completion = openai.Completion.create(
-            model="gpt-3.5-turbo-instruct",
-            prompt=prompt,
-            max_tokens=1024,
-            n=1,
-            stop=None,
-            temperature=0.5
-        )
+    # try:
+    #     completion = openai.Completion.create(
+    #         model="gpt-3.5-turbo-instruct",
+    #         prompt=prompt,
+    #         max_tokens=1024,
+    #         n=1,
+    #         stop=None,
+    #         temperature=0.5
+    #     )
 
-        return completion.choices[0].text
-    except openai.error.RateLimitError:
-        return "You exceeded your current quota, please check your plan and billing details."
+    #     return completion.choices[0].text
+    # except openai.error.RateLimitError:
+    #     return "You exceeded your current quota, please check your plan and billing details."
+    
+    # Prepare the message payload for the chat completions API
+    messages = [
+        {"role": "system", "content": prompt},
+        {"role": "user", "content": question}
+    ]
 
-    # # Use the chat completions API with the DaVinci model from OpenAI
-    # response = openai.ChatCompletion.create(
-    #     model="gpt-3.5-turbo",
-    #     messages=messages,
-    #     max_tokens=300  
-    # )
+    # Use the chat completions API with the DaVinci model from OpenAI
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages,
+        max_tokens=300  
+    )
 
-    # response_content = response.choices[0].message['content'].strip()
-    # print(response_content)
-    # return response_content
+    response_content = response.choices[0].message['content'].strip()
+    print(response_content)
+    return response_content
