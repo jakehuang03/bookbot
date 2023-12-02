@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import "./FileUpload.css";
 
 function FileUpload() {
+	
 	const [bookData, setBookData] = useState({
 		title: "",
 		author: "",
@@ -95,7 +96,9 @@ function FileUpload() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
+		if (!user) {
+			alert("Please refresh and then login again.")
+		}
 		if(!bookData.title.trim() && !bookData.selectedFile) {
 			setIsTitleValid(false);
 			setIsFileValid(false);

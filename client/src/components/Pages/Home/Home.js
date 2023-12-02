@@ -13,7 +13,7 @@ import { useEffect } from "react";
 
 // TODO: 1) get the top 1 and recommended books, 2) calculate the top 1 and recommended books
 const Top1Book = {
-	id: 82,
+	id: 95,
 	title: "The Element of Scrum",
 	author: "Chris Sims",
 	description:
@@ -33,10 +33,10 @@ export default function Home() {
 	const user = JSON.parse(localStorage.getItem("profile"));
 
 	useEffect(() => {
-		dispatch(getRecomBook(64, user?.user));
-		dispatch(getRecomBook(59, user?.user));
-		dispatch(getRecomBook(65, user?.user));
-		dispatch(getRecomBook(60, user?.user));
+		dispatch(getRecomBook(92, user?.user));
+		dispatch(getRecomBook(96, user?.user));
+		dispatch(getRecomBook(94, user?.user));
+		dispatch(getRecomBook(98, user?.user));
 	}, []);
 	const { recommended } = useSelector((state) => state.books);
  
