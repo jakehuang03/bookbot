@@ -7,12 +7,14 @@ import {
 	LOGIN_FAIL,
 	LOGIN_SUCCESS,
 	LOGOUT,
+	LOAD_AVATAR,
 } from "../actions/types";
 
 const initialState = {
 	isAuthenticated: false,
 	loading: false,
 	user: null,
+	avatar: null,
 };
 
 export default function au(state = initialState, action) {
@@ -37,7 +39,11 @@ export default function au(state = initialState, action) {
 		case LOGIN_SUCCESS:
 			localStorage.setItem(
 				"profile",
-				JSON.stringify({ token: payload.access_token, user: payload.userID, name: payload.name })
+				JSON.stringify({
+					token: payload.access_token,
+					user: payload.userID,
+					name: payload.name,
+				})
 			);
 
 			return {
@@ -48,6 +54,13 @@ export default function au(state = initialState, action) {
 			};
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
+			localStorage.clear();
+			return {
+				...state,
+				user: null,
+				isAuthenticated: false,
+				loading: false,
+			};
 		case LOGIN_FAIL:
 		case LOGOUT:
 			localStorage.clear();
@@ -56,6 +69,11 @@ export default function au(state = initialState, action) {
 				user: null,
 				isAuthenticated: false,
 				loading: false,
+			};
+		case LOAD_AVATAR:
+			return {
+				...state,
+				avatar: payload,
 			};
 		default:
 			return state;

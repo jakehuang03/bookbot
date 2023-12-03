@@ -1,48 +1,48 @@
 import {
-  SELECT_BOOK,
   ASK_QUESTION,
   ANSWER_SUCCESS,
   SOURCE_SUCCESS,
   SAVE_ANSWER,
+  ASK_QUESTION_FAIL,
+  RESET_QUESTION,
 } from "./types";
 import * as api from "../utils/api";
 import { setAlert } from "./alert";
-export const selectBook = (book) => (dispatch) => {
-  dispatch({ type: SELECT_BOOK, payload: book });
-};
 
-// send the question to chatbot and get the answer
+/**
+ * Sends a question to the chatbot and retrieves the answer.
+ * @param {Object} book - The book object.
+ * @param {string} question - The question to ask the chatbot.
+ * @param {function} navigate - The function to navigate to a new page.
+ */
 export const askQuestion = (book, question, navigate) => async (dispatch) => {
+  dispatch({type: RESET_QUESTION});
   dispatch({ type: ASK_QUESTION, payload: question });
   try {
-    const answer = await api.askQuestion(book.title, question);
+    navigate("/bookbot");
+    const answer = await api.askQuestion(book, question);
     dispatch({ type: ANSWER_SUCCESS, payload: answer.data.answer });
     dispatch({ type: SOURCE_SUCCESS, payload: answer.data.extractedpar });
-    navigate("/bookbot");
   } catch (error) {
+    dispatch({ type: ASK_QUESTION_FAIL });
     dispatch(setAlert("Ask Question Fail", "danger"));
   }
 };
 
-export const saveAnswer = () => async (dispatch, getState) => {
-  
+/**
+ * Saves the answer to a question in the database.
+ */
+export const saveAnswer = (userId) => async (dispatch, getState) => {
   const { auth, bookbot } = getState();
-  // console.log(auth);
-  // const userid = auth.UserId;
-  const userid = 1;
-  const bookid = 1;
-  const question = "dsfsdkadfks";
-  const answer = "sdfsdf";
+  //bookid and userid must already be in the database
   if (!auth.user) {
     dispatch(setAlert("Please Login", "danger"));
     return;
   }
-  // const userid = auth.user.data.UserId;
-  // const bookid = bookbot.selectedBook.id;
-  // console.log(typeof bookid);
-  // const question = bookbot.question;
-  // const answer = bookbot.answer[0].answer;
-  // console.log(userid, bookid, question, answer);
+  const userid = userId;
+  const bookid = bookbot.selectedBook.BookId;
+  const question = bookbot.question;
+  const answer = bookbot.answer[0].answer;
   var body = new URLSearchParams();
   body.append("userid", userid);
   body.append("bookid", bookid);
@@ -54,8 +54,7 @@ export const saveAnswer = () => async (dispatch, getState) => {
     },
   };
   try {
-    const questionID = await api.saveAnswer(body, config);
-    console.log(questionID);
+    const res = await api.saveAnswer(body, config);
     dispatch({ type: SAVE_ANSWER });
   } catch (error) {
     dispatch(setAlert("Save Answer Fail", "danger"));

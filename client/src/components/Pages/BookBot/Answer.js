@@ -11,28 +11,39 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import ShareIcon from "@mui/icons-material/Share";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import SmartToyOutlinedIcon from "@mui/icons-material/SmartToyOutlined";
+import { connect } from "react-redux";
 
-function Answer(props) {
-  const { Answer } = props;
-  const [save, setSave] = useState(false);
+/**
+ * Renders a single answer card for the BookBot page.
+ * @param {Object} props.Answer - The answer object containing the answer data.
+ * @param {number} props.Answer.id - The unique ID of the answer.
+ * @param {string} props.Answer.answer - The text content of the answer.
+ * @returns {JSX.Element} - The JSX code for the answer card.
+ */
+const Answer = ({
+  AnswerContent,
+  bookbot: { saved },
+}) => {  
   const dispatch = useDispatch();
-  // Save the question to user profile
+  const user = JSON.parse(localStorage.getItem("profile"));
+
+  /**
+   * Saves the question and answer to server
+   */
   const Save = () => {
-      dispatch(saveAnswer());
-      setSave(true);
-  };
-  //TODO: Save the comment to user profile and question
-  const Share = () => {
-    console.log("Shared!");
+    dispatch(saveAnswer(user.user));
   };
 
+  /**
+   * TODO: function for handling "More" button click.
+   */
   const More = () => {
     console.log("More!");
   };
+
   return (
     <Grid item xs={12} md={12}>
       <Card sx={{ display: "flex", m: 1 }}>
@@ -47,22 +58,19 @@ function Answer(props) {
         <CardActionArea onClick={More}>
           <CardContent sx={{ flex: 1 }}>
             <Typography variant="h5" align="left" paragraph>
-              {Answer.answer}
+              {AnswerContent.answer}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
           {/* if save BookmarkIcon else BookmarkBorderIcon */}
-          {save ? (
+          {saved ? (
             <BookmarkIcon />
           ) : (
-            <IconButton aria-label="Bookmark" onClick={Save} >
-              <BookmarkBorderIcon/>
+            <IconButton aria-label="Bookmark" onClick={Save}>
+              <BookmarkBorderIcon />
             </IconButton>
           )}
-          <IconButton aria-label="Share" onClick={Share}>
-            <ShareIcon />
-          </IconButton>
         </CardActions>
       </Card>
     </Grid>
@@ -70,10 +78,14 @@ function Answer(props) {
 }
 
 Answer.propTypes = {
-  Answer: PropTypes.shape({
+  AnswerContent: PropTypes.shape({
     id: PropTypes.number.isRequired,
     answer: PropTypes.string.isRequired,
   }).isRequired,
+	bookbot: PropTypes.object.isRequired,
 };
-
-export default Answer;
+const mapStateToProps = (state) => ({
+	bookbot: state.bookbot,
+});
+export default connect(mapStateToProps, {
+})(Answer);

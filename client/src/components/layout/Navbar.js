@@ -1,9 +1,9 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import React, { Fragment, useState, useEffect } from "react";
-import decode from "jwt-decode";
+import React, { Fragment, useState } from "react";
 import logo from "../../images/bookbot_logo.png";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
 	Box,
 	MenuItem,
@@ -12,19 +12,18 @@ import {
 	IconButton,
 	Avatar,
 	Menu,
+	Drawer,
+	List,
+	ListItem,
 } from "@mui/material";
-import { getAvatar } from "../../actions/profile";
+import { loadAvatar } from "../../actions/auth";
 
-const Navbar = ({
-	auth: { isAuthenticated, loading },
-	profile: { avatar },
-	getAvatar,
-}) => {
+const Navbar = ({ auth, loadAvatar }) => {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const location = useLocation();
 
 	const logout = () => {
 		handleCloseUserMenu();
@@ -36,7 +35,7 @@ const Navbar = ({
 
 	const toProfile = () => {
 		handleCloseUserMenu();
-		navigate("/getprofile");
+		navigate(`/profile/${auth.user.UserId}`);
 	};
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
@@ -46,26 +45,25 @@ const Navbar = ({
 		setAnchorElUser(null);
 	};
 
-	useEffect(() => {
-		getAvatar();
-		if (user?.exp) {
-			if (user.exp * 1000 < new Date().getTime()) logout();
-		}
-		const token = user?.token;
-		if (token) {
-			const decodedToken = decode(token);
+	const handleMobileMenuOpen = () => {
+		setMobileMenuOpen(true);
+	};
 
-			if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-		}
+	const handleMobileMenuClose = () => {
+		setMobileMenuOpen(false);
+	};
 
-		setUser(JSON.parse(localStorage.getItem("profile")));
-	}, [location]);
-
+	const handleLinkClick = () => {
+		setMobileMenuOpen(false);
+	};
 	const authLinks = (
 		<div>
-			<ul>
+			<ul className='nav-menu'>
 				<li>
 					<Link to='/home'>Home</Link>
+				</li>
+				<li>
+					<Link to='/upload'>Upload</Link>
 				</li>
 				<li>
 					<Link to='/books'>Books</Link>
@@ -76,65 +74,18 @@ const Navbar = ({
 				<li>
 					<Link to='/mybooks'>My Books</Link>
 				</li>
-				<Box sx={{ flexGrow: 0 }}>
-					<Tooltip title='Open settings'>
-						<IconButton onClick={handleOpenUserMenu} sx={{ p: 3 }}>
-							<Avatar src={user?.picture} alt={user?.name}>
-								{avatar && !loading ? (
-									<img
-										src={`data:image/jpeg;base64,${avatar}`}
-										alt={"loading"}
-									/>
-								) : (
-									user?.name.charAt(0)
-								)}
-							</Avatar>
-						</IconButton>
-					</Tooltip>
-					<Menu
-						sx={{ mt: "70px" }}
-						id='menu-appbar'
-						anchorEl={anchorElUser}
-						anchorOrigin={{
-							vertical: "top",
-							horizontal: "right",
-						}}
-						keepMounted
-						transformOrigin={{
-							vertical: "top",
-							horizontal: "right",
-						}}
-						open={Boolean(anchorElUser)}
-						onClose={handleCloseUserMenu}
-					>
-						<MenuItem key='profile' onClick={toProfile}>
-							<Typography textAlign='center'>Profile</Typography>
-						</MenuItem>
-						<MenuItem key='logout' onClick={logout}>
-							<Typography textAlign='center'>Logout</Typography>
-						</MenuItem>
-					</Menu>
-				</Box>
 			</ul>
 		</div>
 	);
 
 	const guestLinks = (
 		<div>
-			<ul>
-				<li>
+			<ul sx={{ alignItems: "center" }}>
+				<li className='nav-menu'>
 					<Link to='/home'>Home</Link>
 				</li>
 				<li>
 					<Link to='/books'>Books</Link>
-				</li>
-				<li>
-					<Link to='/community'>Community</Link>
-				</li>
-				<li>
-					<div className='loginBtn'>
-						<Link to='/login'>Login</Link>
-					</div>
 				</li>
 			</ul>
 		</div>
@@ -143,15 +94,84 @@ const Navbar = ({
 		<div>
 			<nav className='navbar'>
 				<Link to='/'>
-					<img src={logo} alt='icon' height={120} />
+					<img src={logo} alt='icon' style={{ height: "120px", objectFit: "contain" }} />
 				</Link>
-				{
-					<Fragment>
-						{(!loading && isAuthenticated) || user?.email
-							? authLinks
-							: guestLinks}
-					</Fragment>
-				}
+				<Fragment>
+					<div style={{ marginLeft: 'auto' }}>
+						<IconButton
+							className='small'
+							onClick={handleMobileMenuOpen}
+							sx={{ display: { sm: "flex", md: "none" }, color: "white", marginLeft: "auto" }}
+						>
+							<MenuIcon />
+						</IconButton>
+
+					</div>
+					<Drawer
+						anchor='top'
+						open={mobileMenuOpen}
+						onClose={handleMobileMenuClose}
+					>
+						<List>
+							{(!auth.loading && auth.isAuthenticated) || user?.email ? (
+								<ListItem onClick={handleLinkClick}>
+									<div className='pop'>{authLinks}</div>
+								</ListItem>
+							) : (
+								<ListItem onClick={handleLinkClick}>
+									<div className='pop'>{guestLinks}</div>
+								</ListItem>
+							)}
+						</List>
+					</Drawer>
+					{(!auth.loading && auth.isAuthenticated) || user?.email ? (
+						<div className='wide'>{authLinks}</div>
+					) : (
+						<div className='wide'>{guestLinks}</div>
+					)}
+
+					{/* Avatar or sign in button */}
+					{(!auth.loading && auth.isAuthenticated) || user?.email ? (
+						<Box sx={{ flexGrow: 0 }}>
+						<Tooltip title='Open settings'>
+							<IconButton onClick={handleOpenUserMenu} sx={{ p: 3 }}>
+								<Avatar
+									src={`data:image/jpeg;base64,${auth.avatar}`}
+									alt={user?.name}
+								>
+									{user?.name.charAt(0)}
+								</Avatar>
+							</IconButton>
+						</Tooltip>
+						<Menu
+							sx={{ mt: "70px" }}
+							id='menu-appbar'
+							anchorEl={anchorElUser}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "right",
+							}}
+							keepMounted
+							transformOrigin={{
+								vertical: "top",
+								horizontal: "right",
+							}}
+							open={Boolean(anchorElUser)}
+							onClose={handleCloseUserMenu}
+						>
+							<MenuItem key='profile' onClick={toProfile}>
+								<Typography textAlign='center'>Profile</Typography>
+							</MenuItem>
+							<MenuItem key='logout' onClick={logout}>
+								<Typography textAlign='center'>Logout</Typography>
+							</MenuItem>
+						</Menu>
+					</Box>) : (
+						<div className='loginBtn'>
+							<Link to='/login'>Login</Link>
+						</div>
+					)}
+				</Fragment>
 			</nav>
 		</div>
 	);
@@ -159,12 +179,10 @@ const Navbar = ({
 Navbar.propTypes = {
 	// logout: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
-	profile: PropTypes.object.isRequired,
-	getAvatar: PropTypes.func.isRequired,
+	loadAvatar: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
 	auth: state.auth,
-	profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getAvatar })(Navbar);
+export default connect(mapStateToProps, { loadAvatar })(Navbar);

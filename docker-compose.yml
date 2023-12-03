@@ -1,0 +1,56 @@
+version: '3'
+services:
+  backend:
+    image: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: bind
+        source: C:/Users/cy295/OneDrive/Desktop/cs370 project/temp370Project/Backend/uploaded_files
+        target: /app/uploaded_files
+        #/home/ec2-user/temp370Project/Backend/uploaded_files
+  frontend:
+    image: client
+    ports:
+      - "3000:3000"
+
+# version: '3.8'
+
+# services:
+#   frontend:
+#     build: ./client
+#     volumes:
+#       - ./client:/app
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - NODE_ENV=production
+#     networks:
+#       - app-network
+
+#   backend:
+#     build: ./Backend
+#     volumes:
+#       - ./Backend:/app
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       - PYTHONUNBUFFERED=1
+#     networks:
+#       - app-network
+
+#   nginx:
+#     image: nginx:latest
+#     volumes:
+#       - /home/ec2-user/temp370Project/nginx.conf:/etc/nginx/nginx.conf:ro
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - frontend
+#       - backend
+#     networks:
+#       - app-network
+
+# networks:
+#   app-network:
+#     driver: bridge

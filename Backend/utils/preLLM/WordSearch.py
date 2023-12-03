@@ -1,5 +1,5 @@
-import os
 from pathlib import Path
+import os
 import re
 import string
 import tensorflow as tf
@@ -23,23 +23,40 @@ class WordSearch:
         #folder_path = "./uploaded_files"
         #filepath = f"{folder_path}/{self.bookname}"
 
-        endfile = self.bookname + ".pdf"
+        # endfile = self.bookname
         
-        # Get the current directory of the script
-        current_directory = Path(__file__).parent
+        # # Get the current directory of the script
+        # current_directory = Path(__file__).parent
 
-        # Move up to the 'backend' directory
-        backend_directory = current_directory.parent.parent
+        # # Move up to the 'backend' directory
+        # backend_directory = current_directory.parent.parent
         
-        filepath =backend_directory / "uploaded_files" / endfile
+        # filepath =backend_directory / "uploaded_files" / endfile
         
+        isDigit = is_number(self.bookname)
+        
+        if isDigit:
+            
+            filepath = './uploaded_files/' + str(self.bookname) + '.pdf'
+            
+    
+        else:
+            
+            if self.bookname[-4:].lower() != '.pdf':
+        
+                filepath = './uploaded_files/' + self.bookname + '.pdf'
+        
+            else:
+            
+                filepath = './uploaded_files/' + self.bookname
+
         print(filepath)
         
-        filepath = str(filepath).replace("upload_files", "uploaded_files")
-        
-        filepath = filepath.replace("\\utils", "")
-
-        #print(filepath)
+        if os.path.exists(filepath):
+            print("file path exist")
+        else:
+            print("file path exist")
+            
         with open(filepath, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
             pages_text = [reader.pages[page_num].extract_text() for page_num in range(len(reader.pages))]
@@ -117,6 +134,17 @@ class WordSearch:
                 return page_num
         return -1
 
+def is_number(s):
+    try:
+        float(s)  # for float and int types
+        return True
+    except ValueError:
+        return False
+
+
+# print(is_number("123"))
+# print(is_number("123.456"))
+# print(is_number("abc"))
 
 
 """    for pos in word_positions:

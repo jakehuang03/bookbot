@@ -17,7 +17,7 @@ def generateUploadURL():
     url = s3.generate_presigned_url(
         ClientMethod="put_object",
         Params={
-            "Bucket": "bookbotimg",
+            "Bucket": "bookbotstorage",
             "Key": "testestest",
         },
         ExpiresIn=60,
@@ -29,7 +29,7 @@ def s3_upload(file, destination):
     try:
         s3.upload_fileobj(
             file,
-            "bookbotimg",
+            "bookbotstorage",
             destination,
         )
         # s3.upload_file(file, 'bookbotimg', 'user_image/'+userId+)
@@ -39,14 +39,32 @@ def s3_upload(file, destination):
 
 def s3_retrieve(destination):
     try:
-        obj = s3.get_object(Bucket="bookbotimg", Key=destination)
+        obj = s3.get_object(Bucket="bookbotstorage", Key=destination)
     except ClientError as e:
         logging.error(e)
     else:
         return obj
+    
+def upload_pdf_stream_to_s3(file_stream, book_id):
+    """
+    Uploads a PDF stream to an S3 bucket.
+
+    :param bucket_name: Name of the S3 bucket.
+    :param file_stream: The file-like object representing the PDF.
+    :param file_name: The name of the file.
+    :param book_id: The ID of the book.
+    :return: None
+    """
+
+    full_s3_path = f"books/{book_id}"
+
+    try:
+        s3.upload_fileobj(file_stream, "bookbotstorage", full_s3_path)
+        # print(f"File uploaded successfully to {full_s3_path} in bucket {bucket_name}.")
+    except ClientError as e:
+        logging.error(e)
 
 
-# response = s3_retrieve("user_image/user image2.jpg")
-# print(response["Body"].read())
-
-# s3_upload()
+# with open("Backend/uploaded_files/The Elements of Scrum.pdf", 'rb') as data:
+#     upload_pdf_stream_to_s3(data, 15)
+        

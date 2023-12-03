@@ -7,6 +7,7 @@ import {
 	Routes,
 	Route,
 	Navigate,
+	useNavigate,
 } from "react-router-dom";
 import Home from "./components/Pages/Home/Home";
 import Book from "./components/Pages/Bookshelf/Bookshelf";
@@ -16,28 +17,29 @@ import Community from "./components/Pages/Community/Community";
 import MyBooks from "./components/Pages/MyBooks/MyBooks";
 import Alert from "./components/layout/Alert";
 import BookProfile from "./components/Pages/BookProfile/BookProfile";
-import Profile from "./components/Profile/Profile";
 import CreateProfile from "./components/Profile/CreateProfile";
-import { loadPage } from "./actions/auth";
 import { loadUser } from "./actions/auth";
 import BookBot from "./components/Pages/BookBot/BookBot";
-import FileUpload from "./components/Pages/Home/FileUpload";
+import FileUpload from "./components/Pages/FileUpload/FileUpload";
 import store from "./store";
 import { CLEAR_PROFILE, LOGOUT } from "./actions/types";
 import Holder from "./components/Profile/Holder";
-import PostDetail from "./components/Pages/Community/PostDetail";
-import { getAvatar } from "./actions/profile";
+import PostDetail from "./components/Pages/PostDetail/PostDetail";
+import { useDispatch } from "react-redux";
+
 const App = () => {
+	const dispatch = useDispatch();
+	
 	useEffect(() => {
-		store.dispatch(loadUser());
+		dispatch(loadUser());
 		// log user out from all tabs if they log out in one tab
 		window.addEventListener("storage", () => {
 			if (!localStorage.profile) {
-				store.dispatch({ type: LOGOUT });
-				store.dispatch({ type: CLEAR_PROFILE });
+				dispatch({ type: LOGOUT });
+				dispatch({ type: CLEAR_PROFILE });
 			}
 		});
-	}, []);
+	}, [dispatch, ]);
 	return (
 		<Router>
 			<Fragment>
@@ -102,6 +104,14 @@ const App = () => {
 						}
 					/>
 					<Route
+						path='/mybooks/search'
+						element={
+							<section className='container'>
+								<MyBooks />
+							</section>
+						}
+					/>
+					<Route
 						path='/books/:bookid'
 						element={
 							<section className='container'>
@@ -110,7 +120,7 @@ const App = () => {
 						}
 					/>
 					<Route
-						path='/getprofile'
+						path='/profile/:id'
 						element={
 							<section className='container'>
 								<Holder />

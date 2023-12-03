@@ -1,28 +1,12 @@
-import axios from "axios";
 import { setAlert } from "./alert";
 import { GET_PROFILE, PROFILE_ERROR, GET_AVATAR } from "./types";
 import * as api from "../utils/api";
 
-// Get current users profile
-export const getCurrentProfile = () => async (dispatch) => {
-	try {
-		const res = await api.getProfile();
-		dispatch({
-			type: GET_PROFILE,
-			payload: res.data,
-		});
-	} catch (err) {
-		dispatch({
-			type: PROFILE_ERROR,
-			payload: { msg: err.response.statusText, status: err.response.status },
-		});
-	}
-};
-
 // Get profile by ID
 export const getProfileByID = (userID) => async (dispatch) => {
 	try {
-		const res = await axios.get(`/api/profile/${userID}`);
+		const res = await api.getProfile(userID);
+
 		dispatch({
 			type: GET_PROFILE,
 			payload: res.data,
@@ -30,7 +14,7 @@ export const getProfileByID = (userID) => async (dispatch) => {
 	} catch (err) {
 		dispatch({
 			type: PROFILE_ERROR,
-			payload: { msg: err.response.statusText, status: err.response.status },
+			payload: { msg: err.message },
 		});
 	}
 };
@@ -49,7 +33,7 @@ export const createProfile =
 					"Content-Type": "application/x-www-form-urlencoded",
 				},
 			};
-			const res = await api.createProfile(body, config);
+			await api.createProfile(body, config);
 
 			dispatch(
 				setAlert(creating ? "Profile Created" : "Profile Updated", "success")
@@ -79,16 +63,16 @@ export const saveAvatar = (avatar) => async (dispatch) => {
 		};
 		body.append("avatar", avatar);
 
-		const res = await api.saveAvatar(body, config);
+		await api.saveAvatar(body, config);
 		console.log("uploaded");
 	} catch (error) {
 		console.log(error);
 	}
 };
 //get avatar
-export const getAvatar = () => async (dispatch) => {
+export const getAvatar = (userID) => async (dispatch) => {
 	try {
-		const res = await api.getAvatar();
+		const res = await api.getAvatar(userID);
 
 		dispatch({
 			type: GET_AVATAR,

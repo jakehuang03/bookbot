@@ -2,9 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { login } from "../../actions/auth";
+import { login, googleLogin } from "../../actions/auth";
 import { GoogleLogin } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
 
 const Login = ({ login }) => {
 	const [formData, setFormData] = useState({
@@ -25,11 +24,8 @@ const Login = ({ login }) => {
 	};
 
 	const handleCallBack = (response) => {
-		var userObject = jwt_decode(response.credential);
-		console.log(userObject);
 		try {
-			dispatch({ type: "AUTH", data: userObject });
-			navigate("/");
+			dispatch(googleLogin(response.credential, navigate));
 		} catch (error) {
 			console.log(error);
 		}
@@ -42,10 +38,10 @@ const Login = ({ login }) => {
 	return (
 		<Fragment>
 			<div className='contentBox'>
-				<h1 className='large text-primary'>Sign In</h1>
-				<p className='lead'>Sign Into Your Account</p>
+				<h1 className='large text-primary center-text'>Sign In</h1>
+				<p className='lead center-text'>Sign Into Your Account</p>
 				<form className='form' onSubmit={onSubmit}>
-					<div className='form-group'>
+					<div className='form-group center-box'>
 						<input
 							type='email'
 							placeholder='Email'
@@ -53,6 +49,7 @@ const Login = ({ login }) => {
 							value={username}
 							onChange={onChange}
 							required
+							className='center-box'
 						/>
 					</div>
 					<div className='form-group'>
@@ -64,14 +61,18 @@ const Login = ({ login }) => {
 							onChange={onChange}
 							minLength='6'
 							required
+							className='center-box'
 						/>
 					</div>
-					<input type='submit' className='btn btn-primary' value='Login' />
+
+					<div className='center-container'>
+						<input type='submit' className='btn btn-primary' value='Login' />
+					</div>
 				</form>
-				<div className='googleLog'>
+				{/* <div className='googleLog'>
 					<GoogleLogin onSuccess={handleCallBack} onError={errorMessage} />
-				</div>
-				<p className='my-1'>
+				</div> */}
+				<p className='my-1 center-text'>
 					Don't have an account? <Link to='/register'>Sign Up</Link>
 				</p>
 			</div>

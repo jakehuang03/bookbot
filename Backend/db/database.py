@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Boolean, Column, ForeignKey, Integer, String, TIMESTAMP
+from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, TIMESTAMP, Boolean
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.orm import sessionmaker
 import datetime
@@ -19,10 +19,12 @@ class User(Base):
     UserBio = Column(String)
     Avatar = Column(String)
     Gender = Column(String)
+    Google = Column(Boolean)
     
 
     book = relationship("Book", backref="user")
     question = relationship("Question", backref="question")
+    comment = relationship("Comment", backref="bookcomment")
     # answer = relationship("Answer", backref="answer")
 
 
@@ -35,6 +37,7 @@ class Book(Base):
     UserId = Column(Integer, ForeignKey("user.UserId"))
     Author = Column(String)
     Genre = Column(String)
+    Published = Column(Boolean)
     CreateTime = Column(TIMESTAMP,default=datetime.datetime.now)
 
     question = relationship("Question", backref="book_question")
@@ -56,6 +59,7 @@ class Comment(Base):
 
     CommentId = Column(Integer, primary_key=True, index=True)
     Content = Column(String)
+    UserId = Column(Integer, ForeignKey("user.UserId"))
     QuestionId = Column(Integer, ForeignKey("question.QuestionId"))
     CreateTime = Column(TIMESTAMP,default=datetime.datetime.now)
 

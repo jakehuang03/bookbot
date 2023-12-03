@@ -8,6 +8,7 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
+	LOAD_AVATAR,
 } from "./types";
 
 // Load User
@@ -20,17 +21,21 @@ export const loadUser = () => async (dispatch) => {
 		try {
 			const result = await api.auth();
 			const profile = JSON.parse(localStorage.profile);
-			if (result.data.UserId != profile.user || result.detail) {
+			if (result.data.UserId !== profile.user || result.detail) {
 				dispatch({
 					type: AUTH_ERROR,
 				});
 			} else {
+				dispatch(loadAvatar(result.data.UserId));
 				dispatch({
 					type: USER_LOADED,
-					payload: result,
+					payload: result.data,
 				});
 			}
 		} catch (err) {
+			dispatch({
+				type: AUTH_ERROR,
+			});
 			console.log("error", err.msg);
 		}
 	}
@@ -97,5 +102,47 @@ export const login = (username, password, navigate) => async (dispatch) => {
 		dispatch({
 			type: LOGIN_FAIL,
 		});
+	}
+};
+
+export const googleLogin = (token, navigate) => async (dispatch) => {
+	const body = new FormData();
+	body.append("token", token);
+	const config = {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	};
+	try {
+		const res = await api.googleLogin(body, config);
+
+		dispatch({
+			type: LOGIN_SUCCESS,
+			payload: res.data,
+		});
+		dispatch(loadUser());
+		navigate("/");
+	} catch (err) {
+		const errors = err.response.data.detail;
+		if (errors) {
+			dispatch(setAlert(errors, "danger"));
+		}
+
+		dispatch({
+			type: LOGIN_FAIL,
+		});
+	}
+};
+
+//load avatar
+export const loadAvatar = (userID) => async (dispatch) => {
+	try {
+		const res = await api.getAvatar(userID);
+		dispatch({
+			type: LOAD_AVATAR,
+			payload: res.data,
+		});
+	} catch (error) {
+		console.log(error);
 	}
 };

@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { Link, useMatch, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useMatch, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
 	createProfile,
-	getCurrentProfile,
+	getProfileByID,
 	saveAvatar,
 } from "../../actions/profile";
 
@@ -21,9 +21,10 @@ const initialState = {
 };
 
 const ProfileForm = ({
+	auth: { user },
 	profile: { profile, loading },
 	createProfile,
-	getCurrentProfile,
+	getProfileByID,
 	saveAvatar,
 }) => {
 	const [formData, setFormData] = useState(initialState);
@@ -34,7 +35,7 @@ const ProfileForm = ({
 
 	useEffect(() => {
 		// if there is no profile, attempt to fetch one
-		if (!profile) getCurrentProfile();
+		if (!profile) getProfileByID(user.userID);
 
 		// if we finished loading and we do have a profile
 		// then build our profileData
@@ -47,7 +48,7 @@ const ProfileForm = ({
 			// set local state with the profileData
 			setFormData(profileData);
 		}
-	}, [loading, profile]);
+	}, [loading, profile, getProfileByID, user.userID]);
 	const [avatar, setAvatar] = useState();
 	const [Apath, setAPath] = useState();
 	function handleChange(e) {
@@ -135,10 +136,11 @@ ProfileForm.propTypes = {
 
 const mapStateToProps = (state) => ({
 	profile: state.profile,
+	auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
 	createProfile,
-	getCurrentProfile,
+	getProfileByID,
 	saveAvatar,
 })(ProfileForm);

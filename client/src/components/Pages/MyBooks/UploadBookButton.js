@@ -15,8 +15,8 @@ const UploadBookButton = () => {
       <Button
         variant="outlined"
         style={{
-          width: '200px', // Set the button width to match the grid card width
-          height: '232px', // Set the button height to match the grid card height
+          width: '237px', 
+          height: '232px', 
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',

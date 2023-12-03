@@ -6,7 +6,6 @@ from nltk.tokenize import word_tokenize
 nltk.download('averaged_perceptron_tagger')
 nltk.download('punkt')
 
-import spacy
 class extract:
     def __init__(self, text):
         self.words = word_tokenize(text)
