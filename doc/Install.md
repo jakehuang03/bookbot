@@ -14,6 +14,7 @@
    install docker: `sudo yum install docker`
 
     - go to config.js `cd client/src/utils`
+    - start docker `sudo systemctl start docker`
     - edit config.js so that line 18 becomes `baseURL: "http://localhost:8000/api",`
     - go to directory for client (frontend): `cd client`
     - build the docker image for frontend: `docker build -t client .`
@@ -23,6 +24,7 @@
 
 3. For running on aws ec2
     - install docker: `sudo yum install docker`
+    - start docker `sudo systemctl start docker`
     - go to config.js `cd client/src/utils`
     - edit config.js so that line 18 becomes `baseURL: "http://your public ip address/api",`
     - go to directory for client (frontend): `cd client`
