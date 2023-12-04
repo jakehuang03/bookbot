@@ -2,6 +2,7 @@
 Picture this: It's the night before your big exam, and you haven't even started the required book. Or your history professor assigns you a mountain of articles to read in just a week. Stressful, right? But what if those books and articles could talk to you, answer your questions, and make learning a breeze? That's the heart of our project: transforming every book and article into a chatbot companion, connecting readers to the wealth of knowledge hidden within the pages. Say goodbye to exam-night panic and hello to accessible wisdom on demand.
 
 Link to our project website: [Bookbot](http://52.14.252.235) 
+
 Link to our Demo: [Unveiling Bookbot: Your Ultimate Learning Companion!](https://youtu.be/kVrxWpfoB80) 
 
 **Important Notice:** Please be aware that our project is currently hosted on a free-tier AWS EC2 server. However, due to the limited performance constraints of the free tier and the computationally intensive nature of our project, which involves text tokenization and word embedding, you might experience slower response times when interacting with our chatbot. Additionally, during periods of high server load, especially when processing questions, other components of our project might also experience delays. If you encounter a page that seems to be loading indefinitely, we recommend refreshing the page for a better experience.
