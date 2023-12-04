@@ -8,7 +8,7 @@
 
 ## 1. Getting Started
 
-1.  Here is a link to the Website
+1.  Here is a link to the [Website](http://52.14.252.235)
 2.  Or you can install and run the application locally by following the instruction [here](Install.md)
 
 ## 2. Features and Tour Guide
